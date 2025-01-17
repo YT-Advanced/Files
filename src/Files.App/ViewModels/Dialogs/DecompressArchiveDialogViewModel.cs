@@ -1,20 +1,19 @@
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Files.Backend.SecureStore;
-using System;
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Storage;
-using Windows.Storage.Pickers;
 
 namespace Files.App.ViewModels.Dialogs
 {
-	public class DecompressArchiveDialogViewModel : ObservableObject
+	public sealed class DecompressArchiveDialogViewModel : ObservableObject
 	{
+		private ICommonDialogService CommonDialogService { get; } = Ioc.Default.GetRequiredService<ICommonDialogService>();
+
 		private readonly IStorageFile archive;
 
-		public StorageFolder DestinationFolder { get; private set; }
+		public BaseStorageFolder DestinationFolder { get; private set; }
 
 		private string destinationFolderPath;
 		public string DestinationFolderPath
@@ -56,25 +55,18 @@ namespace Files.App.ViewModels.Dialogs
 			destinationFolderPath = DefaultDestinationFolderPath();
 
 			// Create commands
-			SelectDestinationCommand = new AsyncRelayCommand(SelectDestination);
+			SelectDestinationCommand = new AsyncRelayCommand(SelectDestinationAsync);
 			PrimaryButtonClickCommand = new RelayCommand<DisposableArray>(password => Password = password);
 		}
 
-		private async Task SelectDestination()
+		private async Task SelectDestinationAsync()
 		{
-			FolderPicker folderPicker = InitializeWithWindow(new FolderPicker());
-			folderPicker.FileTypeFilter.Add("*");
+			bool result = CommonDialogService.Open_FileOpenDialog(MainWindow.Instance.WindowHandle, true, [], Environment.SpecialFolder.Desktop, out var filePath);
+			if (!result)
+				return;
 
-			DestinationFolder = await folderPicker.PickSingleFolderAsync();
-
+			DestinationFolder = await StorageHelpers.ToStorageItem<BaseStorageFolder>(filePath);
 			DestinationFolderPath = (DestinationFolder is not null) ? DestinationFolder.Path : DefaultDestinationFolderPath();
-		}
-
-		// WINUI3
-		private FolderPicker InitializeWithWindow(FolderPicker obj)
-		{
-			WinRT.Interop.InitializeWithWindow.Initialize(obj, App.WindowHandle);
-			return obj;
 		}
 
 		private string DefaultDestinationFolderPath()

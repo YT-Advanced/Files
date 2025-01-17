@@ -1,9 +1,10 @@
-using Files.App.Filesystem;
-using Files.App.Filesystem.StorageItems;
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using System;
 using System.IO;
-using System.Threading.Tasks;
+using Windows.Foundation.Metadata;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -12,22 +13,30 @@ namespace Files.App.Helpers
 {
 	internal static class BitmapHelper
 	{
-		public static async Task<BitmapImage> ToBitmapAsync(this byte[]? data, int decodeSize = -1)
+		public static async Task<BitmapImage?> ToBitmapAsync(this byte[]? data, int decodeSize = -1)
 		{
 			if (data is null)
 			{
 				return null;
 			}
 
-			using var ms = new MemoryStream(data);
-			var image = new BitmapImage();
-			if (decodeSize > 0)
+			try
 			{
-				image.DecodePixelWidth = decodeSize;
-				image.DecodePixelHeight = decodeSize;
+				using var ms = new MemoryStream(data);
+				var image = new BitmapImage();
+				if (decodeSize > 0)
+				{
+					image.DecodePixelWidth = decodeSize;
+					image.DecodePixelHeight = decodeSize;
+				}
+				image.DecodePixelType = DecodePixelType.Logical;
+				await image.SetSourceAsync(ms.AsRandomAccessStream());
+				return image;
 			}
-			await image.SetSourceAsync(ms.AsRandomAccessStream());
-			return image;
+			catch (Exception)
+			{
+				return null;
+			}
 		}
 
 		/// <summary>
@@ -39,39 +48,62 @@ namespace Files.App.Helpers
 		/// https://learn.microsoft.com/uwp/api/windows.graphics.imaging.bitmapdecoder?view=winrt-22000
 		/// https://learn.microsoft.com/uwp/api/windows.graphics.imaging.bitmapencoder?view=winrt-22000
 		/// </remarks>
-		public static async Task Rotate(string filePath, BitmapRotation rotation)
+		public static async Task RotateAsync(string filePath, BitmapRotation rotation)
 		{
-			if (string.IsNullOrEmpty(filePath))
+			try
 			{
-				return;
-			}
+				if (string.IsNullOrEmpty(filePath))
+				{
+					return;
+				}
 
-			var file = await StorageHelpers.ToStorageItem<IStorageFile>(filePath);
-			if (file is null)
+				var file = await StorageHelpers.ToStorageItem<IStorageFile>(filePath);
+				if (file is null)
+				{
+					return;
+				}
+
+				var fileStreamRes = await FilesystemTasks.Wrap(() => file.OpenAsync(FileAccessMode.ReadWrite).AsTask());
+				using IRandomAccessStream fileStream = fileStreamRes.Result;
+				if (fileStream is null)
+				{
+					return;
+				}
+
+				BitmapDecoder decoder = await BitmapDecoder.CreateAsync(fileStream);
+				using var memStream = new InMemoryRandomAccessStream();
+				BitmapEncoder encoder = await BitmapEncoder.CreateForTranscodingAsync(memStream, decoder);
+
+				for (int i = 0; i < decoder.FrameCount - 1; i++)
+				{
+					encoder.BitmapTransform.Rotation = rotation;
+					await encoder.GoToNextFrameAsync();
+				}
+
+				encoder.BitmapTransform.Rotation = rotation;
+
+				await encoder.FlushAsync();
+
+				memStream.Seek(0);
+				fileStream.Seek(0);
+				fileStream.Size = 0;
+
+				await RandomAccessStream.CopyAsync(memStream, fileStream);
+			}
+			catch (Exception ex)
 			{
-				return;
+				var errorDialog = new ContentDialog()
+				{
+					Title = "FailedToRotateImage".GetLocalizedResource(),
+					Content = ex.Message,
+					PrimaryButtonText = "OK".GetLocalizedResource(),
+				};
+
+				if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 8))
+					errorDialog.XamlRoot = MainWindow.Instance.Content.XamlRoot;
+
+				await errorDialog.TryShowAsync();
 			}
-
-			var fileStreamRes = await FilesystemTasks.Wrap(() => file.OpenAsync(FileAccessMode.ReadWrite).AsTask());
-			using IRandomAccessStream fileStream = fileStreamRes.Result;
-			if (fileStream is null)
-			{
-				return;
-			}
-
-			BitmapDecoder decoder = await BitmapDecoder.CreateAsync(fileStream);
-			using var memStream = new InMemoryRandomAccessStream();
-			BitmapEncoder encoder = await BitmapEncoder.CreateForTranscodingAsync(memStream, decoder);
-
-			encoder.BitmapTransform.Rotation = rotation;
-
-			await encoder.FlushAsync();
-
-			memStream.Seek(0);
-			fileStream.Seek(0);
-			fileStream.Size = 0;
-
-			await RandomAccessStream.CopyAsync(memStream, fileStream);
 		}
 
 		/// <summary>
@@ -81,7 +113,7 @@ namespace Files.App.Helpers
 		/// <param name="outputFile"></param>
 		/// <param name="encoderId">The guid of the image encoder type</param>
 		/// <returns></returns>
-		public static async Task SaveSoftwareBitmapToFile(SoftwareBitmap softwareBitmap, BaseStorageFile outputFile, Guid encoderId)
+		public static async Task SaveSoftwareBitmapToFileAsync(SoftwareBitmap softwareBitmap, BaseStorageFile outputFile, Guid encoderId)
 		{
 			using IRandomAccessStream stream = await outputFile.OpenAsync(FileAccessMode.ReadWrite);
 			// Create an encoder with the desired format

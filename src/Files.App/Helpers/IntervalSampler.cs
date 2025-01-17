@@ -1,8 +1,11 @@
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using System;
 
 namespace Files.App.Helpers
 {
-	internal class IntervalSampler
+	internal sealed class IntervalSampler
 	{
 		private DateTime recordPoint;
 		private TimeSpan sampleInterval;

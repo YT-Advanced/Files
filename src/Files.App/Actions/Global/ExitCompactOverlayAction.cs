@@ -1,37 +1,40 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.App.Commands;
-using Files.App.Contexts;
-using Files.App.Extensions;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using Microsoft.UI.Windowing;
-using System.ComponentModel;
-using System.Threading.Tasks;
 
 namespace Files.App.Actions
 {
-	internal class ExitCompactOverlayAction : ObservableObject, IAction
+	internal sealed class ExitCompactOverlayAction : ObservableObject, IAction
 	{
-		private readonly IWindowContext windowContext = Ioc.Default.GetRequiredService<IWindowContext>();
+		private readonly IWindowContext windowContext;
 
-		public string Label { get; } = "ExitCompactOverlay".GetLocalizedResource();
+		public string Label
+			=> "ExitCompactOverlay".GetLocalizedResource();
 
-		public RichGlyph Glyph { get; } = new(opacityStyle: "ExitCompactOverlay");
+		public RichGlyph Glyph
+			=> new(themedIconStyle: "App.ThemedIcons.CompactOverlayExit");
 
-		public HotKey HotKey { get; } = new(Keys.Down, KeyModifiers.MenuCtrl);
+		public HotKey HotKey
+			=> new(Keys.Down, KeyModifiers.CtrlAlt);
 
-		public string Description => "ExitCompactOverlayDescription".GetLocalizedResource();
+		public string Description
+			=> "ExitCompactOverlayDescription".GetLocalizedResource();
 
-		public bool IsExecutable => windowContext.IsCompactOverlay;
+		public bool IsExecutable
+			=> windowContext.IsCompactOverlay;
 
 		public ExitCompactOverlayAction()
 		{
+			windowContext = Ioc.Default.GetRequiredService<IWindowContext>();
+
 			windowContext.PropertyChanged += WindowContext_PropertyChanged;
 		}
 
-		public Task ExecuteAsync()
+		public Task ExecuteAsync(object? parameter = null)
 		{
-			var window = App.GetAppWindow(App.Window);
-			window.SetPresenter(AppWindowPresenterKind.Overlapped);
+			var appWindow = MainWindow.Instance.AppWindow;
+			appWindow.SetPresenter(AppWindowPresenterKind.Overlapped);
 
 			return Task.CompletedTask;
 		}

@@ -1,8 +1,8 @@
-﻿<ContentDialog
+﻿<!--  Copyright (c) Files Community. Licensed under the MIT License.  -->
+<ContentDialog
 	x:Class="Files.App.Dialogs.CreateArchiveDialog"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:converters="using:CommunityToolkit.WinUI.UI.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:helpers="using:Files.App.Helpers"
 	xmlns:local="using:Files.App.Dialogs"
@@ -14,16 +14,13 @@
 	Closing="ContentDialog_Closing"
 	CornerRadius="{StaticResource OverlayCornerRadius}"
 	DefaultButton="Primary"
+	HighContrastAdjustment="None"
 	IsPrimaryButtonEnabled="{x:Bind ViewModel.IsNameValid, Mode=OneWay}"
 	Loaded="ContentDialog_Loaded"
 	PrimaryButtonText="{helpers:ResourceString Name=Create}"
-	RequestedTheme="{x:Bind helpers:ThemeHelper.RootTheme}"
+	RequestedTheme="{x:Bind RootAppElement.RequestedTheme, Mode=OneWay}"
 	Style="{StaticResource DefaultContentDialogStyle}"
 	mc:Ignorable="d">
-
-	<ContentDialog.Resources>
-		<converters:BoolNegationConverter x:Key="BoolNegationConverter" />
-	</ContentDialog.Resources>
 
 	<StackPanel Width="440" Spacing="4">
 
@@ -39,10 +36,12 @@
 				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
+
 			<TextBlock
 				Grid.Column="0"
 				VerticalAlignment="Center"
 				Text="{helpers:ResourceString Name=Name}" />
+
 			<TextBox
 				x:Name="FileNameBox"
 				Grid.Column="1"
@@ -53,11 +52,12 @@
 					<TeachingTip
 						x:Name="InvalidNameWarning"
 						Title="{helpers:ResourceString Name=InvalidFilename/Text}"
-						IsOpen="{x:Bind ViewModel.IsNameValid, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}"
+						IsOpen="{x:Bind ViewModel.ShowNameWarning, Mode=OneWay}"
 						PreferredPlacement="Bottom"
 						Target="{x:Bind FileNameBox}" />
 				</TextBox.Resources>
 			</TextBox>
+
 		</Grid>
 
 		<!--  Archive Options  -->
@@ -74,6 +74,7 @@
 				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
 			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
@@ -138,6 +139,22 @@
 					</DataTemplate>
 				</ComboBox.ItemTemplate>
 			</ComboBox>
+
+			<!--  CPU Threads  -->
+			<TextBlock
+				Grid.Row="3"
+				Grid.Column="0"
+				VerticalAlignment="Center"
+				Text="{helpers:ResourceString Name=CPUThreads}" />
+			<NumberBox
+				Grid.Row="3"
+				Grid.Column="1"
+				HorizontalAlignment="Right"
+				AutomationProperties.Name="{helpers:ResourceString Name=CPUThreads}"
+				Maximum="{x:Bind ViewModel.CPUThreads, Mode=OneTime}"
+				Minimum="1"
+				SpinButtonPlacementMode="Inline"
+				Value="{x:Bind ViewModel.CPUThreads, Mode=TwoWay}" />
 		</Grid>
 
 		<!--  Encryption Options  -->
@@ -167,5 +184,6 @@
 				</Grid>
 			</Expander.Content>
 		</Expander>
+
 	</StackPanel>
 </ContentDialog>

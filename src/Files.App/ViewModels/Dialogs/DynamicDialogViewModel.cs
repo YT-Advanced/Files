@@ -1,18 +1,15 @@
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Files.App.Helpers.XamlHelpers;
-using Files.Shared.Enums;
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-using System;
-using System.Diagnostics;
 using System.Windows.Input;
 using Windows.System;
 
 namespace Files.App.ViewModels.Dialogs
 {
-	public class DynamicDialogViewModel : ObservableObject, IDisposable
+	public sealed class DynamicDialogViewModel : ObservableObject, IDisposable
 	{
 		#region Public Properties
 

@@ -1,19 +1,24 @@
-﻿<Page
+﻿<!--  Copyright (c) Files Community. Licensed under the MIT License.  -->
+<Page
 	x:Class="Files.App.Views.MainPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:converters="using:Files.App.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:helpers="using:Files.App.Helpers"
 	xmlns:i="using:Microsoft.Xaml.Interactivity"
 	xmlns:icore="using:Microsoft.Xaml.Interactions.Core"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:sidebar="using:Files.App.UserControls.Sidebar"
+	xmlns:tabbar="using:Files.App.UserControls.TabBar"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
 	xmlns:uc="using:Files.App.UserControls"
-	xmlns:usercontrols="using:Files.App.UserControls.MultitaskingControl"
 	xmlns:viewmodels="using:Files.App.ViewModels"
 	xmlns:wctconverters="using:CommunityToolkit.WinUI.UI.Converters"
 	AllowDrop="True"
 	Background="{ThemeResource App.Theme.BackgroundBrush}"
 	DataContext="{x:Bind ViewModel, Mode=OneWay}"
+	HighContrastAdjustment="None"
 	KeyboardAcceleratorPlacementMode="Hidden"
 	Loaded="Page_Loaded"
 	NavigationCacheMode="Required"
@@ -23,7 +28,7 @@
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="ms-appx:///ResourceDictionaries/DefaultGridSplitterStyle.xaml" />
+				<ResourceDictionary Source="ms-appx:///Styles/DefaultGridSplitterStyle.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 
 			<x:Boolean x:Key="True">True</x:Boolean>
@@ -31,6 +36,19 @@
 
 			<wctconverters:BoolNegationConverter x:Key="BoolNegationConverter" />
 
+
+			<MenuFlyout x:Key="SidebarContextMenu">
+				<ToggleMenuFlyoutItem IsChecked="{x:Bind SidebarAdaptiveViewModel.ShowPinnedFoldersSection, Mode=TwoWay}" Text="{helpers:ResourceString Name=Pinned}" />
+				<ToggleMenuFlyoutItem IsChecked="{x:Bind SidebarAdaptiveViewModel.ShowLibrarySection, Mode=TwoWay}" Text="{helpers:ResourceString Name=SidebarLibraries}" />
+				<ToggleMenuFlyoutItem IsChecked="{x:Bind SidebarAdaptiveViewModel.ShowDrivesSection, Mode=TwoWay}" Text="{helpers:ResourceString Name=Drives}" />
+				<ToggleMenuFlyoutItem IsChecked="{x:Bind SidebarAdaptiveViewModel.ShowCloudDrivesSection, Mode=TwoWay}" Text="{helpers:ResourceString Name=SidebarCloudDrives}" />
+				<ToggleMenuFlyoutItem IsChecked="{x:Bind SidebarAdaptiveViewModel.ShowNetworkSection, Mode=TwoWay}" Text="{helpers:ResourceString Name=Network}" />
+				<ToggleMenuFlyoutItem IsChecked="{x:Bind SidebarAdaptiveViewModel.ShowWslSection, Mode=TwoWay}" Text="{helpers:ResourceString Name=WSL}" />
+				<ToggleMenuFlyoutItem
+					x:Name="SidebarContextMenuFileTagsSection"
+					IsChecked="{x:Bind SidebarAdaptiveViewModel.ShowFileTagsSection, Mode=TwoWay}"
+					Text="{helpers:ResourceString Name=FileTags}" />
+			</MenuFlyout>
 		</ResourceDictionary>
 	</Page.Resources>
 
@@ -98,165 +116,149 @@
 				</icore:EventTriggerBehavior>
 			</i:Interaction.Behaviors>
 		</KeyboardAccelerator>
-		<KeyboardAccelerator Key="N" Modifiers="Control">
-			<i:Interaction.Behaviors>
-				<icore:EventTriggerBehavior EventName="Invoked">
-					<icore:InvokeCommandAction Command="{x:Bind ViewModel.OpenNewWindowAcceleratorCommand}" />
-				</icore:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</KeyboardAccelerator>
 	</Page.KeyboardAccelerators>
 
-	<Border>
-		<!--  Root  -->
-		<uc:SidebarControl
-			x:Name="SidebarControl"
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<!--  Background Image  -->
+		<Image
+			Grid.RowSpan="3"
+			HorizontalAlignment="{x:Bind ViewModel.AppThemeBackgroundImageHorizontalAlignment, Mode=OneWay}"
+			VerticalAlignment="{x:Bind ViewModel.AppThemeBackgroundImageVerticalAlignment, Mode=OneWay}"
+			Opacity="{x:Bind ViewModel.AppThemeBackgroundImageOpacity, Mode=OneWay}"
+			Source="{x:Bind ViewModel.AppThemeBackgroundImageSource, Mode=OneWay}"
+			Stretch="{x:Bind ViewModel.AppThemeBackgroundImageFit, Mode=OneWay}" />
+
+		<!--  Tab Bar  -->
+		<tabbar:TabBar
+			x:Name="TabControl"
+			HorizontalContentAlignment="Stretch"
+			x:Load="False"
+			Loaded="HorizontalMultitaskingControl_Loaded"
+			TabIndex="0" />
+
+		<!--  Address Bar  -->
+		<uc:AddressToolbar
+			x:Name="NavToolbar"
+			Grid.Row="1"
 			HorizontalAlignment="Stretch"
 			HorizontalContentAlignment="Stretch"
-			CanOpenInNewPane="{x:Bind SidebarAdaptiveViewModel.PaneHolder.IsMultiPaneEnabled, Mode=OneWay}"
-			DisplayModeChanged="{x:Bind SidebarAdaptiveViewModel.SidebarControl_DisplayModeChanged}"
-			IsPaneOpen="{x:Bind SidebarAdaptiveViewModel.IsSidebarOpen, Mode=TwoWay}"
-			IsPaneToggleButtonVisible="False"
+			x:Load="False"
+			Loaded="NavToolbar_Loaded"
+			OngoingTasksViewModel="{x:Bind OngoingTasksViewModel}"
+			ShowOngoingTasks="True"
+			ShowSearchBox="True"
+			ShowSettingsButton="{x:Bind WindowContext.IsCompactOverlay, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}"
+			TabIndex="1" />
+
+		<!--  Content Area  -->
+		<sidebar:SidebarView
+			x:Name="SidebarControl"
+			Grid.Row="2"
+			HorizontalAlignment="Stretch"
+			HorizontalContentAlignment="Stretch"
+			DisplayMode="{x:Bind SidebarAdaptiveViewModel.SidebarDisplayMode, Mode=TwoWay}"
+			IsPaneOpen="{x:Bind ViewModel.IsSidebarPaneOpen, Mode=TwoWay}"
 			Loaded="SidebarControl_Loaded"
-			PaneDisplayMode="Left"
-			SelectedSidebarItem="{x:Bind SidebarAdaptiveViewModel.SidebarSelectedItem, Mode=TwoWay}"
+			MenuItemsSource="{x:Bind SidebarAdaptiveViewModel.SidebarItems, Mode=OneWay}"
+			OpenPaneLength="{x:Bind UserSettingsService.AppearanceSettingsService.SidebarWidth, Mode=TwoWay}"
+			SelectedItem="{x:Bind SidebarAdaptiveViewModel.SidebarSelectedItem, Mode=TwoWay}"
 			ViewModel="{x:Bind SidebarAdaptiveViewModel}">
 
-			<!--  Head Contents  -->
-			<uc:SidebarControl.TabContent>
+			<!--  Inner Content  -->
+			<sidebar:SidebarView.InnerContent>
 				<Grid
-					x:Name="RightMarginGrid"
-					VerticalAlignment="Top"
-					BorderBrush="{ThemeResource ControlStrokeColorDefault}"
-					BorderThickness="0,0,0,1">
+					x:Name="RootGrid"
+					PreviewKeyDown="RootGrid_PreviewKeyDown"
+					SizeChanged="RootGrid_SizeChanged">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
+						<RowDefinition
+							x:Name="ContentRow"
+							Height="*"
+							MinHeight="100" />
 						<RowDefinition Height="Auto" />
+						<RowDefinition x:Name="PaneRow" Height="Auto" />
+						<RowDefinition Height="Auto" MinHeight="8" />
 					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							x:Name="ContentColumn"
+							Width="*"
+							MinWidth="208" />
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition x:Name="PaneColumn" Width="Auto" />
+						<ColumnDefinition x:Name="ShelfPaneColumn" Width="Auto" />
+					</Grid.ColumnDefinitions>
 
-					<!--  Tab Control  -->
-					<usercontrols:HorizontalMultitaskingControl
-						x:Name="TabControl"
-						HorizontalAlignment="Stretch"
-						VerticalAlignment="Stretch"
-						HorizontalContentAlignment="Stretch"
-						x:FieldModifier="public"
-						x:Load="False"
-						Loaded="HorizontalMultitaskingControl_Loaded"
-						TabIndex="0"
-						TabStripVisibility="Visible"
-						Visibility="Visible">
-						<usercontrols:HorizontalMultitaskingControl.ActionsControl>
-							<Button
-								x:Name="HorizontalMultitaskingControlAddButton"
-								Width="32"
-								Height="32"
-								Padding="8"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Bottom"
-								AutomationProperties.Name="{x:Bind Commands.NewTab.AutomationName}"
-								Background="Transparent"
-								BorderThickness="0"
-								Command="{x:Bind Commands.NewTab}"
-								ToolTipService.ToolTip="{x:Bind Commands.NewTab.LabelWithHotKey, Mode=OneWay}">
-								<Button.Content>
-									<FontIcon
-										x:Name="HorizontalMultitaskingControlAddButtonIcon"
-										FontSize="12"
-										Glyph="&#xE710;" />
-								</Button.Content>
-							</Button>
-						</usercontrols:HorizontalMultitaskingControl.ActionsControl>
-					</usercontrols:HorizontalMultitaskingControl>
-
-					<!--  Address Bar  -->
-					<uc:AddressToolbar
-						x:Name="NavToolbar"
-						Grid.Row="1"
-						HorizontalAlignment="Stretch"
-						HorizontalContentAlignment="Stretch"
+					<!--  File Navigation Toolbar  -->
+					<uc:InnerNavigationToolbar
+						x:Name="InnerNavigationToolbar"
+						Grid.Row="0"
+						Grid.ColumnSpan="3"
+						Margin="0,0,0,4"
 						x:Load="False"
 						Loaded="NavToolbar_Loaded"
-						OngoingTasksViewModel="{x:Bind OngoingTasksViewModel}"
-						ShowOngoingTasks="True"
-						ShowSearchBox="True"
-						ShowSettingsButton="{x:Bind WindowContext.IsCompactOverlay, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}"
-						TabIndex="1" />
+						ShowPreviewPaneButton="{x:Bind ViewModel.ShouldPreviewPaneBeDisplayed, Mode=OneWay}"
+						ShowViewControlButton="{x:Bind ViewModel.ShouldViewControlBeDisplayed, Mode=OneWay}"
+						TabIndex="2"
+						Visibility="{x:Bind converters:MultiBooleanConverter.AndConvertToVisibility(SidebarAdaptiveViewModel.PaneHolder.ActivePaneOrColumn.InstanceViewModel.IsPageTypeNotHome, ViewModel.ShowToolbar), Mode=OneWay}" />
 
+					<!--  Page Content  -->
+					<ContentPresenter
+						x:Name="PageContent"
+						Grid.Row="1"
+						Grid.Column="0"
+						HorizontalContentAlignment="Stretch"
+						Content="{x:Bind ViewModel.SelectedTabItem.ContentFrame, Mode=OneWay}" />
+
+					<!--  Preview Pane Splitter  -->
+					<toolkit:GridSplitter
+						x:Name="PaneSplitter"
+						Grid.Row="1"
+						Grid.Column="1"
+						x:Load="{x:Bind ViewModel.ShouldPreviewPaneBeActive, Mode=OneWay}"
+						ManipulationCompleted="PaneSplitter_ManipulationCompleted"
+						ManipulationStarted="PaneSplitter_ManipulationStarted"
+						Opacity="0"
+						ResizeBehavior="BasedOnAlignment"
+						Style="{StaticResource DefaultGridSplitterStyle}" />
+
+					<!--  Info Pane  -->
+					<uc:InfoPane
+						x:Name="InfoPane"
+						Grid.Row="1"
+						Grid.Column="2"
+						HorizontalContentAlignment="Stretch"
+						x:Load="{x:Bind ViewModel.ShouldPreviewPaneBeActive, Mode=OneWay}"
+						Loaded="PreviewPane_Loaded"
+						Unloaded="PreviewPane_Unloaded" />
+
+					<!--  Status Bar  -->
+					<uc:StatusBar
+						x:Name="StatusBar"
+						Grid.Row="4"
+						Grid.ColumnSpan="3"
+						x:Load="False"
+						ShowInfoText="{x:Bind SidebarAdaptiveViewModel.PaneHolder.ActivePaneOrColumn.InstanceViewModel.IsPageTypeNotHome, Mode=OneWay}"
+						Visibility="{x:Bind SidebarAdaptiveViewModel.PaneHolder.ActivePaneOrColumn.InstanceViewModel.IsPageTypeNotHome, Mode=OneWay}" />
+
+					<!--  Shelf Pane  -->
+					<uc:ShelfPane
+						x:Name="ShelfPane"
+						Grid.Row="0"
+						Grid.RowSpan="5"
+						Grid.Column="3"
+						Margin="4,0,0,8"
+						x:Load="{x:Bind ViewModel.ShowShelfPane, Mode=OneWay}" />
 				</Grid>
-			</uc:SidebarControl.TabContent>
-
-			<!--  Main Contents  -->
-			<Grid
-				x:Name="RootGrid"
-				PreviewKeyDown="RootGrid_PreviewKeyDown"
-				SizeChanged="RootGrid_SizeChanged">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto" />
-					<RowDefinition
-						x:Name="ContentRow"
-						Height="*"
-						MinHeight="100" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition x:Name="PaneRow" Height="Auto" />
-					<RowDefinition Height="32" />
-				</Grid.RowDefinitions>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition
-						x:Name="ContentColumn"
-						Width="*"
-						MinWidth="100" />
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition x:Name="PaneColumn" Width="Auto" />
-				</Grid.ColumnDefinitions>
-
-				<!--  File Navigation Toolbar  -->
-				<uc:InnerNavigationToolbar
-					x:Name="InnerNavigationToolbar"
-					Grid.ColumnSpan="3"
-					x:Load="False"
-					Loaded="NavToolbar_Loaded"
-					ShowPreviewPaneButton="{x:Bind ShouldPreviewPaneBeDisplayed, Mode=OneWay}"
-					TabIndex="2" />
-
-				<!--  Page Content  -->
-				<ContentPresenter
-					Grid.Row="1"
-					Grid.Column="0"
-					HorizontalAlignment="Stretch"
-					HorizontalContentAlignment="Stretch"
-					Content="{x:Bind ((viewmodels:MainPageViewModel)DataContext).SelectedTabItem.Control, Mode=OneWay}" />
-
-				<!--  Preview Pane Splitter  -->
-				<toolkit:GridSplitter
-					x:Name="PaneSplitter"
-					Grid.Row="1"
-					Grid.Column="1"
-					x:Load="{x:Bind ShouldPreviewPaneBeActive, Mode=OneWay}"
-					ManipulationCompleted="PaneSplitter_ManipulationCompleted"
-					ManipulationStarted="PaneSplitter_ManipulationStarted"
-					ResizeBehavior="BasedOnAlignment"
-					Style="{StaticResource DefaultGridSplitterStyle}" />
-
-				<!--  Preview Pane  -->
-				<uc:PreviewPane
-					x:Name="PreviewPane"
-					Grid.Row="1"
-					Grid.Column="2"
-					HorizontalContentAlignment="Stretch"
-					x:Load="{x:Bind ShouldPreviewPaneBeActive, Mode=OneWay}" />
-
-				<!--  Status Bar  -->
-				<uc:StatusBarControl
-					x:Name="StatusBarControl"
-					Grid.Row="4"
-					Grid.ColumnSpan="3"
-					x:Load="False"
-					ShowInfoText="{x:Bind SidebarAdaptiveViewModel.PaneHolder.ActivePaneOrColumn.InstanceViewModel.IsPageTypeNotHome, Mode=OneWay}" />
-
-			</Grid>
-
-		</uc:SidebarControl>
+			</sidebar:SidebarView.InnerContent>
+		</sidebar:SidebarView>
 
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
@@ -275,22 +277,21 @@
 				</VisualState>
 			</VisualStateGroup>
 			<VisualStateGroup>
-				<VisualState>
-					<VisualState.StateTriggers>
-						<AdaptiveTrigger x:Name="MinimalSidebarAdaptiveTrigger" MinWindowWidth="641" />
-					</VisualState.StateTriggers>
-				</VisualState>
-				<VisualState x:Name="MinimalSidebarState">
+				<VisualState x:Name="NormalSidebarState">
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="0" />
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
-						<Setter Target="SidebarControl.PaneDisplayMode" Value="LeftMinimal" />
-						<Setter Target="SidebarControl.IsPaneToggleButtonVisible" Value="True" />
-						<Setter Target="TabControl.Margin" Value="48,0,0,0" />
+						<Setter Target="SidebarControl.DisplayMode" Value="Minimal" />
+						<Setter Target="NavToolbar.IsSidebarPaneOpenToggleButtonVisible" Value="True" />
 					</VisualState.Setters>
+				</VisualState>
+				<VisualState x:Name="MinimalSidebarState">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger x:Name="MinimalSidebarAdaptiveTrigger" MinWindowWidth="641" />
+					</VisualState.StateTriggers>
 				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
-	</Border>
+	</Grid>
 </Page>

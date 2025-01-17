@@ -1,15 +1,19 @@
-using Files.Backend.ViewModels.Dialogs;
-using Files.Shared.Enums;
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
+using Files.App.ViewModels.Dialogs;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Threading.Tasks;
-
-// The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Files.App.Dialogs
 {
 	public sealed partial class ElevateConfirmDialog : ContentDialog, IDialog<ElevateConfirmDialogViewModel>
 	{
+		private FrameworkElement RootAppElement
+			=> (FrameworkElement)MainWindow.Instance.Content;
+
 		public ElevateConfirmDialogViewModel ViewModel
 		{
 			get => (ElevateConfirmDialogViewModel)DataContext;
@@ -21,6 +25,9 @@ namespace Files.App.Dialogs
 			InitializeComponent();
 		}
 
-		public new async Task<DialogResult> ShowAsync() => (DialogResult)await base.ShowAsync();
+		public new async Task<DialogResult> ShowAsync()
+		{
+			return (DialogResult)await base.ShowAsync();
+		}
 	}
 }

@@ -1,45 +1,45 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.App.Commands;
-using Files.App.Contexts;
-using Files.App.Extensions;
-using System.ComponentModel;
-using System.Threading.Tasks;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
-	internal class CloseSelectedTabAction : ObservableObject, IAction
+	internal sealed class CloseSelectedTabAction : CloseTabBaseAction
 	{
-		private readonly IMultitaskingContext context = Ioc.Default.GetRequiredService<IMultitaskingContext>();
+		public override string Label
+			=> "CloseTab".GetLocalizedResource();
 
-		public string Label { get; } = "CloseTab".GetLocalizedResource();
+		public override string Description
+			=> "CloseSelectedTabDescription".GetLocalizedResource();
 
-		public string Description { get; } = "CloseSelectedTabDescription".GetLocalizedResource();
+		public override HotKey HotKey
+			=> new(Keys.W, KeyModifiers.Ctrl);
 
-		public HotKey HotKey { get; } = new(Keys.W, KeyModifiers.Ctrl);
+		public override HotKey SecondHotKey
+			=> new(Keys.F4, KeyModifiers.Ctrl);
 
-		public HotKey SecondHotKey { get; } = new(Keys.F4, KeyModifiers.Ctrl);
-
-		public RichGlyph Glyph { get; } = new();
-
-		public bool IsExecutable =>
-			context.Control is not null &&
-			context.TabCount > 0 &&
-			context.CurrentTabItem is not null;
+		public override RichGlyph Glyph
+			=> new();
 
 		public CloseSelectedTabAction()
 		{
-			context.PropertyChanged += Context_PropertyChanged;
 		}
 
-		public Task ExecuteAsync()
+		public override Task ExecuteAsync(object? parameter = null)
 		{
 			context.Control!.CloseTab(context.CurrentTabItem);
 
 			return Task.CompletedTask;
 		}
 
-		private void Context_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+		protected override bool GetIsExecutable()
+		{
+			return
+				context.Control is not null &&
+				context.TabCount > 0 &&
+				context.CurrentTabItem is not null;
+		}
+
+		protected override void Context_PropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			switch (e.PropertyName)
 			{

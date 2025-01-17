@@ -1,16 +1,15 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.App.Commands;
-using Files.App.Contexts;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
+
+using Microsoft.UI.Xaml.Controls;
+using Windows.Foundation.Metadata;
 
 namespace Files.App.Actions
 {
 	internal abstract class BaseSetAsAction : ObservableObject, IAction
 	{
-		protected readonly IContentPageContext context = Ioc.Default.GetRequiredService<IContentPageContext>();
+		protected readonly IContentPageContext ContentPageContext = Ioc.Default.GetRequiredService<IContentPageContext>();
+		protected readonly IWindowsWallpaperService WindowsWallpaperService = Ioc.Default.GetRequiredService<IWindowsWallpaperService>();
 
 		public abstract string Label { get; }
 
@@ -18,16 +17,35 @@ namespace Files.App.Actions
 
 		public abstract RichGlyph Glyph { get; }
 
-		public virtual bool IsExecutable => context.ShellPage is not null &&
-			context.PageType is not ContentPageTypes.RecycleBin and not ContentPageTypes.ZipFolder &&
-			(context.ShellPage?.SlimContentPage?.SelectedItemsPropertiesViewModel?.IsSelectedItemImage ?? false);
+		public virtual bool IsExecutable =>
+			ContentPageContext.ShellPage is not null &&
+			ContentPageContext.PageType != ContentPageTypes.RecycleBin &&
+			ContentPageContext.PageType != ContentPageTypes.ZipFolder &&
+			(ContentPageContext.ShellPage?.SlimContentPage?.SelectedItemsPropertiesViewModel?.IsCompatibleToSetAsWindowsWallpaper ?? false);
 
 		public BaseSetAsAction()
 		{
-			context.PropertyChanged += Context_PropertyChanged;
+			ContentPageContext.PropertyChanged += ContentPageContext_PropertyChanged;
 		}
 
-		private void Context_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+		public abstract Task ExecuteAsync(object? parameter = null);
+
+		protected async void ShowErrorDialog(string message)
+		{
+			var errorDialog = new ContentDialog()
+			{
+				Title = "FailedToSetBackground".GetLocalizedResource(),
+				Content = message,
+				PrimaryButtonText = "OK".GetLocalizedResource(),
+			};
+
+			if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 8))
+				errorDialog.XamlRoot = MainWindow.Instance.Content.XamlRoot;
+
+			await errorDialog.TryShowAsync();
+		}
+
+		private void ContentPageContext_PropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			switch (e.PropertyName)
 			{
@@ -36,19 +54,19 @@ namespace Files.App.Actions
 					break;
 				case nameof(IContentPageContext.SelectedItem):
 				case nameof(IContentPageContext.SelectedItems):
-					if (context.ShellPage is not null && context.ShellPage.SlimContentPage is not null)
 					{
-						var viewModel = context.ShellPage.SlimContentPage.SelectedItemsPropertiesViewModel;
-						var extensions = context.SelectedItems.Select(selectedItem => selectedItem.FileExtension).Distinct().ToList();
+						if (ContentPageContext.ShellPage is not null && ContentPageContext.ShellPage.SlimContentPage is not null)
+						{
+							var viewModel = ContentPageContext.ShellPage.SlimContentPage.SelectedItemsPropertiesViewModel;
+							var extensions = ContentPageContext.SelectedItems.Select(selectedItem => selectedItem.FileExtension).Distinct().ToList();
 
-						viewModel.CheckAllFileExtensions(extensions);
+							viewModel.CheckAllFileExtensions(extensions);
+						}
+
+						OnPropertyChanged(nameof(IsExecutable));
+						break;
 					}
-
-					OnPropertyChanged(nameof(IsExecutable));
-					break;
 			}
 		}
-
-		public abstract Task ExecuteAsync();
 	}
 }

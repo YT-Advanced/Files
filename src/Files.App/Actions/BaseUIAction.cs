@@ -1,12 +1,15 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Files.App.Helpers;
-using System.ComponentModel;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
+	/// <summary>
+	/// Represents base class for the UI Actions.
+	/// </summary>
 	internal abstract class BaseUIAction : ObservableObject
 	{
-		public virtual bool IsExecutable => UIHelpers.CanShowDialog;
+		public virtual bool IsExecutable
+			=> UIHelpers.CanShowDialog;
 
 		public BaseUIAction()
 		{

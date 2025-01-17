@@ -1,18 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.Mvvm.Input;
-using Files.App.Helpers;
-using Files.Backend.Services.Settings;
-using Files.Backend.ViewModels.FileTags;
-using Files.Shared.Extensions;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using System.Windows.Input;
 
 namespace Files.App.ViewModels.Settings
 {
-	public class TagsViewModel : ObservableObject
-    {
+	public sealed class TagsViewModel : ObservableObject
+	{
 		private readonly IFileTagsSettingsService fileTagsSettingsService = Ioc.Default.GetRequiredService<IFileTagsSettingsService>();
 
 		private bool isBulkOperation = true;
@@ -41,7 +35,7 @@ namespace Files.App.ViewModels.Settings
 			SaveNewTagCommand = new RelayCommand(DoSaveNewTag);
 			CancelNewTagCommand = new RelayCommand(DoCancelNewTag);
 
-			Tags = new ObservableCollection<ListedTagViewModel>();
+			Tags = [];
 			Tags.CollectionChanged += Tags_CollectionChanged;
 			fileTagsSettingsService.FileTagList?.ForEach(tag => Tags.Add(new ListedTagViewModel(tag)));
 
@@ -108,7 +102,7 @@ namespace Files.App.ViewModels.Settings
 		}
 	}
 
-	public class NewTagViewModel : ObservableObject
+	public sealed class NewTagViewModel : ObservableObject
 	{
 		private string name = string.Empty;
 		public string Name
@@ -116,8 +110,11 @@ namespace Files.App.ViewModels.Settings
 			get => name;
 			set
 			{
-				if (SetProperty(ref name, value))
+				SetProperty(ref name, value);
+				{
+					OnPropertyChanged(nameof(CanCommit));
 					OnPropertyChanged(nameof(IsNameValid));
+				}
 			}
 		}
 
@@ -128,17 +125,23 @@ namespace Files.App.ViewModels.Settings
 			set => SetProperty(ref color, value);
 		}
 
-		private bool isNameValid;
+		private bool isNameValid = true;
 		public bool IsNameValid
 		{
 			get => isNameValid;
-			set => SetProperty(ref isNameValid, value);
+			set
+			{
+				if (SetProperty(ref isNameValid, value))
+					OnPropertyChanged(nameof(CanCommit));
+			}
 		}
+
+		public bool CanCommit => !string.IsNullOrEmpty(name) && IsNameValid;
 
 		public void Reset()
 		{
 			Name = string.Empty;
-			IsNameValid = false;
+			IsNameValid = true;
 			Color = ColorHelpers.RandomColor();
 		}
 	}

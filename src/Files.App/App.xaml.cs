@@ -1,317 +1,292 @@
-using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.WinUI;
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using CommunityToolkit.WinUI.Helpers;
-using CommunityToolkit.WinUI.Notifications;
-using Files.App.Commands;
-using Files.App.Contexts;
-using Files.App.DataModels;
-using Files.App.Extensions;
-using Files.App.Filesystem;
-using Files.App.Filesystem.Cloud;
-using Files.App.Filesystem.FilesystemHistory;
-using Files.App.Helpers;
-using Files.App.ServicesImplementation;
-using Files.App.ServicesImplementation.DateTimeFormatter;
-using Files.App.ServicesImplementation.Settings;
-using Files.App.Shell;
-using Files.App.Storage.NativeStorage;
-using Files.App.UserControls.MultitaskingControl;
-using Files.App.ViewModels;
-using Files.App.ViewModels.Settings;
-using Files.App.Views;
-using Files.Backend.Services;
-using Files.Backend.Services.Settings;
-using Files.Backend.Services.SizeProvider;
-using Files.Sdk.Storage;
-using Files.Shared;
-using Files.Shared.Cloud;
-using Files.Shared.Extensions;
-using Files.Shared.Services;
-using Files.Shared.Services.DateTimeFormatter;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Files.App.Helpers.Application;
 using Microsoft.Extensions.Logging;
-using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.Windows.AppLifecycle;
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
-using Windows.System;
-using Windows.UI.Notifications;
 
 namespace Files.App
 {
+	/// <summary>
+	/// Represents the entry point of UI for Files app.
+	/// </summary>
 	public partial class App : Application
 	{
-		private static bool ShowErrorNotification = false;
-		private IHost host { get; set; }
-		public static string OutputPath { get; set; }
-		public static CommandBarFlyout? LastOpenedFlyout { get; set; }
-		public static StorageHistoryWrapper HistoryWrapper = new StorageHistoryWrapper();
-		public static AppModel AppModel { get; private set; }
-		public static RecentItems RecentItemsManager { get; private set; }
-		public static QuickAccessManager QuickAccessManager { get; private set; }
-		public static CloudDrivesManager CloudDrivesManager { get; private set; }
-		public static NetworkDrivesManager NetworkDrivesManager { get; private set; }
-		public static WSLDistroManager WSLDistroManager { get; private set; }
-		public static LibraryManager LibraryManager { get; private set; }
-		public static FileTagsManager FileTagsManager { get; private set; }
+		public static SystemTrayIcon? SystemTrayIcon { get; private set; }
 
-		public static ILogger Logger { get; private set; }
-		public static SecondaryTileHelper SecondaryTileHelper { get; private set; } = new SecondaryTileHelper();
+		public static TaskCompletionSource? SplashScreenLoadingTCS { get; private set; }
+		public static string? OutputPath { get; set; }
 
-		public static string AppVersion = $"{Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build}.{Package.Current.Id.Version.Revision}";
-		public static string LogoPath;
+		private static CommandBarFlyout? _LastOpenedFlyout;
+		public static CommandBarFlyout? LastOpenedFlyout
+		{
+			set
+			{
+				_LastOpenedFlyout = value;
 
-		public IServiceProvider Services { get; private set; }
+				if (_LastOpenedFlyout is not null)
+					_LastOpenedFlyout.Closed += LastOpenedFlyout_Closed;
+			}
+		}
+
+		// TODO: Replace with DI
+		public static QuickAccessManager QuickAccessManager { get; private set; } = null!;
+		public static StorageHistoryWrapper HistoryWrapper { get; private set; } = null!;
+		public static FileTagsManager FileTagsManager { get; private set; } = null!;
+		public static LibraryManager LibraryManager { get; private set; } = null!;
+		public static AppModel AppModel { get; private set; } = null!;
+		public static ILogger Logger { get; private set; } = null!;
 
 		/// <summary>
-		/// Initializes the singleton application object.  This is the first line of authored code
-		/// executed, and as such is the logical equivalent of main() or WinMain().
+		/// Initializes an instance of <see cref="App"/>.
 		/// </summary>
 		public App()
 		{
-			UnhandledException += OnUnhandledException;
-			TaskScheduler.UnobservedTaskException += OnUnobservedException;
 			InitializeComponent();
-			LogoPath = Package.Current.DisplayName == "Files - Dev" ? Constants.AssetPaths.DevLogo
-					: (Package.Current.DisplayName == "Files (Preview)" ? Constants.AssetPaths.PreviewLogo : Constants.AssetPaths.StableLogo);
-		}
 
-		private static void EnsureSettingsAndConfigurationAreBootstrapped()
-		{
-			RecentItemsManager ??= new RecentItems();
-			AppModel ??= new AppModel();
-			LibraryManager ??= new LibraryManager();
-			NetworkDrivesManager ??= new NetworkDrivesManager();
-			CloudDrivesManager ??= new CloudDrivesManager();
-			WSLDistroManager ??= new WSLDistroManager();
-			FileTagsManager ??= new FileTagsManager();
-			QuickAccessManager ??= new QuickAccessManager();
-		}
-
-		private static Task StartAppCenter()
-		{
-			try
-			{
-				// AppCenter secret is injected in builds/azure-pipelines-release.yml
-				if (!AppCenter.Configured)
-					AppCenter.Start("appcenter.secret", typeof(Analytics), typeof(Crashes));
-			}
-			catch (Exception ex)
-			{
-				App.Logger.LogWarning(ex, "AppCenter could not be started.");
-			}
-
-			return Task.CompletedTask;
-		}
-
-		private static async Task InitializeAppComponentsAsync()
-		{
-			var userSettingsService = Ioc.Default.GetRequiredService<IUserSettingsService>();
-			var addItemService = Ioc.Default.GetRequiredService<IAddItemService>();
-			var generalSettingsService = userSettingsService.GeneralSettingsService;
-
-			// Start off a list of tasks we need to run before we can continue startup
-			await Task.Run(async () =>
-			{
-				await Task.WhenAll(
-					StartAppCenter(),
-					OptionalTask(CloudDrivesManager.UpdateDrivesAsync(), generalSettingsService.ShowCloudDrivesSection),
-					LibraryManager.UpdateLibrariesAsync(),
-					OptionalTask(NetworkDrivesManager.UpdateDrivesAsync(), generalSettingsService.ShowNetworkDrivesSection),
-					OptionalTask(WSLDistroManager.UpdateDrivesAsync(), generalSettingsService.ShowWslSection),
-					OptionalTask(FileTagsManager.UpdateFileTagsAsync(), generalSettingsService.ShowFileTagsSection),
-					QuickAccessManager.InitializeAsync()
-				);
-
-				await Task.WhenAll(
-					JumpListHelper.InitializeUpdatesAsync(),
-					addItemService.GetNewEntriesAsync(),
-					ContextMenu.WarmUpQueryContextMenuAsync()
-				);
-
-				FileTagsHelper.UpdateTagsDb();
-			});
-
-			// Check for required updates
-			var updateService = Ioc.Default.GetRequiredService<IUpdateService>();
-			await updateService.CheckForUpdates();
-			await updateService.DownloadMandatoryUpdates();
-			await updateService.CheckAndUpdateFilesLauncherAsync();
-			await updateService.CheckLatestReleaseNotesAsync();
-
-			static async Task OptionalTask(Task task, bool condition)
-			{
-				if (condition)
-					await task;
-			}
+			// Configure exception handlers
+			UnhandledException += (sender, e) => AppLifecycleHelper.HandleAppUnhandledException(e.Exception, true);
+			AppDomain.CurrentDomain.UnhandledException += (sender, e) => AppLifecycleHelper.HandleAppUnhandledException(e.ExceptionObject as Exception, false);
+			TaskScheduler.UnobservedTaskException += (sender, e) => AppLifecycleHelper.HandleAppUnhandledException(e.Exception, false);
 		}
 
 		/// <summary>
-		/// Invoked when the application is launched normally by the end user.  Other entry points
-		/// will be used such as when the application is launched to open a specific file.
+		/// Gets invoked when the application is launched normally by the end user.
 		/// </summary>
-		/// <param name="args">Details about the launch request and process.</param>
 		protected override void OnLaunched(LaunchActivatedEventArgs e)
 		{
-			var activatedEventArgs = Microsoft.Windows.AppLifecycle.AppInstance.GetCurrent().GetActivatedEventArgs();
+			_ = ActivateAsync();
 
-			var logPath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "debug.log");
-			//start tracking app usage
-			if (activatedEventArgs.Data is Windows.ApplicationModel.Activation.IActivatedEventArgs iaea)
-				SystemInformation.Instance.TrackAppUse(iaea);
-
-			// Initialize MainWindow here
-			EnsureWindowIsInitialized();
-			host = Host.CreateDefaultBuilder()
-				.ConfigureLogging(builder => 
-					builder
-					.AddProvider(new FileLoggerProvider(logPath))
-					.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Information)
-				)
-				.ConfigureServices(services => 
-					services
-						.AddSingleton<IUserSettingsService, UserSettingsService>()
-						.AddSingleton<IAppearanceSettingsService, AppearanceSettingsService>((sp) => new AppearanceSettingsService((sp.GetService<IUserSettingsService>() as UserSettingsService).GetSharingContext()))
-						.AddSingleton<IGeneralSettingsService, GeneralSettingsService>((sp) => new GeneralSettingsService((sp.GetService<IUserSettingsService>() as UserSettingsService).GetSharingContext()))
-						.AddSingleton<IFoldersSettingsService, FoldersSettingsService>((sp) => new FoldersSettingsService((sp.GetService<IUserSettingsService>() as UserSettingsService).GetSharingContext()))
-						.AddSingleton<IApplicationSettingsService, ApplicationSettingsService>((sp) => new ApplicationSettingsService((sp.GetService<IUserSettingsService>() as UserSettingsService).GetSharingContext()))
-						.AddSingleton<IPreviewPaneSettingsService, PreviewPaneSettingsService>((sp) => new PreviewPaneSettingsService((sp.GetService<IUserSettingsService>() as UserSettingsService).GetSharingContext()))
-						.AddSingleton<ILayoutSettingsService, LayoutSettingsService>((sp) => new LayoutSettingsService((sp.GetService<IUserSettingsService>() as UserSettingsService).GetSharingContext()))
-						.AddSingleton<IAppSettingsService, AppSettingsService>((sp) => new AppSettingsService((sp.GetService<IUserSettingsService>() as UserSettingsService).GetSharingContext()))
-						.AddSingleton<IFileTagsSettingsService, FileTagsSettingsService>()
-						.AddSingleton<IBundlesSettingsService, BundlesSettingsService>()
-						.AddSingleton<IPageContext, PageContext>()
-						.AddSingleton<IContentPageContext, ContentPageContext>()
-						.AddSingleton<IDisplayPageContext, DisplayPageContext>()
-						.AddSingleton<IWindowContext, WindowContext>()
-						.AddSingleton<IMultitaskingContext, MultitaskingContext>()
-						.AddSingleton<IDialogService, DialogService>()
-						.AddSingleton<IImageService, ImagingService>()
-						.AddSingleton<IThreadingService, ThreadingService>()
-						.AddSingleton<ILocalizationService, LocalizationService>()
-						.AddSingleton<ICloudDetector, CloudDetector>()
-						.AddSingleton<IFileTagsService, FileTagsService>()
-						.AddSingleton<ICommandManager, CommandManager>()
-#if UWP
-						.AddSingleton<IStorageService, WindowsStorageService>()
-#else
-						.AddSingleton<IStorageService, NativeStorageService>()
-#endif
-						.AddSingleton<IAddItemService, AddItemService>()
-#if SIDELOAD
-						.AddSingleton<IUpdateService, SideloadUpdateService>()
-#else
-						.AddSingleton<IUpdateService, UpdateService>()
-#endif
-						.AddSingleton<IDateTimeFormatterFactory, DateTimeFormatterFactory>()
-						.AddSingleton<IDateTimeFormatter, UserDateTimeFormatter>()
-						.AddSingleton<IVolumeInfoFactory, VolumeInfoFactory>()
-						.AddSingleton<ISizeProvider, UserSizeProvider>()
-						.AddSingleton<IQuickAccessService, QuickAccessService>()
-						.AddSingleton<IResourcesService, ResourcesService>()
-						.AddSingleton<IJumpListService, JumpListService>()
-						.AddSingleton<IRemovableDrivesService, RemovableDrivesService>()
-						.AddSingleton<MainPageViewModel>()
-						.AddSingleton<PreviewPaneViewModel>()
-						.AddSingleton<SidebarViewModel>()
-						.AddSingleton<SettingsViewModel>()
-						.AddSingleton<DrivesViewModel>()
-						.AddSingleton<OngoingTasksViewModel>()
-						.AddSingleton<AppearanceViewModel>()
-				)
-				.Build();
-
-			Logger = host.Services.GetRequiredService<ILogger<App>>();
-			App.Logger.LogInformation($"App launched. Launch args type: {activatedEventArgs.Data.GetType().Name}");
-
-			Ioc.Default.ConfigureServices(host.Services);
-
-			EnsureSettingsAndConfigurationAreBootstrapped();
-
-			_ = InitializeAppComponentsAsync().ContinueWith(t => Logger.LogWarning(t.Exception, "Error during InitializeAppComponentsAsync()"), TaskContinuationOptions.OnlyOnFaulted);
-
-			_ = Window.InitializeApplication(activatedEventArgs.Data);
-		}
-
-		private void EnsureWindowIsInitialized()
-		{
-			Window = new MainWindow();
-			Window.Activated += Window_Activated;
-			Window.Closed += Window_Closed;
-			WindowHandle = WinRT.Interop.WindowNative.GetWindowHandle(Window);
-		}
-
-		private void Window_Activated(object sender, WindowActivatedEventArgs args)
-		{
-			if (args.WindowActivationState == WindowActivationState.CodeActivated ||
-				args.WindowActivationState == WindowActivationState.PointerActivated)
+			async Task ActivateAsync()
 			{
-				ShowErrorNotification = true;
-				ApplicationData.Current.LocalSettings.Values["INSTANCE_ACTIVE"] = -Process.GetCurrentProcess().Id;
+				// Get AppActivationArguments
+				var appActivationArguments = Microsoft.Windows.AppLifecycle.AppInstance.GetCurrent().GetActivatedEventArgs();
+				var isStartupTask = appActivationArguments.Data is Windows.ApplicationModel.Activation.IStartupTaskActivatedEventArgs;
+
+				if (!isStartupTask)
+				{
+					// Initialize and activate MainWindow
+					MainWindow.Instance.Activate();
+
+					// Wait for the Window to initialize
+					await Task.Delay(10);
+
+					SplashScreenLoadingTCS = new TaskCompletionSource();
+					MainWindow.Instance.ShowSplashScreen();
+				}
+
+				// Start tracking app usage
+				if (appActivationArguments.Data is Windows.ApplicationModel.Activation.IActivatedEventArgs activationEventArgs)
+					SystemInformation.Instance.TrackAppUse(activationEventArgs);
+
+				// Configure the DI (dependency injection) container
+				var host = AppLifecycleHelper.ConfigureHost();
+				Ioc.Default.ConfigureServices(host.Services);
+
+				// Configure Sentry
+				if (AppLifecycleHelper.AppEnvironment is not AppEnvironment.Dev)
+					AppLifecycleHelper.ConfigureSentry();
+
+				var userSettingsService = Ioc.Default.GetRequiredService<IUserSettingsService>();
+				var isLeaveAppRunning = userSettingsService.GeneralSettingsService.LeaveAppRunning;
+
+				if (isStartupTask && !isLeaveAppRunning)
+				{
+					// Initialize and activate MainWindow
+					MainWindow.Instance.Activate();
+
+					// Wait for the Window to initialize
+					await Task.Delay(10);
+
+					SplashScreenLoadingTCS = new TaskCompletionSource();
+					MainWindow.Instance.ShowSplashScreen();
+				}
+
+				// TODO: Replace with DI
+				QuickAccessManager = Ioc.Default.GetRequiredService<QuickAccessManager>();
+				HistoryWrapper = Ioc.Default.GetRequiredService<StorageHistoryWrapper>();
+				FileTagsManager = Ioc.Default.GetRequiredService<FileTagsManager>();
+				LibraryManager = Ioc.Default.GetRequiredService<LibraryManager>();
+				Logger = Ioc.Default.GetRequiredService<ILogger<App>>();
+				AppModel = Ioc.Default.GetRequiredService<AppModel>();
+
+				// Hook events for the window
+				MainWindow.Instance.Closed += Window_Closed;
+				MainWindow.Instance.Activated += Window_Activated;
+
+				Logger.LogInformation($"App launched. Launch args type: {appActivationArguments.Data.GetType().Name}");
+
+				if (!(isStartupTask && isLeaveAppRunning))
+				{
+					// Wait for the UI to update
+					await SplashScreenLoadingTCS!.Task.WithTimeoutAsync(TimeSpan.FromMilliseconds(500));
+					SplashScreenLoadingTCS = null;
+
+					// Create a system tray icon
+					SystemTrayIcon = new SystemTrayIcon();
+					if (userSettingsService.GeneralSettingsService.ShowSystemTrayIcon)
+						SystemTrayIcon.Show();
+
+					_ = MainWindow.Instance.InitializeApplicationAsync(appActivationArguments.Data);
+				}
+				else
+				{
+					// Create a system tray icon
+					SystemTrayIcon = new SystemTrayIcon();
+					if (userSettingsService.GeneralSettingsService.ShowSystemTrayIcon)
+						SystemTrayIcon.Show();
+
+					// Sleep current instance
+					Program.Pool = new(0, 1, $"Files-{AppLifecycleHelper.AppEnvironment}-Instance");
+
+					Thread.Yield();
+
+					if (Program.Pool.WaitOne())
+					{
+						// Resume the instance
+						Program.Pool.Dispose();
+						Program.Pool = null;
+					}
+				}
+
+				await AppLifecycleHelper.InitializeAppComponentsAsync();
 			}
 		}
 
-		public void OnActivated(AppActivationArguments activatedEventArgs)
+		/// <summary>
+		/// Gets invoked when the application is activated.
+		/// </summary>
+		public async Task OnActivatedAsync(AppActivationArguments activatedEventArgs)
 		{
-			App.Logger.LogInformation($"App activated. Activated args type: {activatedEventArgs.Data.GetType().Name}");
-			var data = activatedEventArgs.Data;
+			var activatedEventArgsData = activatedEventArgs.Data;
+			Logger.LogInformation($"The app is being activated. Activation type: {activatedEventArgsData.GetType().Name}");
 
 			// InitializeApplication accesses UI, needs to be called on UI thread
-			_ = Window.DispatcherQueue.EnqueueAsync(() => Window.InitializeApplication(data));
+			await MainWindow.Instance.DispatcherQueue.EnqueueOrInvokeAsync(()
+				=> MainWindow.Instance.InitializeApplicationAsync(activatedEventArgsData));
 		}
 
 		/// <summary>
-		/// Invoked when application execution is being closed. Save application state.
+		/// Gets invoked when the main window is activated.
 		/// </summary>
-		/// <param name="sender">The source of the suspend request.</param>
-		/// <param name="args">Details about the suspend request.</param>
+		private void Window_Activated(object sender, WindowActivatedEventArgs args)
+		{
+			AppModel.IsMainWindowClosed = false;
+
+			// TODO(s): Is this code still needed?
+			if (args.WindowActivationState != WindowActivationState.CodeActivated ||
+				args.WindowActivationState != WindowActivationState.PointerActivated)
+				return;
+
+			ApplicationData.Current.LocalSettings.Values["INSTANCE_ACTIVE"] = -Environment.ProcessId;
+		}
+
+		/// <summary>
+		/// Gets invoked when the application execution is closed.
+		/// </summary>
+		/// <remarks>
+		/// Saves the current state of the app such as opened tabs, and disposes all cached resources.
+		/// </remarks>
 		private async void Window_Closed(object sender, WindowEventArgs args)
 		{
 			// Save application state and stop any background activity
+			IUserSettingsService userSettingsService = Ioc.Default.GetRequiredService<IUserSettingsService>();
+			StatusCenterViewModel statusCenterViewModel = Ioc.Default.GetRequiredService<StatusCenterViewModel>();
+			ICommandManager commandManager = Ioc.Default.GetRequiredService<ICommandManager>();
 
 			// A Workaround for the crash (#10110)
-			if (LastOpenedFlyout?.IsOpen ?? false)
+			if (_LastOpenedFlyout?.IsOpen ?? false)
 			{
 				args.Handled = true;
-				LastOpenedFlyout.Closed += (sender, e) => App.Current.Exit();
-				LastOpenedFlyout.Hide();
+				_LastOpenedFlyout.Closed += (sender, e) => App.Current.Exit();
+				_LastOpenedFlyout.Hide();
 				return;
+			}
+
+			// Save the current tab list in case it was overwriten by another instance
+			if (userSettingsService.GeneralSettingsService.ContinueLastSessionOnStartUp || userSettingsService.AppSettingsService.RestoreTabsOnStartup)
+				AppLifecycleHelper.SaveSessionTabs();
+			else
+				await commandManager.CloseAllTabs.ExecuteAsync();
+
+			if (OutputPath is not null)
+			{
+				var instance = MainPageViewModel.AppInstances.FirstOrDefault(x => x.TabItemContent.IsCurrentInstance);
+				if (instance is null)
+					return;
+
+				var items = (instance.TabItemContent as ShellPanesPage)?.ActivePane?.SlimContentPage?.SelectedItems;
+				if (items is null)
+					return;
+
+				var results = items.Select(x => x.ItemPath).ToList();
+				System.IO.File.WriteAllLines(OutputPath, results);
+
+				IntPtr eventHandle = Win32PInvoke.CreateEvent(IntPtr.Zero, false, false, "FILEDIALOG");
+				Win32PInvoke.SetEvent(eventHandle);
+				Win32PInvoke.CloseHandle(eventHandle);
+			}
+
+			// Continue running the app on the background
+			if (userSettingsService.GeneralSettingsService.LeaveAppRunning &&
+				!AppModel.ForceProcessTermination &&
+				!Process.GetProcessesByName("Files").Any(x => x.Id != Environment.ProcessId))
+			{
+				// Close open content dialogs
+				UIHelpers.CloseAllDialogs();
+
+				// Close all notification banners except in progress
+				statusCenterViewModel.RemoveAllCompletedItems();
+
+				// Cache the window instead of closing it
+				MainWindow.Instance.AppWindow.Hide();
+
+				// Close all tabs
+				MainPageViewModel.AppInstances.ForEach(tabItem => tabItem.Unload());
+				MainPageViewModel.AppInstances.Clear();
+
+				// Wait for all properties windows to close
+				await FilePropertiesHelpers.WaitClosingAll();
+
+				// Sleep current instance
+				Program.Pool = new(0, 1, $"Files-{AppLifecycleHelper.AppEnvironment}-Instance");
+
+				Thread.Yield();
+
+				// Displays a notification the first time the app goes to the background
+				if (userSettingsService.AppSettingsService.ShowBackgroundRunningNotification)
+				{
+					SafetyExtensions.IgnoreExceptions(() =>
+					{
+						AppToastNotificationHelper.ShowBackgroundRunningToast();
+
+						userSettingsService.AppSettingsService.ShowBackgroundRunningNotification = false;
+					});
+				}
+
+				if (Program.Pool.WaitOne())
+				{
+					// Resume the instance
+					Program.Pool.Dispose();
+					Program.Pool = null;
+
+					if (!AppModel.ForceProcessTermination)
+					{
+						args.Handled = true;
+						_ = AppLifecycleHelper.CheckAppUpdate();
+						return;
+					}
+				}
 			}
 
 			// Method can take a long time, make sure the window is hidden
 			await Task.Yield();
-
-			SaveSessionTabs();
-
-			if (OutputPath is not null)
-			{
-				await SafetyExtensions.IgnoreExceptions(async () =>
-				{
-					var instance = MainPageViewModel.AppInstances.FirstOrDefault(x => x.Control.TabItemContent.IsCurrentInstance);
-					if (instance is null)
-						return;
-
-					var items = (instance.Control.TabItemContent as PaneHolderPage)?.ActivePane?.SlimContentPage?.SelectedItems;
-					if (items is null)
-						return;
-
-					await FileIO.WriteLinesAsync(await StorageFile.GetFileFromPathAsync(OutputPath), items.Select(x => x.ItemPath));
-				},
-				Logger);
-			}
 
 			// Try to maintain clipboard data after app close
 			SafetyExtensions.IgnoreExceptions(() =>
@@ -325,180 +300,25 @@ namespace Files.App
 			},
 			Logger);
 
+			// Destroy cached properties windows
+			FilePropertiesHelpers.DestroyCachedWindows();
+			AppModel.IsMainWindowClosed = true;
+
 			// Wait for ongoing file operations
 			FileOperationsHelpers.WaitForCompletion();
 		}
 
 		/// <summary>
-		/// Enumerates through all tabs and gets the Path property and saves it to AppSettings.LastSessionPages.
+		/// Gets invoked when the last opened flyout is closed.
 		/// </summary>
-		public static void SaveSessionTabs() 
+		private static void LastOpenedFlyout_Closed(object? sender, object e)
 		{
-			IUserSettingsService userSettingsService = Ioc.Default.GetRequiredService<IUserSettingsService>();
-			IBundlesSettingsService bundlesSettingsService = Ioc.Default.GetRequiredService<IBundlesSettingsService>();
-
-			bundlesSettingsService.FlushSettings();
-
-			userSettingsService.GeneralSettingsService.LastSessionTabList = MainPageViewModel.AppInstances.DefaultIfEmpty().Select(tab =>
-			{
-				if (tab is not null && tab.TabItemArguments is not null)
-				{
-					return tab.TabItemArguments.Serialize();
-				}
-				else
-				{
-					var defaultArg = new TabItemArguments() { InitialPageType = typeof(PaneHolderPage), NavigationArg = "Home" };
-					return defaultArg.Serialize();
-				}
-			})
-			.ToList();
-		}
-
-		/// <summary>
-		/// Occurs when an exception is not handled on the UI thread.
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private static void OnUnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
-			=> AppUnhandledException(e.Exception, true);
-
-		/// <summary>
-		/// Occurs when an exception is not handled on a background thread.
-		/// i.e. A task is fired and forgotten Task.Run(() => {...})
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private static void OnUnobservedException(object sender, UnobservedTaskExceptionEventArgs e)
-			=> AppUnhandledException(e.Exception, false);
-
-		private static void AppUnhandledException(Exception ex, bool shouldShowNotification)
-		{
-			StringBuilder formattedException = new StringBuilder() { Capacity = 200 };
-
-			formattedException.Append("--------- UNHANDLED EXCEPTION ---------");
-
-			if (ex is not null)
-			{
-				formattedException.Append($"\n>>>> HRESULT: {ex.HResult}\n");
-				if (ex.Message is not null)
-				{
-					formattedException.Append("\n--- MESSAGE ---");
-					formattedException.Append(ex.Message);
-				}
-				if (ex.StackTrace is not null)
-				{
-					formattedException.Append("\n--- STACKTRACE ---");
-					formattedException.Append(ex.StackTrace);
-				}
-				if (ex.Source is not null)
-				{
-					formattedException.Append("\n--- SOURCE ---");
-					formattedException.Append(ex.Source);
-				}
-				if (ex.InnerException is not null)
-				{
-					formattedException.Append("\n--- INNER ---");
-					formattedException.Append(ex.InnerException);
-				}
-			}
-			else
-			{
-				formattedException.Append("\nException is null!\n");
-			}
-
-			formattedException.Append("---------------------------------------");
-
-			Debug.WriteLine(formattedException.ToString());
-
-			 // Please check "Output Window" for exception details (View -> Output Window) (CTRL + ALT + O)
-			Debugger.Break();
-
-			SaveSessionTabs();
-			App.Logger.LogError(ex, ex.Message);
-
-			if (!ShowErrorNotification || !shouldShowNotification)
+			if (sender is not CommandBarFlyout commandBarFlyout)
 				return;
 
-			var toastContent = new ToastContent()
-			{
-				Visual = new()
-				{
-					BindingGeneric = new ToastBindingGeneric()
-					{
-						Children =
-						{
-							new AdaptiveText()
-							{
-								Text = "ExceptionNotificationHeader".GetLocalizedResource()
-							},
-							new AdaptiveText()
-							{
-								Text = "ExceptionNotificationBody".GetLocalizedResource()
-							}
-						},
-						AppLogoOverride = new()
-						{
-							Source = "ms-appx:///Assets/error.png"
-						}
-					}
-				},
-				Actions = new ToastActionsCustom()
-				{
-					Buttons =
-					{
-						new ToastButton("ExceptionNotificationReportButton".GetLocalizedResource(), Constants.GitHub.BugReportUrl)
-						{
-							ActivationType = ToastActivationType.Protocol
-						}
-					}
-				},
-				ActivationType = ToastActivationType.Protocol
-			};
-
-			// Create the toast notification
-			var toastNotif = new ToastNotification(toastContent.GetXml());
-
-			// And send the notification
-			ToastNotificationManager.CreateToastNotifier().Show(toastNotif);
-
-			// Restart the app
-			var userSettingsService = Ioc.Default.GetRequiredService<IUserSettingsService>();
-			var lastSessionTabList = userSettingsService.GeneralSettingsService.LastSessionTabList;
-
-			if (userSettingsService.GeneralSettingsService.LastCrashedTabList?.SequenceEqual(lastSessionTabList) ?? false)
-			{
-				// Avoid infinite restart loop
-				userSettingsService.GeneralSettingsService.LastSessionTabList = null;
-			}
-			else
-			{
-				userSettingsService.AppSettingsService.RestoreTabsOnStartup = true;
-				userSettingsService.GeneralSettingsService.LastCrashedTabList = lastSessionTabList;
-			}
-
-			Window.DispatcherQueue.EnqueueAsync(async () =>
-			{
-				await Launcher.LaunchUriAsync(new Uri("files-uwp:"));
-			}).Wait(1000);
-			Process.GetCurrentProcess().Kill();
+			commandBarFlyout.Closed -= LastOpenedFlyout_Closed;
+			if (_LastOpenedFlyout == commandBarFlyout)
+				_LastOpenedFlyout = null;
 		}
-
-		public static void CloseApp()
-			=> Window.Close();
-
-		public static AppWindow GetAppWindow(Window w)
-		{
-			var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(w);
-
-			Microsoft.UI.WindowId windowId =
-				Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
-
-			return
-				AppWindow.GetFromWindowId(windowId);
-		}
-
-		public static MainWindow Window { get; set; } = null!;
-
-		public static IntPtr WindowHandle { get; private set; }
 	}
 }

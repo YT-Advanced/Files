@@ -1,22 +1,23 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.App.Commands;
-using Files.App.Contexts;
-using Files.App.Extensions;
-using System.Threading.Tasks;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
-	internal class SelectAllAction : IAction
+	internal sealed class SelectAllAction : IAction
 	{
-		private readonly IContentPageContext context = Ioc.Default.GetRequiredService<IContentPageContext>();
+		private readonly IContentPageContext context;
 
-		public string Label { get; } = "SelectAll".GetLocalizedResource();
+		public string Label
+			=> "SelectAll".GetLocalizedResource();
 
-		public string Description => "SelectAllDescription".GetLocalizedResource();
+		public string Description
+			=> "SelectAllDescription".GetLocalizedResource();
 
-		public RichGlyph Glyph { get; } = new("\uE8B3");
+		public RichGlyph Glyph
+			=> new(themedIconStyle: "App.ThemedIcons.SelectAll");
 
-		public HotKey HotKey { get; } = new(Keys.A, KeyModifiers.Ctrl);
+		public HotKey HotKey
+			=> new(Keys.A, KeyModifiers.Ctrl);
 
 		public bool IsExecutable
 		{
@@ -29,21 +30,28 @@ namespace Files.App.Actions
 				if (page is null)
 					return false;
 
-				int itemCount = page.FilesystemViewModel.FilesAndFolders.Count;
+				int itemCount = page.ShellViewModel.FilesAndFolders.Count;
 				int selectedItemCount = context.SelectedItems.Count;
 				if (itemCount == selectedItemCount)
 					return false;
 
+				bool isCommandPaletteOpen = page.ToolbarViewModel.IsCommandPaletteOpen;
 				bool isEditing = page.ToolbarViewModel.IsEditModeEnabled;
-				bool isRenaming = page.SlimContentPage.IsRenamingItem;
+				bool isRenaming = page.SlimContentPage?.IsRenamingItem ?? false;
 
-				return !isEditing && !isRenaming;
+				return isCommandPaletteOpen || (!isEditing && !isRenaming);
 			}
 		}
 
-		public Task ExecuteAsync()
+		public SelectAllAction()
+		{
+			context = Ioc.Default.GetRequiredService<IContentPageContext>();
+		}
+
+		public Task ExecuteAsync(object? parameter = null)
 		{
 			context.ShellPage?.SlimContentPage?.ItemManipulationModel?.SelectAllItems();
+
 			return Task.CompletedTask;
 		}
 	}

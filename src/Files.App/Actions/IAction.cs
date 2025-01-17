@@ -1,5 +1,5 @@
-﻿using Files.App.Commands;
-using System.Threading.Tasks;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
@@ -17,36 +17,51 @@ namespace Files.App.Actions
 		string Description { get; }
 
 		/// <summary>
-		/// Glyph information to display icon
+		/// Glyph information to display icon.
 		/// </summary>
-		RichGlyph Glyph => RichGlyph.None;
+		RichGlyph Glyph
+			=> RichGlyph.None;
 
 		/// <summary>
-		/// Primary hotkey to execute the action
+		/// Primary hotkey to execute the action.
 		/// </summary>
-		HotKey HotKey => HotKey.None;
+		HotKey HotKey
+			=> HotKey.None;
+
 		/// <summary>
-		/// Secondary hotkey to execute the action
+		/// Secondary hotkey to execute the action.
 		/// </summary>
-		HotKey SecondHotKey => HotKey.None;
+		HotKey SecondHotKey
+			=> HotKey.None;
+
 		/// <summary>
-		/// Tertiary hotkey to execute the action
+		/// Tertiary hotkey to execute the action.
 		/// </summary>
-		HotKey ThirdHotKey => HotKey.None;
+		HotKey ThirdHotKey
+			=> HotKey.None;
+
 		/// <summary>
-		/// A hotkey with media keys
+		/// A hotkey with media keys.
 		/// </summary>
-		HotKey MediaHotKey => HotKey.None;
+		HotKey MediaHotKey
+			=> HotKey.None;
 
 		/// <summary>
 		/// Returns whether the action is executable in the current context.
 		/// </summary>
-		bool IsExecutable => true;
+		bool IsExecutable
+			=> true;
+
+		/// <summary>
+		/// Returns whether the action is accessible in any context.
+		/// </summary>
+		bool IsAccessibleGlobally
+			=> true;
 
 		/// <summary>
 		/// Executes the action asynchronously.
 		/// </summary>
 		/// <returns>A <see cref="Task"/> that represents the asynchronous operation.</returns>
-		Task ExecuteAsync();
+		Task ExecuteAsync(object? parameter = null);
 	}
 }

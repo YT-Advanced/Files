@@ -1,32 +1,56 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.App.Commands;
-using Files.App.Contexts;
-using Files.App.Extensions;
-using Files.App.Filesystem;
-using System.Threading.Tasks;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
-	internal class UnpinFromStartAction : IAction
+	internal sealed class UnpinFromStartAction : IAction
 	{
-		public IContentPageContext context = Ioc.Default.GetRequiredService<IContentPageContext>();
+		private IStorageService StorageService { get; } = Ioc.Default.GetRequiredService<IStorageService>();
 
-		public string Label { get; } = "UnpinItemFromStart/Text".GetLocalizedResource();
+		private IStartMenuService StartMenuService { get; } = Ioc.Default.GetRequiredService<IStartMenuService>();
 
-		public string Description => "UnpinFromStartDescription".GetLocalizedResource();
+		public IContentPageContext context;
 
-		public RichGlyph Glyph { get; } = new RichGlyph(opacityStyle: "ColorIconUnpinFromFavorites");
+		public string Label
+			=> "UnpinItemFromStart/Text".GetLocalizedResource();
 
-		public async Task ExecuteAsync()
+		public string Description
+			=> "UnpinFromStartDescription".GetLocalizedResource();
+
+		public RichGlyph Glyph
+			=> new(themedIconStyle: "App.ThemedIcons.FavoritePinRemove");
+
+		public UnpinFromStartAction()
+		{
+			context = Ioc.Default.GetRequiredService<IContentPageContext>();
+		}
+
+		public async Task ExecuteAsync(object? parameter = null)
 		{
 			if (context.SelectedItems.Count > 0)
 			{
 				foreach (ListedItem listedItem in context.ShellPage?.SlimContentPage.SelectedItems)
-					await App.SecondaryTileHelper.TryPinFolderAsync(listedItem.ItemPath, listedItem.Name);
+				{
+					await SafetyExtensions.IgnoreExceptions(async () =>
+					{
+						IStorable storable = listedItem.IsFolder switch
+						{
+							true => await StorageService.GetFolderAsync(listedItem.ItemPath),
+							_ => await StorageService.GetFileAsync((listedItem as ShortcutItem)?.TargetPath ?? listedItem.ItemPath)
+						};
+						await StartMenuService.UnpinAsync(storable);
+					});
+				}
 			}
 			else
 			{
-				await App.SecondaryTileHelper.TryPinFolderAsync(context.ShellPage?.FilesystemViewModel.CurrentFolder.ItemPath, context.ShellPage?.FilesystemViewModel.CurrentFolder.Name);
+				await SafetyExtensions.IgnoreExceptions(async () =>
+				{
+					var currentFolder = context.ShellPage.ShellViewModel.CurrentFolder;
+					var folder = await StorageService.GetFolderAsync(currentFolder.ItemPath);
+
+					await StartMenuService.UnpinAsync(folder);
+				});
 			}
 		}
 	}

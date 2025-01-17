@@ -1,35 +1,30 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.Mvvm.Input;
-using Files.App.DataModels.NavigationControlItems;
-using Files.App.Extensions;
-using Files.App.ServicesImplementation;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using System.Windows.Input;
 
 namespace Files.App.ViewModels.Dialogs
 {
-	public class ReorderSidebarItemsDialogViewModel : ObservableObject
+	public sealed class ReorderSidebarItemsDialogViewModel : ObservableObject
 	{
 		private readonly IQuickAccessService quickAccessService = Ioc.Default.GetRequiredService<IQuickAccessService>();
 
 		public string HeaderText = "ReorderSidebarItemsDialogText".GetLocalizedResource();
 		public ICommand PrimaryButtonCommand { get; private set; }
 
-		public ObservableCollection<LocationItem> SidebarFavoriteItems = new(App.QuickAccessManager.Model.favoriteList
-			.Where(x => x is LocationItem loc && loc.Section is Filesystem.SectionType.Favorites && !loc.IsHeader)
+		public ObservableCollection<LocationItem> SidebarPinnedFolderItems = new(App.QuickAccessManager.Model._PinnedFolderItems
+			.Where(x => x is LocationItem loc && loc.Section is SectionType.Pinned && !loc.IsHeader)
 			.Cast<LocationItem>());
 
 		public ReorderSidebarItemsDialogViewModel() 
 		{
-			//App.Logger.LogWarning(string.Join(", ", SidebarFavoriteItems.Select(x => x.Path)));
+			//App.Logger.LogWarning(string.Join(", ", SidebarPinnedFolderItems.Select(x => x.Path)));
 			PrimaryButtonCommand = new RelayCommand(SaveChanges);
 		}
 
 		public void SaveChanges()
 		{
-			quickAccessService.Save(SidebarFavoriteItems.Select(x => x.Path).ToArray());
+			quickAccessService.SaveAsync(SidebarPinnedFolderItems.Select(x => x.Path).ToArray());
 		}
 	}
 }

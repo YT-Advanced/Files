@@ -1,22 +1,18 @@
-using CommunityToolkit.Mvvm.ComponentModel;
-using Files.App.Extensions;
-using Files.App.Filesystem;
-using Files.App.Filesystem.Archive;
-using Files.Backend.Models;
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 using Windows.Foundation.Metadata;
 
 namespace Files.App.Dialogs
 {
 	public sealed partial class CreateArchiveDialog : ContentDialog
 	{
+		private FrameworkElement RootAppElement
+			=> (FrameworkElement)MainWindow.Instance.Content;
+
 		private bool canCreate = false;
 		public bool CanCreate => canCreate;
 
@@ -56,20 +52,30 @@ namespace Files.App.Dialogs
 			set => ViewModel.SplittingSize = ViewModel.SplittingSizes.First(size => size.Key == value);
 		}
 
+		public int CPUThreads
+		{
+			get => ViewModel.CPUThreads;
+			set => ViewModel.CPUThreads = value;
+		}
+
 		private DialogViewModel ViewModel { get; } = new();
 
 		public CreateArchiveDialog()
 		{
 			InitializeComponent();
+
 			ViewModel.PropertyChanged += ViewModel_PropertyChanged;
 		}
 
-		public new Task<ContentDialogResult> ShowAsync() => SetContentDialogRoot(this).ShowAsync().AsTask();
+		public new Task<ContentDialogResult> ShowAsync()
+		{
+			return SetContentDialogRoot(this).ShowAsync().AsTask();
+		}
 
 		private static ContentDialog SetContentDialogRoot(ContentDialog contentDialog)
 		{
 			if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 8))
-				contentDialog.XamlRoot = App.Window.Content.XamlRoot; // WinUi3
+				contentDialog.XamlRoot = MainWindow.Instance.Content.XamlRoot; // WinUi3
 			return contentDialog;
 		}
 
@@ -99,42 +105,68 @@ namespace Files.App.Dialogs
 				PasswordBox.Focus(FocusState.Programmatic);
 		}
 
-		private class DialogViewModel : ObservableObject
+		private sealed class DialogViewModel : ObservableObject
 		{
+			private readonly IGeneralSettingsService GeneralSettingsService = Ioc.Default.GetRequiredService<IGeneralSettingsService>();
+
 			public bool IsNameValid => FilesystemHelpers.IsValidForFilename(fileName);
+
+			public bool ShowNameWarning => !string.IsNullOrEmpty(fileName) && !IsNameValid;
 
 			private string fileName = string.Empty;
 			public string FileName
 			{
 				get => fileName;
-				set => SetProperty(ref fileName, value, nameof(IsNameValid));
-			}
-
-			private FileFormatItem fileFormat;
-			public FileFormatItem FileFormat
-			{
-				get => fileFormat;
 				set
 				{
-					if (SetProperty(ref fileFormat, value))
-						OnPropertyChanged(nameof(CanSplit));
+					if (SetProperty(ref fileName, value))
+					{
+						OnPropertyChanged(nameof(IsNameValid));
+						OnPropertyChanged(nameof(ShowNameWarning));
+					}
 				}
 			}
 
-			private CompressionLevelItem compressionLevel;
+			public FileFormatItem FileFormat
+			{
+				get => FileFormats.First(format => format.Key == GeneralSettingsService.ArchiveFormatsOption);
+				set
+				{
+					if (value.Key != GeneralSettingsService.ArchiveFormatsOption)
+					{
+						GeneralSettingsService.ArchiveFormatsOption = value.Key;
+						OnPropertyChanged(nameof(CanSplit));
+					}
+				}
+			}
+
 			public CompressionLevelItem CompressionLevel
 			{
-				get => compressionLevel;
-				set => SetProperty(ref compressionLevel, value);
+				get => CompressionLevels.First(level => level.Key == GeneralSettingsService.ArchiveCompressionLevelsOption);
+				set
+				{
+					if (value.Key != GeneralSettingsService.ArchiveCompressionLevelsOption)
+						GeneralSettingsService.ArchiveCompressionLevelsOption = value.Key;
+				}
 			}
 
 			public bool CanSplit => FileFormat.Key is ArchiveFormats.SevenZip;
 
-			private SplittingSizeItem splittingSize;
 			public SplittingSizeItem SplittingSize
 			{
-				get => splittingSize;
-				set => SetProperty(ref splittingSize, value);
+				get => SplittingSizes.First(size => size.Key == GeneralSettingsService.ArchiveSplittingSizesOption);
+				set
+				{
+					if (value.Key != GeneralSettingsService.ArchiveSplittingSizesOption)
+						GeneralSettingsService.ArchiveSplittingSizesOption = value.Key;
+				}
+			}
+
+			private int cpuThreads = Environment.ProcessorCount;
+			public int CPUThreads
+			{
+				get => cpuThreads;
+				set => SetProperty(ref cpuThreads, value);
 			}
 
 			private bool useEncryption = false;
@@ -159,42 +191,41 @@ namespace Files.App.Dialogs
 				}
 			}
 
-			public IImmutableList<FileFormatItem> FileFormats { get; } = new List<FileFormatItem>
-			{
+			public ImmutableList<FileFormatItem> FileFormats { get; } =
+			[
 				new(ArchiveFormats.Zip, ".zip"),
 				new(ArchiveFormats.SevenZip, ".7z"),
-			}.ToImmutableList();
+			];
 
-			public IImmutableList<CompressionLevelItem> CompressionLevels { get; } = new List<CompressionLevelItem>
-			{
+			public ImmutableList<CompressionLevelItem> CompressionLevels { get; } =
+			[
 				new CompressionLevelItem(ArchiveCompressionLevels.Ultra, "CompressionLevelUltra".GetLocalizedResource()),
 				new CompressionLevelItem(ArchiveCompressionLevels.High, "CompressionLevelHigh".GetLocalizedResource()),
 				new CompressionLevelItem(ArchiveCompressionLevels.Normal, "CompressionLevelNormal".GetLocalizedResource()),
 				new CompressionLevelItem(ArchiveCompressionLevels.Low, "CompressionLevelLow".GetLocalizedResource()),
 				new CompressionLevelItem(ArchiveCompressionLevels.Fast, "CompressionLevelFast".GetLocalizedResource()),
 				new CompressionLevelItem(ArchiveCompressionLevels.None, "CompressionLevelNone".GetLocalizedResource()),
-			}.ToImmutableList();
+			];
 
-			public IImmutableList<SplittingSizeItem> SplittingSizes { get; } = new List<SplittingSizeItem>
-			{
+			public ImmutableList<SplittingSizeItem> SplittingSizes { get; } =
+			[
 				new(ArchiveSplittingSizes.None, "Do not split".GetLocalizedResource()),
 				new(ArchiveSplittingSizes.Mo10, ToSizeText(10)),
 				new(ArchiveSplittingSizes.Mo100, ToSizeText(100)),
 				new(ArchiveSplittingSizes.Cd650, ToSizeText(650), "CD".GetLocalizedResource()),
 				new(ArchiveSplittingSizes.Cd700, ToSizeText(700), "CD".GetLocalizedResource()),
 				new(ArchiveSplittingSizes.Mo1024, ToSizeText(1024)),
+				new(ArchiveSplittingSizes.Mo2048, ToSizeText(2048)),
 				new(ArchiveSplittingSizes.Fat4092, ToSizeText(4092), "FAT".GetLocalizedResource()),
 				new(ArchiveSplittingSizes.Dvd4480, ToSizeText(4480), "DVD".GetLocalizedResource()),
 				new(ArchiveSplittingSizes.Mo5120, ToSizeText(5120)),
 				new(ArchiveSplittingSizes.Dvd8128, ToSizeText(8128), "DVD".GetLocalizedResource()),
 				new(ArchiveSplittingSizes.Bd23040, ToSizeText(23040), "Bluray".GetLocalizedResource()),
-			}.ToImmutableList();
+			];
 
 			public DialogViewModel()
 			{
-				fileFormat = FileFormats.First(format => format.Key is ArchiveFormats.Zip);
-				compressionLevel = CompressionLevels.First(level => level.Key is ArchiveCompressionLevels.Normal);
-				splittingSize = SplittingSizes.First(size => size.Key is ArchiveSplittingSizes.None);
+
 			}
 
 			private static string ToSizeText(ulong megaBytes) => ByteSize.FromMebiBytes(megaBytes).ShortString;

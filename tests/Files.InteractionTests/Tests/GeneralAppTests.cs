@@ -1,7 +1,10 @@
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 namespace Files.InteractionTests.Tests
 {
 	[TestClass]
-	public class GeneralAppTests
+	public sealed class GeneralAppTests
 	{
 		[TestMethod]
 		public void SessionGetsInitialized()

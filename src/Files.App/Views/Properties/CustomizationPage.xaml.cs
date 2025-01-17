@@ -1,6 +1,9 @@
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
+using Files.App.Data.Parameters;
 using Files.App.ViewModels.Properties;
 using Microsoft.UI.Xaml.Navigation;
-using System.Threading.Tasks;
 
 namespace Files.App.Views.Properties
 {
@@ -15,12 +18,15 @@ namespace Files.App.Views.Properties
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
+			var parameter = (PropertiesPageNavigationParameter)e.Parameter;
+
 			base.OnNavigatedTo(e);
-			CustomizationViewModel = new(AppInstance, BaseProperties);
+
+			CustomizationViewModel = new(AppInstance, BaseProperties, parameter.Window.AppWindow);
 		}
 
-		public override Task<bool> SaveChangesAsync()
-			=> Task.FromResult(true);
+		public override async Task<bool> SaveChangesAsync()
+			=> await CustomizationViewModel.UpdateIcon();
 
 		public override void Dispose()
 		{

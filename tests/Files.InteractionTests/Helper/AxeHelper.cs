@@ -1,11 +1,14 @@
-﻿using Axe.Windows.Automation;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
+
+using Axe.Windows.Automation;
 using Axe.Windows.Core.Enums;
 using System.Diagnostics;
 using System.Linq;
 
 namespace Files.InteractionTests.Helper
 {
-	public class AxeHelper
+	public sealed class AxeHelper
 	{
 		public static IScanner AccessibilityScanner;
 

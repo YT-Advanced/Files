@@ -1,3 +1,6 @@
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
@@ -41,13 +44,17 @@ namespace Files.App.Helpers
 
 			try
 			{
-				return Path.GetFullPath(new Uri(path).LocalPath)
+				var pathUri = new Uri(path).LocalPath;
+				if (string.IsNullOrEmpty(pathUri))
+					return path;
+
+				return Path.GetFullPath(pathUri)
 					.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
 					.ToUpperInvariant();
 			}
-			catch (UriFormatException ex)
+			catch (Exception ex) when (ex is UriFormatException || ex is ArgumentException)
 			{
-				App.Logger.LogWarning(ex, path);
+				App.Logger.LogDebug(ex, path);
 				return path;
 			}
 		}

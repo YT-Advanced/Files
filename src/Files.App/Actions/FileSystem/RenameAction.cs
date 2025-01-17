@@ -1,39 +1,58 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.App.Commands;
-using Files.App.Contexts;
-using Files.App.Extensions;
-using System.Threading.Tasks;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
-	internal class RenameAction : ObservableObject, IAction
+	internal sealed class RenameAction : ObservableObject, IAction
 	{
-		private readonly IContentPageContext context = Ioc.Default.GetRequiredService<IContentPageContext>();
+		private readonly IContentPageContext context;
 
-		public string Label { get; } = "Rename".GetLocalizedResource();
+		public string Label
+			=> "Rename".GetLocalizedResource();
 
-		public string Description { get; } = "RenameDescription".GetLocalizedResource();
+		public string Description
+			=> "RenameDescription".GetLocalizedResource();
 
-		public HotKey HotKey { get; } = new(Keys.F2);
+		public HotKey HotKey
+			=> new(Keys.F2);
 
-		public RichGlyph Glyph { get; } = new(opacityStyle: "ColorIconRename");
+		public RichGlyph Glyph
+			=> new(themedIconStyle: "App.ThemedIcons.Rename");
 
 		public bool IsExecutable =>
 			context.ShellPage is not null &&
 			IsPageTypeValid() &&
 			context.ShellPage.SlimContentPage is not null &&
-			IsSelectionValid();
+			context.HasSelection;
 
 		public RenameAction()
 		{
+			context = Ioc.Default.GetRequiredService<IContentPageContext>();
+
 			context.PropertyChanged += Context_PropertyChanged;
 		}
 
-		public Task ExecuteAsync()
+		public async Task ExecuteAsync(object? parameter = null)
 		{
-			context.ShellPage?.SlimContentPage?.ItemManipulationModel.StartRenameItem();
-			return Task.CompletedTask;
+			if (context.SelectedItems.Count > 1)
+			{
+				var viewModel = new BulkRenameDialogViewModel();
+				var dialogService = Ioc.Default.GetRequiredService<IDialogService>();
+				var result = await dialogService.ShowDialogAsync(viewModel);
+			}
+			else
+			{
+				context.ShellPage?.SlimContentPage?.ItemManipulationModel.StartRenameItem();
+			}
+		}
+
+		private bool IsPageTypeValid()
+		{
+			return
+				context.PageType != ContentPageTypes.None &&
+				context.PageType != ContentPageTypes.Home &&
+				context.PageType != ContentPageTypes.RecycleBin &&
+				context.PageType != ContentPageTypes.ZipFolder;
 		}
 
 		private void Context_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -47,20 +66,6 @@ namespace Files.App.Actions
 					OnPropertyChanged(nameof(IsExecutable));
 					break;
 			}
-		}
-
-		private bool IsSelectionValid()
-		{
-			return context.HasSelection && context.SelectedItems.Count == 1;
-		}
-
-		private bool IsPageTypeValid()
-		{
-			return context.PageType is
-				not ContentPageTypes.None and
-				not ContentPageTypes.Home and
-				not ContentPageTypes.RecycleBin and
-				not ContentPageTypes.ZipFolder;
 		}
 	}
 }

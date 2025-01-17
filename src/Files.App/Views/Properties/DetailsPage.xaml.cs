@@ -1,31 +1,39 @@
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using Files.App.Dialogs;
-using Files.App.Helpers;
 using Files.App.ViewModels.Properties;
-using Files.Shared.Enums;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace Files.App.Views.Properties
 {
 	public sealed partial class DetailsPage : BasePropertiesPage
 	{
+		private readonly DispatcherQueueTimer _updateDateDisplayTimer;
+
 		public DetailsPage()
 		{
 			InitializeComponent();
+
+			_updateDateDisplayTimer = DispatcherQueue.CreateTimer();
+			_updateDateDisplayTimer.Interval = TimeSpan.FromSeconds(1);
+			_updateDateDisplayTimer.Tick += UpdateDateDisplayTimer_Tick;
+			_updateDateDisplayTimer.Start();
 		}
 
-		protected override void Properties_Loaded(object sender, RoutedEventArgs e)
+		protected override async void Properties_Loaded(object sender, RoutedEventArgs e)
 		{
 			base.Properties_Loaded(sender, e);
 
-			if (BaseProperties is FileProperties fileProps)
+			if (BaseProperties is IFileProperties fileProps)
 			{
 				Stopwatch stopwatch = Stopwatch.StartNew();
-				fileProps.GetSystemFileProperties();
+				await fileProps.GetSystemFilePropertiesAsync();
 				stopwatch.Stop();
 				Debug.WriteLine(string.Format("System file properties were obtained in {0} milliseconds", stopwatch.ElapsedMilliseconds));
+
+				ViewModel.IsPropertiesLoaded = true;
 			}
 		}
 
@@ -36,7 +44,7 @@ namespace Files.App.Views.Properties
 				using DynamicDialog dialog = DynamicDialogFactory.GetFor_PropertySaveErrorDialog();
 				try
 				{
-					if (BaseProperties is FileProperties fileProps)
+					if (BaseProperties is IFileProperties fileProps)
 					{
 						await fileProps.SyncPropertyChangesAsync();
 					}
@@ -63,14 +71,27 @@ namespace Files.App.Views.Properties
 		private async void ClearPropertiesConfirmation_Click(object sender, RoutedEventArgs e)
 		{
 			ClearPropertiesFlyout.Hide();
-			if (BaseProperties is FileProperties fileProps)
+			if (BaseProperties is IFileProperties fileProps)
 			{
 				await fileProps.ClearPropertiesAsync();
 			}
 		}
 
+		private void UpdateDateDisplayTimer_Tick(object sender, object e)
+		{
+			if (App.AppModel.PropertiesWindowCount == 0)
+				return;
+
+			ViewModel.PropertySections.ForEach(section => section.ForEach(property =>
+			{
+				if (property.Value is DateTimeOffset)
+					property.UpdateValueText();
+			}));
+		}
+
 		public override void Dispose()
 		{
+			_updateDateDisplayTimer.Stop();
 		}
 	}
 }

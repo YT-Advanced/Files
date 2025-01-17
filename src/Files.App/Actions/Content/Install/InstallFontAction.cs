@@ -1,38 +1,40 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.App.Contexts;
-using Files.App.Extensions;
-using Files.App.Filesystem;
-using Files.App.Shell;
-using Files.Backend.Helpers;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
+
+using Files.Shared.Helpers;
 
 namespace Files.App.Actions
 {
-	internal class InstallFontAction : ObservableObject, IAction
+	internal sealed class InstallFontAction : ObservableObject, IAction
 	{
-		private readonly IContentPageContext context = Ioc.Default.GetRequiredService<IContentPageContext>();
+		private readonly IContentPageContext context;
 
-		public string Label => "Install".GetLocalizedResource();
+		public string Label
+			=> "Install".GetLocalizedResource();
 
-		public string Description => "InstallFontDescription".GetLocalizedResource();
+		public string Description
+			=> "InstallFontDescription".GetLocalizedResource();
 
-		public bool IsExecutable => context.SelectedItems.Any() &&
+		public RichGlyph Glyph
+			=> new("\uE8D2");
+
+		public bool IsExecutable =>
+			context.SelectedItems.Any() &&
 			context.SelectedItems.All(x => FileExtensionHelpers.IsFontFile(x.FileExtension)) &&
-			context.PageType is not ContentPageTypes.RecycleBin and not ContentPageTypes.ZipFolder;
+			context.PageType != ContentPageTypes.RecycleBin &&
+			context.PageType != ContentPageTypes.ZipFolder;
 
 		public InstallFontAction()
 		{
+			context = Ioc.Default.GetRequiredService<IContentPageContext>();
+
 			context.PropertyChanged += Context_PropertyChanged;
 		}
 
-		public Task ExecuteAsync()
+		public Task ExecuteAsync(object? parameter = null)
 		{
-			foreach (ListedItem selectedItem in context.SelectedItems)
-				Win32API.InstallFont(selectedItem.ItemPath, false);
-
-			return Task.CompletedTask;
+			var paths = context.SelectedItems.Select(item => item.ItemPath).ToArray();
+			return Win32Helper.InstallFontsAsync(paths, false);
 		}
 
 		public void Context_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)

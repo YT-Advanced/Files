@@ -1,10 +1,12 @@
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
-using System;
 
 namespace Files.App.Converters
 {
-	public class VisibilityInvertConverter : IValueConverter
+	internal sealed class VisibilityInvertConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{

@@ -1,11 +1,14 @@
-﻿using OpenQA.Selenium.Interactions;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
+
+using OpenQA.Selenium.Interactions;
 using System;
 using System.Threading;
 
 namespace Files.InteractionTests.Tests
 {
 	[TestClass]
-	public class SettingsTests
+	public sealed class SettingsTests
 	{
 
 		[TestCleanup]
@@ -25,8 +28,11 @@ namespace Files.InteractionTests.Tests
 			{
 				"SettingsItemGeneral",
 				"SettingsItemAppearance",
+				//"SettingsItemLayout", TODO find workaround for the "Group by" setting block issue
 				"SettingsItemFolders",
+				"SettingsItemActions",
 				"SettingsItemTags",
+				"SettingsItemDevTools",
 				"SettingsItemAdvanced",
 				"SettingsItemAbout"
 			};

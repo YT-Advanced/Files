@@ -1,4 +1,5 @@
-﻿<ContentDialog
+﻿<!--  Copyright (c) Files Community. Licensed under the MIT License.  -->
+<ContentDialog
 	x:Class="Files.App.Dialogs.DecompressArchiveDialog"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -8,15 +9,17 @@
 	Title="{helpers:ResourceString Name=ExtractArchive}"
 	CornerRadius="{StaticResource OverlayCornerRadius}"
 	DefaultButton="Primary"
+	HighContrastAdjustment="None"
 	PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
 	PrimaryButtonText="{helpers:ResourceString Name=Extract}"
-	RequestedTheme="{x:Bind helpers:ThemeHelper.RootTheme}"
+	RequestedTheme="{x:Bind RootAppElement.RequestedTheme, Mode=OneWay}"
 	SecondaryButtonText="{helpers:ResourceString Name=Cancel}"
 	Style="{StaticResource DefaultContentDialogStyle}"
 	mc:Ignorable="d">
 
 	<Border MinWidth="400" Margin="0,16,0,0">
 		<StackPanel Orientation="Vertical" Spacing="12">
+
 			<!--  Extract To Path  -->
 			<Grid
 				x:Name="ExtractPathGrid"
@@ -31,6 +34,7 @@
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
+
 				<!--  Header  -->
 				<TextBlock
 					Grid.Row="0"
@@ -45,12 +49,14 @@
 					HorizontalAlignment="Stretch"
 					IsReadOnly="True"
 					Text="{x:Bind ViewModel.DestinationFolderPath, Mode=OneWay}" />
+
 				<Button
 					x:Name="SelectDestination"
 					Grid.Row="1"
 					Grid.Column="1"
 					Command="{x:Bind ViewModel.SelectDestinationCommand}"
 					Content="{helpers:ResourceString Name=Browse}" />
+
 			</Grid>
 
 			<!--  Password  -->
@@ -59,16 +65,19 @@
 				x:Load="{x:Bind ViewModel.IsArchiveEncrypted}"
 				Orientation="Vertical"
 				Spacing="8">
+
 				<TextBlock
 					x:Name="PasswordHeader"
 					HorizontalAlignment="Stretch"
 					VerticalAlignment="Stretch"
 					Text="{helpers:ResourceString Name=ArchivePassword}" />
+
 				<PasswordBox
 					x:Name="Password"
 					HorizontalAlignment="Stretch"
 					VerticalAlignment="Stretch"
 					PlaceholderText="{helpers:ResourceString Name=Password}" />
+
 			</StackPanel>
 
 			<!--  Open when complete  -->
@@ -78,6 +87,7 @@
 				x:Load="{x:Bind ViewModel.ShowPathSelection}"
 				Content="{helpers:ResourceString Name=DecompressArchiveDialogOpenDestinationWhenComplete/Content}"
 				IsChecked="{x:Bind ViewModel.OpenDestinationFolderOnCompletion, Mode=TwoWay}" />
+
 		</StackPanel>
 	</Border>
 </ContentDialog>

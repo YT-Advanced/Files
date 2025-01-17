@@ -1,4 +1,5 @@
-﻿<ContentDialog
+<!--  Copyright (c) Files Community. Licensed under the MIT License.  -->
+<ContentDialog
 	x:Class="Files.App.Dialogs.SettingsDialog"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,6 +8,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	Closing="ContentDialog_Closing"
 	DataContext="{x:Bind ViewModel, Mode=OneWay}"
+	HighContrastAdjustment="None"
 	RequestedTheme="{x:Bind RootAppElement.RequestedTheme, Mode=OneWay}"
 	Style="{StaticResource DefaultContentDialogStyle}"
 	mc:Ignorable="d">
@@ -14,20 +16,21 @@
 	<ContentDialog.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="ms-appx:///ResourceDictionaries/NavigationViewItemButtonStyle.xaml" />
+				<ResourceDictionary Source="ms-appx:///Styles/NavigationViewItemButtonStyle.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 
 			<x:Double x:Key="ContentDialogMaxWidth">1100</x:Double>
 			<Thickness x:Key="ContentDialogPadding">0</Thickness>
 			<SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
 			<SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+
 		</ResourceDictionary>
 	</ContentDialog.Resources>
 
 	<Grid
 		x:Name="ContainerGrid"
 		MaxHeight="790"
-		Background="{ThemeResource SolidBackgroundFillColorBase}">
+		Background="{ThemeResource SolidBackgroundFillColorBaseBrush}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="44" />
 			<RowDefinition Height="*" />
@@ -82,58 +85,79 @@
 			<!--  Menu Items  -->
 			<NavigationView.MenuItems>
 				<NavigationViewItem
-					AccessKey="P"
 					AutomationProperties.AutomationId="SettingsItemGeneral"
 					Content="{helpers:ResourceString Name=General}"
 					IsSelected="True"
-					Tag="0">
+					Tag="GeneralPage">
 					<NavigationViewItem.Icon>
-						<FontIcon Glyph="&#xE9E9;" />
+						<FontIcon Foreground="{ThemeResource App.Theme.IconBaseBrush}" Glyph="&#xE9E9;" />
 					</NavigationViewItem.Icon>
 				</NavigationViewItem>
 				<NavigationViewItem
-					AccessKey="A"
 					AutomationProperties.AutomationId="SettingsItemAppearance"
 					Content="{helpers:ResourceString Name=Appearance}"
-					Tag="1">
+					Tag="AppearancePage">
 					<NavigationViewItem.Icon>
-						<FontIcon HorizontalAlignment="Left" Glyph="&#xE790;" />
+						<FontIcon Foreground="{ThemeResource App.Theme.IconBaseBrush}" Glyph="&#xE790;" />
 					</NavigationViewItem.Icon>
 				</NavigationViewItem>
 				<NavigationViewItem
-					AccessKey="F"
+					AutomationProperties.AutomationId="SettingsItemLayout"
+					Content="{helpers:ResourceString Name=Layout}"
+					Tag="LayoutPage">
+					<NavigationViewItem.Icon>
+						<FontIcon Foreground="{ThemeResource App.Theme.IconBaseBrush}" Glyph="&#xE8A9;" />
+					</NavigationViewItem.Icon>
+				</NavigationViewItem>
+				<NavigationViewItem
 					AutomationProperties.AutomationId="SettingsItemFolders"
-					Content="{helpers:ResourceString Name=Folders}"
-					Tag="2">
+					Content="{helpers:ResourceString Name=FilesAndFolders}"
+					Tag="FoldersPage">
 					<NavigationViewItem.Icon>
-						<FontIcon Glyph="&#xE8B7;" />
+						<FontIcon Foreground="{ThemeResource App.Theme.IconBaseBrush}" Glyph="&#xE8B7;" />
 					</NavigationViewItem.Icon>
 				</NavigationViewItem>
 				<NavigationViewItem
-					AccessKey="T"
+					AutomationProperties.AutomationId="SettingsItemActions"
+					Content="{helpers:ResourceString Name=Actions}"
+					Tag="ActionsPage">
+					<NavigationViewItem.Icon>
+						<FontIcon Foreground="{ThemeResource App.Theme.IconBaseBrush}" Glyph="&#xF73D;" />
+					</NavigationViewItem.Icon>
+				</NavigationViewItem>
+				<NavigationViewItem
 					AutomationProperties.AutomationId="SettingsItemTags"
 					Content="{helpers:ResourceString Name=FileTags}"
-					Tag="3">
+					Tag="TagsPage">
 					<NavigationViewItem.Icon>
-						<FontIcon Glyph="&#xE8EC;" />
+						<FontIcon Foreground="{ThemeResource App.Theme.IconBaseBrush}" Glyph="&#xE8EC;" />
 					</NavigationViewItem.Icon>
 				</NavigationViewItem>
 				<NavigationViewItem
-					AccessKey="E"
+					AutomationProperties.AutomationId="SettingsItemDevTools"
+					Content="{helpers:ResourceString Name=DevTools}"
+					Tag="DevToolsPage">
+					<NavigationViewItem.Icon>
+						<FontIcon Foreground="{ThemeResource App.Theme.IconBaseBrush}" Glyph="&#xE794;" />
+					</NavigationViewItem.Icon>
+				</NavigationViewItem>
+				<NavigationViewItem
 					AutomationProperties.AutomationId="SettingsItemAdvanced"
 					Content="{helpers:ResourceString Name=Advanced}"
-					Tag="4">
+					Tag="AdvancedPage">
 					<NavigationViewItem.Icon>
-						<FontIcon Glyph="&#xF1AD;" />
+						<FontIcon Foreground="{ThemeResource App.Theme.IconBaseBrush}" Glyph="&#xF1AD;" />
 					</NavigationViewItem.Icon>
 				</NavigationViewItem>
 				<NavigationViewItem
-					AccessKey="B"
 					AutomationProperties.AutomationId="SettingsItemAbout"
 					Content="{helpers:ResourceString Name=About}"
-					Tag="5">
+					Tag="AboutPage">
 					<NavigationViewItem.Icon>
-						<FontIcon FontSize="16" Glyph="&#xE946;" />
+						<FontIcon
+							FontSize="16"
+							Foreground="{ThemeResource App.Theme.IconBaseBrush}"
+							Glyph="&#xE946;" />
 					</NavigationViewItem.Icon>
 				</NavigationViewItem>
 			</NavigationView.MenuItems>
@@ -144,5 +168,6 @@
 			</ScrollViewer>
 
 		</NavigationView>
+
 	</Grid>
 </ContentDialog>

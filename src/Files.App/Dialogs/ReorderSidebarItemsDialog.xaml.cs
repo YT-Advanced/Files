@@ -1,9 +1,11 @@
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using CommunityToolkit.WinUI.UI;
-using Files.App.DataModels.NavigationControlItems;
+using Files.App.Data.Items;
 using Files.App.Extensions;
 using Files.App.ViewModels.Dialogs;
-using Files.Backend.ViewModels.Dialogs;
-using Files.Shared.Enums;
+using Files.App.ViewModels.Dialogs;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -15,6 +17,9 @@ namespace Files.App.Dialogs
 {
 	public sealed partial class ReorderSidebarItemsDialog : ContentDialog, IDialog<ReorderSidebarItemsDialogViewModel>
 	{
+		private FrameworkElement RootAppElement
+			=> (FrameworkElement)MainWindow.Instance.Content;
+
 		public ReorderSidebarItemsDialogViewModel ViewModel
 		{
 			get => (ReorderSidebarItemsDialogViewModel)DataContext;
@@ -26,12 +31,13 @@ namespace Files.App.Dialogs
 			InitializeComponent();
 		}
 
-		private async void MoveItem(object sender, PointerRoutedEventArgs e)
+		private async void MoveItemAsync(object sender, PointerRoutedEventArgs e)
 		{
 			var properties = e.GetCurrentPoint(null).Properties;
-			var icon = sender as FontIcon;
 			if (!properties.IsLeftButtonPressed)
 				return;
+
+			var icon = sender as FontIcon;
 
 			var navItem = icon?.FindAscendant<Grid>();
 			if (navItem is not null)
@@ -48,7 +54,6 @@ namespace Files.App.Dialogs
 			e.AllowedOperations = DataPackageOperation.Move;
 		}
 
-		
 		private void ListViewItem_DragOver(object sender, DragEventArgs e)
 		{
 			if ((sender as Grid)?.DataContext is not LocationItem locationItem)
@@ -85,9 +90,12 @@ namespace Files.App.Dialogs
 				return;
 
 			if ((e.DataView.Properties["sourceLocationItem"] as Grid)?.DataContext is LocationItem sourceLocationItem)
-				ViewModel.SidebarFavoriteItems.Move(ViewModel.SidebarFavoriteItems.IndexOf(sourceLocationItem), ViewModel.SidebarFavoriteItems.IndexOf(locationItem));
+				ViewModel.SidebarPinnedFolderItems.Move(ViewModel.SidebarPinnedFolderItems.IndexOf(sourceLocationItem), ViewModel.SidebarPinnedFolderItems.IndexOf(locationItem));
 		}
 
-		public new async Task<DialogResult> ShowAsync() => (DialogResult)await base.ShowAsync();
+		public new async Task<DialogResult> ShowAsync()
+		{
+			return (DialogResult)await base.ShowAsync();
+		}
 	}
 }

@@ -1,425 +1,298 @@
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.Mvvm.Input;
-using Files.App.DataModels.NavigationControlItems;
-using Files.App.Extensions;
-using Files.App.Filesystem;
-using Files.App.Filesystem.StorageItems;
-using Files.App.Helpers;
-using Files.App.UserControls.MultitaskingControl;
-using Files.App.Views;
-using Files.Backend.Services;
-using Files.Backend.Services.Settings;
-using Files.Shared.Extensions;
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using Windows.Storage;
 using Windows.System;
+using Microsoft.UI.Xaml.Controls;
 
 namespace Files.App.ViewModels
 {
-	public class MainPageViewModel : ObservableObject
+	/// <summary>
+	/// Represents ViewModel of <see cref="MainPage"/>.
+	/// </summary>
+	public sealed class MainPageViewModel : ObservableObject
 	{
-		private IUserSettingsService userSettingsService;
-		private IAppearanceSettingsService appearanceSettingsService;
-		private readonly DrivesViewModel drivesViewModel;
-		private IResourcesService resourcesService;
+		// Dependency injections
 
-		public IMultitaskingControl? MultitaskingControl { get; set; }
+		private IAppearanceSettingsService AppearanceSettingsService { get; } = Ioc.Default.GetRequiredService<IAppearanceSettingsService>();
+		private IGeneralSettingsService GeneralSettingsService { get; } = Ioc.Default.GetRequiredService<IGeneralSettingsService>();
+		private INetworkService NetworkService { get; } = Ioc.Default.GetRequiredService<INetworkService>();
+		private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetRequiredService<IUserSettingsService>();
+		private IResourcesService ResourcesService { get; } = Ioc.Default.GetRequiredService<IResourcesService>();
+		private DrivesViewModel DrivesViewModel { get; } = Ioc.Default.GetRequiredService<DrivesViewModel>();
 
-		public List<IMultitaskingControl> MultitaskingControls { get; } = new List<IMultitaskingControl>();
+		// Properties
 
-		public static ObservableCollection<TabItem> AppInstances { get; private set; } = new ObservableCollection<TabItem>();
+		public static ObservableCollection<TabBarItem> AppInstances { get; private set; } = [];
 
-		private TabItem? selectedTabItem;
-		public TabItem? SelectedTabItem
+		public List<ITabBar> MultitaskingControls { get; } = [];
+
+		public ITabBar? MultitaskingControl { get; set; }
+
+		private bool _IsSidebarPaneOpen;
+		public bool IsSidebarPaneOpen
+		{
+			get => _IsSidebarPaneOpen;
+			set => SetProperty(ref _IsSidebarPaneOpen, value);
+		}
+
+		private bool _IsSidebarPaneOpenToggleButtonVisible;
+		public bool IsSidebarPaneOpenToggleButtonVisible
+		{
+			get => _IsSidebarPaneOpenToggleButtonVisible;
+			set => SetProperty(ref _IsSidebarPaneOpenToggleButtonVisible, value);
+		}
+
+		private TabBarItem? selectedTabItem;
+		public TabBarItem? SelectedTabItem
 		{
 			get => selectedTabItem;
 			set => SetProperty(ref selectedTabItem, value);
 		}
 
-		public ICommand NavigateToNumberedTabKeyboardAcceleratorCommand { get; private set; }
-		public IAsyncRelayCommand OpenNewWindowAcceleratorCommand { get; private set; }
-
-		public MainPageViewModel(
-			IUserSettingsService userSettings, 
-			IAppearanceSettingsService appearanceSettings,
-			IResourcesService resources,
-			DrivesViewModel drivesViewModel)
+		private bool shouldViewControlBeDisplayed;
+		public bool ShouldViewControlBeDisplayed
 		{
-			userSettingsService = userSettings;
-			appearanceSettingsService = appearanceSettings;
-			this.drivesViewModel = drivesViewModel;
-			resourcesService = resources;
-			// Create commands
-			NavigateToNumberedTabKeyboardAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(NavigateToNumberedTabKeyboardAccelerator);
-			OpenNewWindowAcceleratorCommand = new AsyncRelayCommand<KeyboardAcceleratorInvokedEventArgs>(OpenNewWindowAccelerator);
+			get => shouldViewControlBeDisplayed;
+			set => SetProperty(ref shouldViewControlBeDisplayed, value);
 		}
 
-		private void NavigateToNumberedTabKeyboardAccelerator(KeyboardAcceleratorInvokedEventArgs? e)
+		private bool shouldPreviewPaneBeActive;
+		public bool ShouldPreviewPaneBeActive
 		{
-			int indexToSelect = 0;
-			switch (e!.KeyboardAccelerator.Key)
+			get => shouldPreviewPaneBeActive;
+			set => SetProperty(ref shouldPreviewPaneBeActive, value);
+		}
+
+		private bool shouldPreviewPaneBeDisplayed;
+		public bool ShouldPreviewPaneBeDisplayed
+		{
+			get => shouldPreviewPaneBeDisplayed;
+			set => SetProperty(ref shouldPreviewPaneBeDisplayed, value);
+		}
+
+		public bool ShowShelfPane
+			=> GeneralSettingsService.ShowShelfPane && AppLifecycleHelper.AppEnvironment is AppEnvironment.Dev;
+
+		public Stretch AppThemeBackgroundImageFit
+			=> AppearanceSettingsService.AppThemeBackgroundImageFit;
+
+		public float AppThemeBackgroundImageOpacity
+			=> AppearanceSettingsService.AppThemeBackgroundImageOpacity;
+
+		public ImageSource? AppThemeBackgroundImageSource =>
+			string.IsNullOrEmpty(AppearanceSettingsService.AppThemeBackgroundImageSource)
+				? null
+				: new BitmapImage(new Uri(AppearanceSettingsService.AppThemeBackgroundImageSource, UriKind.RelativeOrAbsolute));
+
+		public VerticalAlignment AppThemeBackgroundImageVerticalAlignment
+			=> AppearanceSettingsService.AppThemeBackgroundImageVerticalAlignment;
+
+		public HorizontalAlignment AppThemeBackgroundImageHorizontalAlignment
+			=> AppearanceSettingsService.AppThemeBackgroundImageHorizontalAlignment;
+
+		public bool ShowToolbar
+			=> AppearanceSettingsService.ShowToolbar;
+
+
+		// Commands
+
+		public ICommand NavigateToNumberedTabKeyboardAcceleratorCommand { get; }
+
+		// Constructor
+
+		public MainPageViewModel()
+		{
+			NavigateToNumberedTabKeyboardAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(ExecuteNavigateToNumberedTabKeyboardAcceleratorCommand);
+
+			AppearanceSettingsService.PropertyChanged += (s, e) =>
 			{
-				case VirtualKey.Number1:
-					indexToSelect = 0;
-					break;
-
-				case VirtualKey.Number2:
-					indexToSelect = 1;
-					break;
-
-				case VirtualKey.Number3:
-					indexToSelect = 2;
-					break;
-
-				case VirtualKey.Number4:
-					indexToSelect = 3;
-					break;
-
-				case VirtualKey.Number5:
-					indexToSelect = 4;
-					break;
-
-				case VirtualKey.Number6:
-					indexToSelect = 5;
-					break;
-
-				case VirtualKey.Number7:
-					indexToSelect = 6;
-					break;
-
-				case VirtualKey.Number8:
-					indexToSelect = 7;
-					break;
-
-				case VirtualKey.Number9:
-					// Select the last tab
-					indexToSelect = AppInstances.Count - 1;
-					break;
-			}
-
-			// Only select the tab if it is in the list
-			if (indexToSelect < AppInstances.Count)
-				App.AppModel.TabStripSelectedIndex = indexToSelect;
-			e.Handled = true;
-		}
-
-		private async Task OpenNewWindowAccelerator(KeyboardAcceleratorInvokedEventArgs? e)
-		{
-			var filesUWPUri = new Uri("files-uwp:");
-			await Launcher.LaunchUriAsync(filesUWPUri);
-			e!.Handled = true;
-		}
-
-		public async Task AddNewTabByPathAsync(Type type, string? path, int atIndex = -1)
-		{
-			if (string.IsNullOrEmpty(path))
-				path = "Home";
-			else if (path.EndsWith("\\?")) // Support drives launched through jump list by stripping away the question mark at the end.
-				path = path.Remove(path.Length - 1);
-
-			var tabItem = new TabItem()
-			{
-				Header = null,
-				IconSource = null,
-				Description = null,
-				ToolTipText = null
+				switch (e.PropertyName)
+				{
+					case nameof(AppearanceSettingsService.AppThemeBackgroundImageSource):
+						OnPropertyChanged(nameof(AppThemeBackgroundImageSource));
+						break;
+					case nameof(AppearanceSettingsService.AppThemeBackgroundImageOpacity):
+						OnPropertyChanged(nameof(AppThemeBackgroundImageOpacity));
+						break;
+					case nameof(AppearanceSettingsService.AppThemeBackgroundImageFit):
+						OnPropertyChanged(nameof(AppThemeBackgroundImageFit));
+						break;
+					case nameof(AppearanceSettingsService.AppThemeBackgroundImageVerticalAlignment):
+						OnPropertyChanged(nameof(AppThemeBackgroundImageVerticalAlignment));
+						break;
+					case nameof(AppearanceSettingsService.AppThemeBackgroundImageHorizontalAlignment):
+						OnPropertyChanged(nameof(AppThemeBackgroundImageHorizontalAlignment));
+						break;
+					case nameof(AppearanceSettingsService.ShowToolbar):
+						OnPropertyChanged(nameof(ShowToolbar));
+						break;
+				}
 			};
-			tabItem.Control.NavigationArguments = new TabItemArguments()
+
+			GeneralSettingsService.PropertyChanged += (s, e) =>
 			{
-				InitialPageType = type,
-				NavigationArg = path
+				switch (e.PropertyName)
+				{
+					case nameof(GeneralSettingsService.ShowShelfPane):
+						OnPropertyChanged(nameof(ShowShelfPane));
+						break;
+				}
 			};
-			tabItem.Control.ContentChanged += Control_ContentChanged;
-			await UpdateTabInfo(tabItem, path);
-			var index = atIndex == -1 ? AppInstances.Count : atIndex;
-			AppInstances.Insert(index, tabItem);
-			App.AppModel.TabStripSelectedIndex = index;
 		}
 
-		public async void UpdateInstanceProperties(object navigationArg)
-		{
-			string windowTitle = string.Empty;
-			if (navigationArg is PaneNavigationArguments paneArgs)
-			{
-				if (!string.IsNullOrEmpty(paneArgs.LeftPaneNavPathParam) && !string.IsNullOrEmpty(paneArgs.RightPaneNavPathParam))
-				{
-					var leftTabInfo = await GetSelectedTabInfoAsync(paneArgs.LeftPaneNavPathParam);
-					var rightTabInfo = await GetSelectedTabInfoAsync(paneArgs.RightPaneNavPathParam);
-					windowTitle = $"{leftTabInfo.tabLocationHeader} | {rightTabInfo.tabLocationHeader}";
-				}
-				else
-				{
-					(windowTitle, _, _) = await GetSelectedTabInfoAsync(paneArgs.LeftPaneNavPathParam);
-				}
-			}
-			else if (navigationArg is string pathArgs)
-			{
-				(windowTitle, _, _) = await GetSelectedTabInfoAsync(pathArgs);
-			}
+		// Methods
 
-			if (AppInstances.Count > 1)
-				windowTitle = $"{windowTitle} ({AppInstances.Count})";
-
-			if (navigationArg == SelectedTabItem?.TabItemArguments?.NavigationArg)
-				App.GetAppWindow(App.Window).Title = $"{windowTitle} - Files";
-		}
-
-		public async Task UpdateTabInfo(TabItem tabItem, object navigationArg)
-		{
-			tabItem.AllowStorageItemDrop = true;
-			if (navigationArg is PaneNavigationArguments paneArgs)
-			{
-				if (!string.IsNullOrEmpty(paneArgs.LeftPaneNavPathParam) && !string.IsNullOrEmpty(paneArgs.RightPaneNavPathParam))
-				{
-					var leftTabInfo = await GetSelectedTabInfoAsync(paneArgs.LeftPaneNavPathParam);
-					var rightTabInfo = await GetSelectedTabInfoAsync(paneArgs.RightPaneNavPathParam);
-					tabItem.Header = $"{leftTabInfo.tabLocationHeader} | {rightTabInfo.tabLocationHeader}";
-					tabItem.IconSource = leftTabInfo.tabIcon;
-				}
-				else
-				{
-					(tabItem.Header, tabItem.IconSource, tabItem.ToolTipText) = await GetSelectedTabInfoAsync(paneArgs.LeftPaneNavPathParam);
-				}
-			}
-			else if (navigationArg is string pathArgs)
-			{
-				(tabItem.Header, tabItem.IconSource, tabItem.ToolTipText) = await GetSelectedTabInfoAsync(pathArgs);
-			}
-		}
-
-		public async Task<(string tabLocationHeader, Microsoft.UI.Xaml.Controls.IconSource tabIcon, string toolTipText)> GetSelectedTabInfoAsync(string currentPath)
-		{
-			string? tabLocationHeader;
-			var iconSource = new Microsoft.UI.Xaml.Controls.ImageIconSource();
-			string toolTipText = currentPath;
-
-			if (string.IsNullOrEmpty(currentPath) || currentPath == "Home")
-			{
-				tabLocationHeader = "Home".GetLocalizedResource();
-				iconSource.ImageSource = new Microsoft.UI.Xaml.Media.Imaging.BitmapImage(new Uri(Constants.FluentIconsPaths.HomeIcon));
-			}
-			else if (currentPath.Equals(CommonPaths.DesktopPath, StringComparison.OrdinalIgnoreCase))
-			{
-				tabLocationHeader = "Desktop".GetLocalizedResource();
-			}
-			else if (currentPath.Equals(CommonPaths.DownloadsPath, StringComparison.OrdinalIgnoreCase))
-			{
-				tabLocationHeader = "Downloads".GetLocalizedResource();
-			}
-			else if (currentPath.Equals(CommonPaths.RecycleBinPath, StringComparison.OrdinalIgnoreCase))
-			{
-				tabLocationHeader = "RecycleBin".GetLocalizedResource();
-			}
-			else if (currentPath.Equals(CommonPaths.MyComputerPath, StringComparison.OrdinalIgnoreCase))
-			{
-				tabLocationHeader = "ThisPC".GetLocalizedResource();
-			}
-			else if (currentPath.Equals(CommonPaths.NetworkFolderPath, StringComparison.OrdinalIgnoreCase))
-			{
-				tabLocationHeader = "SidebarNetworkDrives".GetLocalizedResource();
-			}
-			else if (App.LibraryManager.TryGetLibrary(currentPath, out LibraryLocationItem library))
-			{
-				var libName = System.IO.Path.GetFileNameWithoutExtension(library.Path).GetLocalizedResource();
-				// If localized string is empty use the library name.
-				tabLocationHeader = string.IsNullOrEmpty(libName) ? library.Text : libName;
-			}
-			else
-			{
-				var normalizedCurrentPath = PathNormalization.NormalizePath(currentPath);
-				var matchingCloudDrive = App.CloudDrivesManager.Drives.FirstOrDefault(x => normalizedCurrentPath.Equals(PathNormalization.NormalizePath(x.Path), StringComparison.OrdinalIgnoreCase));
-				if (matchingCloudDrive is not null)
-				{
-					tabLocationHeader = matchingCloudDrive.Text;
-				}
-				else if (PathNormalization.NormalizePath(PathNormalization.GetPathRoot(currentPath)) == normalizedCurrentPath) // If path is a drive's root
-				{
-					var matchingDrive = App.NetworkDrivesManager.Drives.FirstOrDefault(netDrive => normalizedCurrentPath.Contains(PathNormalization.NormalizePath(netDrive.Path), StringComparison.OrdinalIgnoreCase));
-					matchingDrive ??= drivesViewModel.Drives.Cast<DriveItem>().FirstOrDefault(drive => normalizedCurrentPath.Contains(PathNormalization.NormalizePath(drive.Path), StringComparison.OrdinalIgnoreCase));
-					tabLocationHeader = matchingDrive is not null ? matchingDrive.Text : normalizedCurrentPath;
-				}
-				else
-				{
-					tabLocationHeader = currentPath.TrimEnd(System.IO.Path.DirectorySeparatorChar, System.IO.Path.AltDirectorySeparatorChar).Split('\\', StringSplitOptions.RemoveEmptyEntries).Last();
-
-					FilesystemResult<StorageFolderWithPath> rootItem = await FilesystemTasks.Wrap(() => DriveHelpers.GetRootFromPathAsync(currentPath));
-					if (rootItem)
-					{
-						BaseStorageFolder currentFolder = await FilesystemTasks.Wrap(() => StorageFileExtensions.DangerousGetFolderFromPathAsync(currentPath, rootItem));
-						if (currentFolder is not null && !string.IsNullOrEmpty(currentFolder.DisplayName))
-							tabLocationHeader = currentFolder.DisplayName;
-					}
-				}
-			}
-
-			if (iconSource.ImageSource is null)
-			{
-				var iconData = await FileThumbnailHelper.LoadIconFromPathAsync(currentPath, 24u, Windows.Storage.FileProperties.ThumbnailMode.ListView, true);
-				if (iconData is not null)
-					iconSource.ImageSource = await iconData.ToBitmapAsync();
-			}
-
-			return (tabLocationHeader, iconSource, toolTipText);
-		}
-
-		public async void OnNavigatedTo(NavigationEventArgs e)
+		public async Task OnNavigatedToAsync(NavigationEventArgs e)
 		{
 			if (e.NavigationMode == NavigationMode.Back)
 				return;
 
-			if (drivesViewModel.Drives.Count == 0)
+			var parameter = e.Parameter;
+			var ignoreStartupSettings = false;
+			if (parameter is MainPageNavigationArguments mainPageNavigationArguments)
 			{
-				await drivesViewModel.UpdateDrivesAsync();
+				parameter = mainPageNavigationArguments.Parameter;
+				ignoreStartupSettings = mainPageNavigationArguments.IgnoreStartupSettings;
 			}
 
-			//Initialize the static theme helper to capture a reference to this window
-			//to handle theme changes without restarting the app
-			ThemeHelper.Initialize();
-
-			if (e.Parameter is null || (e.Parameter is string eventStr && string.IsNullOrEmpty(eventStr)))
+			if (parameter is null || (parameter is string eventStr && string.IsNullOrEmpty(eventStr)))
 			{
 				try
 				{
 					// add last session tabs to closed tabs stack if those tabs are not about to be opened
-					if (!userSettingsService.AppSettingsService.RestoreTabsOnStartup && !userSettingsService.GeneralSettingsService.ContinueLastSessionOnStartUp && userSettingsService.GeneralSettingsService.LastSessionTabList != null)
+					if (!UserSettingsService.AppSettingsService.RestoreTabsOnStartup && !UserSettingsService.GeneralSettingsService.ContinueLastSessionOnStartUp && UserSettingsService.GeneralSettingsService.LastSessionTabList != null)
 					{
-						var items = new TabItemArguments[userSettingsService.GeneralSettingsService.LastSessionTabList.Count];
-						for (int i = 0; i < items.Length; i++)
-							items[i] = TabItemArguments.Deserialize(userSettingsService.GeneralSettingsService.LastSessionTabList[i]);
+						var items = UserSettingsService.GeneralSettingsService.LastSessionTabList
+							.Where(tab => !string.IsNullOrEmpty(tab))
+							.Select(tab => TabBarItemParameter.Deserialize(tab)).ToArray();
 
-						BaseMultitaskingControl.PushRecentTab(items);
+						BaseTabBar.PushRecentTab(items);
 					}
 
-					if (userSettingsService.AppSettingsService.RestoreTabsOnStartup)
+					if (UserSettingsService.AppSettingsService.RestoreTabsOnStartup)
 					{
-						userSettingsService.AppSettingsService.RestoreTabsOnStartup = false;
-						if (userSettingsService.GeneralSettingsService.LastSessionTabList is not null)
+						UserSettingsService.AppSettingsService.RestoreTabsOnStartup = false;
+						if (UserSettingsService.GeneralSettingsService.LastSessionTabList is not null)
 						{
-							foreach (string tabArgsString in userSettingsService.GeneralSettingsService.LastSessionTabList)
+							foreach (string tabArgsString in UserSettingsService.GeneralSettingsService.LastSessionTabList)
 							{
-								var tabArgs = TabItemArguments.Deserialize(tabArgsString);
-								await AddNewTabByParam(tabArgs.InitialPageType, tabArgs.NavigationArg);
+								var tabArgs = TabBarItemParameter.Deserialize(tabArgsString);
+								await NavigationHelpers.AddNewTabByParamAsync(tabArgs.InitialPageType, tabArgs.NavigationParameter);
 							}
 
-							if (!userSettingsService.GeneralSettingsService.ContinueLastSessionOnStartUp)
-								userSettingsService.GeneralSettingsService.LastSessionTabList = null;
+							if (!UserSettingsService.GeneralSettingsService.ContinueLastSessionOnStartUp)
+								UserSettingsService.GeneralSettingsService.LastSessionTabList = null;
 						}
 					}
-					else if (userSettingsService.GeneralSettingsService.OpenSpecificPageOnStartup &&
-						userSettingsService.GeneralSettingsService.TabsOnStartupList is not null)
+					else if (UserSettingsService.GeneralSettingsService.OpenSpecificPageOnStartup &&
+						UserSettingsService.GeneralSettingsService.TabsOnStartupList is not null)
 					{
-						foreach (string path in userSettingsService.GeneralSettingsService.TabsOnStartupList)
-							await AddNewTabByPathAsync(typeof(PaneHolderPage), path);
+						foreach (string path in UserSettingsService.GeneralSettingsService.TabsOnStartupList)
+							await NavigationHelpers.AddNewTabByPathAsync(typeof(ShellPanesPage), path, true);
 					}
-					else if (userSettingsService.GeneralSettingsService.ContinueLastSessionOnStartUp &&
-						userSettingsService.GeneralSettingsService.LastSessionTabList is not null)
+					else if (UserSettingsService.GeneralSettingsService.ContinueLastSessionOnStartUp &&
+						UserSettingsService.GeneralSettingsService.LastSessionTabList is not null)
 					{
-						foreach (string tabArgsString in userSettingsService.GeneralSettingsService.LastSessionTabList)
+						if (AppInstances.Count == 0)
 						{
-							var tabArgs = TabItemArguments.Deserialize(tabArgsString);
-							await AddNewTabByParam(tabArgs.InitialPageType, tabArgs.NavigationArg);
+							foreach (string tabArgsString in UserSettingsService.GeneralSettingsService.LastSessionTabList)
+							{
+								var tabArgs = TabBarItemParameter.Deserialize(tabArgsString);
+								await NavigationHelpers.AddNewTabByParamAsync(tabArgs.InitialPageType, tabArgs.NavigationParameter);
+							}
 						}
-
-						var defaultArg = new TabItemArguments() { InitialPageType = typeof(PaneHolderPage), NavigationArg = "Home" };
-
-						userSettingsService.GeneralSettingsService.LastSessionTabList = new List<string> { defaultArg.Serialize() };
 					}
 					else
 					{
-						await AddNewTabAsync();
+						await NavigationHelpers.AddNewTabAsync();
 					}
 				}
-				catch (Exception)
+				catch
 				{
-					await AddNewTabAsync();
+					await NavigationHelpers.AddNewTabAsync();
 				}
 			}
 			else
 			{
-				try
+				if (!ignoreStartupSettings)
 				{
-					if (userSettingsService.GeneralSettingsService.OpenSpecificPageOnStartup &&
-							userSettingsService.GeneralSettingsService.TabsOnStartupList is not null)
+					try
 					{
-						foreach (string path in userSettingsService.GeneralSettingsService.TabsOnStartupList)
-							await AddNewTabByPathAsync(typeof(PaneHolderPage), path);
-					}
-					else if (userSettingsService.GeneralSettingsService.ContinueLastSessionOnStartUp &&
-						userSettingsService.GeneralSettingsService.LastSessionTabList is not null)
-					{
-						foreach (string tabArgsString in userSettingsService.GeneralSettingsService.LastSessionTabList)
+						if (UserSettingsService.GeneralSettingsService.OpenSpecificPageOnStartup &&
+								UserSettingsService.GeneralSettingsService.TabsOnStartupList is not null)
 						{
-							var tabArgs = TabItemArguments.Deserialize(tabArgsString);
-							await AddNewTabByParam(tabArgs.InitialPageType, tabArgs.NavigationArg);
+							foreach (string path in UserSettingsService.GeneralSettingsService.TabsOnStartupList)
+								await NavigationHelpers.AddNewTabByPathAsync(typeof(ShellPanesPage), path, true);
 						}
-
-						var defaultArg = new TabItemArguments() { InitialPageType = typeof(PaneHolderPage), NavigationArg = "Home" };
-
-						userSettingsService.GeneralSettingsService.LastSessionTabList = new List<string> { defaultArg.Serialize() };
+						else if (UserSettingsService.GeneralSettingsService.ContinueLastSessionOnStartUp &&
+							UserSettingsService.GeneralSettingsService.LastSessionTabList is not null &&
+							AppInstances.Count == 0)
+						{
+							foreach (string tabArgsString in UserSettingsService.GeneralSettingsService.LastSessionTabList)
+							{
+								var tabArgs = TabBarItemParameter.Deserialize(tabArgsString);
+								await NavigationHelpers.AddNewTabByParamAsync(tabArgs.InitialPageType, tabArgs.NavigationParameter);
+							}
+						}
 					}
+					catch { }
 				}
-				catch (Exception) { }
 
-				if (e.Parameter is string navArgs)
-					await AddNewTabByPathAsync(typeof(PaneHolderPage), navArgs);
-				else if (e.Parameter is PaneNavigationArguments paneArgs)
-					await AddNewTabByParam(typeof(PaneHolderPage), paneArgs);
-				else if (e.Parameter is TabItemArguments tabArgs)
-					await AddNewTabByParam(tabArgs.InitialPageType, tabArgs.NavigationArg);
+				if (parameter is string navArgs)
+					await NavigationHelpers.AddNewTabByPathAsync(typeof(ShellPanesPage), navArgs, true);
+				else if (parameter is PaneNavigationArguments paneArgs)
+					await NavigationHelpers.AddNewTabByParamAsync(typeof(ShellPanesPage), paneArgs);
+				else if (parameter is TabBarItemParameter tabArgs)
+					await NavigationHelpers.AddNewTabByParamAsync(tabArgs.InitialPageType, tabArgs.NavigationParameter);
 			}
 
 			// Load the app theme resources
-			resourcesService.LoadAppResources(appearanceSettingsService);
+			ResourcesService.LoadAppResources(AppearanceSettingsService);
+
+			await Task.WhenAll(
+				DrivesViewModel.UpdateDrivesAsync(),
+				NetworkService.UpdateComputersAsync(),
+				NetworkService.UpdateShortcutsAsync());
 		}
 
-		public Task AddNewTabAsync()
-		{
-			return AddNewTabByPathAsync(typeof(PaneHolderPage), "Home");
-		}
+		// Command methods
 
-		public async Task AddNewTabByParam(Type type, object tabViewItemArgs, int atIndex = -1)
+		private async void ExecuteNavigateToNumberedTabKeyboardAcceleratorCommand(KeyboardAcceleratorInvokedEventArgs? e)
 		{
-			var tabItem = new TabItem()
+			var indexToSelect = e!.KeyboardAccelerator.Key switch
 			{
-				Header = null,
-				IconSource = null,
-				Description = null,
-				ToolTipText = null
+				VirtualKey.Number1 => 0,
+				VirtualKey.Number2 => 1,
+				VirtualKey.Number3 => 2,
+				VirtualKey.Number4 => 3,
+				VirtualKey.Number5 => 4,
+				VirtualKey.Number6 => 5,
+				VirtualKey.Number7 => 6,
+				VirtualKey.Number8 => 7,
+				VirtualKey.Number9 => AppInstances.Count - 1,
+				_ => AppInstances.Count - 1,
 			};
 
-			tabItem.Control.NavigationArguments = new TabItemArguments()
+			// Only select the tab if it is in the list
+			if (indexToSelect < AppInstances.Count)
 			{
-				InitialPageType = type,
-				NavigationArg = tabViewItemArgs
-			};
+				App.AppModel.TabStripSelectedIndex = indexToSelect;
 
-			tabItem.Control.ContentChanged += Control_ContentChanged;
+				// Small delay for the UI to load
+				await Task.Delay(500);
 
-			await UpdateTabInfo(tabItem, tabViewItemArgs);
+				// Refocus on the file list
+				(SelectedTabItem?.TabItemContent as Control)?.Focus(FocusState.Programmatic);
+			}
 
-			var index = atIndex == -1 ? AppInstances.Count : atIndex;
-			AppInstances.Insert(index, tabItem);
-			App.AppModel.TabStripSelectedIndex = index;
+			e.Handled = true;
 		}
 
-		public async void Control_ContentChanged(object? sender, TabItemArguments e)
-		{
-			if (sender is null)
-				return;
-
-			var matchingTabItem = AppInstances.SingleOrDefault(x => x.Control == (TabItemControl)sender);
-			if (matchingTabItem is null)
-				return;
-
-			await UpdateTabInfo(matchingTabItem, e.NavigationArg);
-		}
 	}
 }

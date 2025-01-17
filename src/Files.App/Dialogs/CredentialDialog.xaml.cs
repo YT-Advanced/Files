@@ -1,17 +1,17 @@
-using Files.Backend.SecureStore;
-using Files.Backend.ViewModels.Dialogs;
-using Files.Shared.Enums;
-using Microsoft.UI.Xaml.Controls;
-using System;
-using System.Text;
-using System.Threading.Tasks;
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
-// The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using System.Text;
 
 namespace Files.App.Dialogs
 {
 	public sealed partial class CredentialDialog : ContentDialog, IDialog<CredentialDialogViewModel>
 	{
+		private FrameworkElement RootAppElement
+			=> (FrameworkElement)MainWindow.Instance.Content;
+
 		public CredentialDialogViewModel ViewModel
 		{
 			get => (CredentialDialogViewModel)DataContext;
@@ -23,7 +23,10 @@ namespace Files.App.Dialogs
 			InitializeComponent();
 		}
 
-		public new async Task<DialogResult> ShowAsync() => (DialogResult)await base.ShowAsync();
+		public new async Task<DialogResult> ShowAsync()
+		{
+			return (DialogResult)await base.ShowAsync();
+		}
 
 		private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
 		{

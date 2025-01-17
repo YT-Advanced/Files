@@ -1,3 +1,6 @@
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using CommunityToolkit.WinUI.Helpers;
 using System;
 using System.Globalization;

@@ -1,38 +1,40 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.App.Commands;
-using Files.App.Contexts;
-using Files.App.Extensions;
-using Files.App.UserControls.MultitaskingControl;
-using System.ComponentModel;
-using System.Threading.Tasks;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
+
+using Files.App.UserControls.TabBar;
 
 namespace Files.App.Actions
 {
-	internal class ReopenClosedTabAction : ObservableObject, IAction
+	internal sealed class ReopenClosedTabAction : ObservableObject, IAction
 	{
-		private readonly IMultitaskingContext context = Ioc.Default.GetRequiredService<IMultitaskingContext>();
+		private readonly IMultitaskingContext context;
 
-		public string Label { get; } = "ReopenClosedTab".GetLocalizedResource();
+		public string Label
+			=> "ReopenClosedTab".GetLocalizedResource();
 
-		public string Description { get; } = "ReopenClosedTabDescription".GetLocalizedResource();
+		public string Description
+			=> "ReopenClosedTabDescription".GetLocalizedResource();
 
-		public HotKey HotKey { get; } = new(Keys.T, KeyModifiers.CtrlShift);
+		public HotKey HotKey
+			=> new(Keys.T, KeyModifiers.CtrlShift);
 
 		public bool IsExecutable =>
 			context.Control is not null &&
-			!BaseMultitaskingControl.IsRestoringClosedTab &&
-			BaseMultitaskingControl.RecentlyClosedTabs.Count > 0;
+			!BaseTabBar.IsRestoringClosedTab &&
+			BaseTabBar.RecentlyClosedTabs.Count > 0;
 
 		public ReopenClosedTabAction()
 		{
+			context = Ioc.Default.GetRequiredService<IMultitaskingContext>();
+
 			context.PropertyChanged += Context_PropertyChanged;
-			BaseMultitaskingControl.StaticPropertyChanged += BaseMultitaskingControl_StaticPropertyChanged;
+			BaseTabBar.StaticPropertyChanged += BaseMultitaskingControl_StaticPropertyChanged;
 		}
 
-		public Task ExecuteAsync()
+		public Task ExecuteAsync(object? parameter = null)
 		{
-			context.Control!.ReopenClosedTab();
+			context.Control!.ReopenClosedTabAsync();
+
 			return Task.CompletedTask;
 		}
 

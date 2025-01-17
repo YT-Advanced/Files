@@ -1,11 +1,15 @@
-﻿using Files.App.Extensions;
-using Files.App.Filesystem;
-using Files.App.Filesystem.StorageItems;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
+
+using Files.App.Extensions;
+using Files.App.Utils;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
+using Windows.Foundation.Metadata;
 using Windows.Storage;
 
 namespace Files.App.Helpers
@@ -17,20 +21,40 @@ namespace Files.App.Helpers
 				(!item.IsShortcut || item.IsLinkItem) &&
 				(item.PrimaryItemAttribute != StorageItemTypes.Folder || item.IsArchive);
 
-		public static void ShareItems(IEnumerable<ListedItem> itemsToShare)
+		public static async Task ShareItemsAsync(IEnumerable<ListedItem> itemsToShare)
 		{
-			var interop = DataTransferManager.As<UWPToWinAppSDKUpgradeHelpers.IDataTransferManagerInterop>();
-			IntPtr result = interop.GetForWindow(App.WindowHandle, UWPToWinAppSDKUpgradeHelpers.InteropHelpers.DataTransferManagerInteropIID);
+			if (itemsToShare is null)
+				return;
+
+			var interop = DataTransferManager.As<IDataTransferManagerInterop>();
+			IntPtr result = interop.GetForWindow(MainWindow.Instance.WindowHandle, Win32PInvoke.DataTransferManagerInteropIID);
 
 			var manager = WinRT.MarshalInterface<DataTransferManager>.FromAbi(result);
 			manager.DataRequested += new TypedEventHandler<DataTransferManager, DataRequestedEventArgs>(Manager_DataRequested);
 
-			interop.ShowShareUIForWindow(App.WindowHandle);
+			try
+			{
+				interop.ShowShareUIForWindow(MainWindow.Instance.WindowHandle);
+			}
+			catch (Exception ex)
+			{
+				var errorDialog = new ContentDialog()
+				{
+					Title = "FaildToShareItems".GetLocalizedResource(),
+					Content = ex.Message,
+					PrimaryButtonText = "OK".GetLocalizedResource(),
+				};
+
+				if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 8))
+					errorDialog.XamlRoot = MainWindow.Instance.Content.XamlRoot;
+
+				await errorDialog.TryShowAsync();
+			}
 
 			async void Manager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
 			{
 				DataRequestDeferral dataRequestDeferral = args.Request.GetDeferral();
-				List<IStorageItem> items = new();
+				List<IStorageItem> items = [];
 				DataRequest dataRequest = args.Request;
 
 				foreach (ListedItem item in itemsToShare)

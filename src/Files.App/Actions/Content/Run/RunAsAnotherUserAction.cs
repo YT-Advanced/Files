@@ -1,42 +1,33 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.App.Commands;
-using Files.App.Contexts;
-using Files.App.Extensions;
-using Files.App.Shell;
-using Files.Backend.Helpers;
-using System.Threading.Tasks;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
+
+using Files.Shared.Helpers;
 
 namespace Files.App.Actions
 {
-	internal class RunAsAnotherUserAction : ObservableObject, IAction
+	internal sealed class RunAsAnotherUserAction : BaseRunAsAction
 	{
-		public IContentPageContext context = Ioc.Default.GetRequiredService<IContentPageContext>();
-		public bool IsExecutable => context.SelectedItem is not null &&
-			FileExtensionHelpers.IsExecutableFile(context.SelectedItem.FileExtension);
-		public string Label => "BaseLayoutContextFlyoutRunAsAnotherUser/Text".GetLocalizedResource();
-		public string Description => "RunAsAnotherUserDescription".GetLocalizedResource();
-		public RichGlyph Glyph => new("\uE7EE");
+		private readonly IContentPageContext ContentPageContext = Ioc.Default.GetRequiredService<IContentPageContext>();
+		public override string Label
+			=> "BaseLayoutContextFlyoutRunAsAnotherUser/Text".GetLocalizedResource();
 
-		public RunAsAnotherUserAction()
-		{
-			context.PropertyChanged += Context_PropertyChanged;
-		}
+		public override string Description
+			=> "RunAsAnotherUserDescription".GetLocalizedResource();
 
-		public async Task ExecuteAsync()
-		{
-			await ContextMenu.InvokeVerb("runasuser", context.SelectedItem!.ItemPath);
-		}
+		public override RichGlyph Glyph
+			=> new("\uE7EE");
 
-		public void Context_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+		public override bool IsExecutable =>
+			ContentPageContext.SelectedItem is not null &&
+			ContentPageContext.PageType != ContentPageTypes.RecycleBin &&
+			ContentPageContext.PageType != ContentPageTypes.ZipFolder &&
+			!FileExtensionHelpers.IsAhkFile(ContentPageContext.SelectedItem.FileExtension) &&
+			(FileExtensionHelpers.IsExecutableFile(ContentPageContext.SelectedItem.FileExtension) ||
+			(ContentPageContext.SelectedItem is IShortcutItem shortcut &&
+			shortcut.IsExecutable));
+
+		public RunAsAnotherUserAction() : base("runasuser")
 		{
-			switch (e.PropertyName)
-			{
-				case nameof(IContentPageContext.SelectedItems):
-				case nameof(IContentPageContext.Folder):
-					OnPropertyChanged(nameof(IsExecutable));
-					break;
-			}
 		}
 	}
 }

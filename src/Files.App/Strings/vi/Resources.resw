@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NavigationToolbarNewWindow.Label" xml:space="preserve">
+  <data name="NewWindow" xml:space="preserve">
     <value>Cửa sổ mới</value>
   </data>
-  <data name="CopyLocation" xml:space="preserve">
+  <data name="CopyPath" xml:space="preserve">
     <value>Sao chép đường dẫn</value>
+  </data>
+  <data name="CopyPathWithQuotes" xml:space="preserve">
+    <value>Sao chép đường dẫn kèm dấu ngoặc kép</value>
+  </data>
+  <data name="CopyItemPathWithQuotes" xml:space="preserve">
+    <value>Sao chép đường dẫn khoản mục đã chọn kèm dấu ngoặc kép</value>
   </data>
   <data name="Browse" xml:space="preserve">
     <value>Duyệt tìm</value>
@@ -133,19 +139,22 @@
     <value>Đã tạo:</value>
   </data>
   <data name="Path" xml:space="preserve">
-    <value>Đường dẫn:</value>
+    <value>Đường dẫn</value>
   </data>
   <data name="SizeLabel" xml:space="preserve">
-    <value>Size:</value>
+    <value>Kích cỡ:</value>
+  </data>
+  <data name="SizeOnDiskLabel" xml:space="preserve">
+    <value>Kích cỡ trên ổ đĩa:</value>
   </data>
   <data name="UncompressedSize" xml:space="preserve">
-    <value>Cỡ không nén:</value>
+    <value>Kích cỡ chưa nén:</value>
   </data>
   <data name="ErrorDialogThisActionCannotBeDone" xml:space="preserve">
-    <value>Không thể làm hoạt động này</value>
+    <value>Không thể thực hiện hành động này</value>
   </data>
   <data name="ErrorDialogTheDestinationFolder" xml:space="preserve">
-    <value>Thư mục nơi đến</value>
+    <value>Thư mục đích</value>
   </data>
   <data name="ErrorDialogIsASubfolder" xml:space="preserve">
     <value>là một thư mục con của thư mục nguồn</value>
@@ -154,79 +163,79 @@
     <value>Bỏ qua</value>
   </data>
   <data name="SelectAll" xml:space="preserve">
-    <value>Select All</value>
+    <value>Chọn tất cả</value>
   </data>
   <data name="InvertSelection" xml:space="preserve">
-    <value>Invert Selection</value>
+    <value>Đảo lựa chọn</value>
   </data>
   <data name="ClearSelection" xml:space="preserve">
-    <value>Clear Selection</value>
+    <value>Bỏ lựa chọn</value>
   </data>
   <data name="PropertiesModified.Text" xml:space="preserve">
-    <value>Đã sửa:</value>
+    <value>Đã sửa đổi:</value>
   </data>
   <data name="Accessed" xml:space="preserve">
-    <value>Đã truy nhập:</value>
+    <value>Đã truy cập:</value>
   </data>
   <data name="RecentItemClearAll.Text" xml:space="preserve">
-    <value>Bỏ hết mục</value>
+    <value>Loại bỏ tất cả khoản mục</value>
   </data>
   <data name="NavigationToolbarVisiblePath.PlaceholderText" xml:space="preserve">
-    <value>Nhập vào một đường</value>
+    <value>Nhập đường dẫn hoặc gõ "&gt;" để mở bảng lệnh</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Search</value>
+    <value>Tìm kiếm</value>
   </data>
   <data name="RecentItemDescription.Text" xml:space="preserve">
-    <value>Tệp tin bạn đã truy cập trước sẽ nổi lên ở đây</value>
+    <value>Tệp bạn đã truy cập trước đó sẽ hiển thị tại đây</value>
   </data>
   <data name="RecentItemRemove.Text" xml:space="preserve">
-    <value>Loại bỏ mục này</value>
+    <value>Loại bỏ khoản mục này</value>
   </data>
   <data name="OpenGitHubRepo" xml:space="preserve">
-    <value>GitHub repository</value>
+    <value>Kho lưu trữ GitHub</value>
   </data>
   <data name="About" xml:space="preserve">
     <value>Giới thiệu</value>
   </data>
   <data name="OpenSource" xml:space="preserve">
-    <value>Open source</value>
+    <value>Mã nguồn mở</value>
   </data>
   <data name="DateFormat" xml:space="preserve">
-    <value>Định dạng ngày tháng</value>
+    <value>Định dạng thời gian</value>
   </data>
   <data name="SettingsAppearanceTheme" xml:space="preserve">
-    <value>Theme</value>
+    <value>Chủ đề</value>
   </data>
   <data name="SettingsFilesAndFoldersShowFileExtensions" xml:space="preserve">
-    <value>Hiển thị phần mở rộng cho các loại tệp đã biết</value>
+    <value>Hiện phần mở rộng của các tệp đã biết</value>
   </data>
   <data name="SettingsFilesAndFoldersShowHiddenItems" xml:space="preserve">
-    <value>Hiển thị tệp và thư mục đang giấu</value>
+    <value>Hiện tệp và thư mục bị ẩn</value>
   </data>
   <data name="ShowDotFiles" xml:space="preserve">
-    <value>Hiện tệp chấm</value>
+    <value>Hiện tệp có tên bắt đầu bằng dấu chấm</value>
   </data>
   <data name="Appearance" xml:space="preserve">
     <value>Giao diện</value>
   </data>
-  <data name="Background" xml:space="preserve">
-    <value>Background</value>
+  <data name="BackgroundColor" xml:space="preserve">
+    <value>Màu nền</value>
   </data>
   <data name="Advanced" xml:space="preserve">
-    <value>Advanced</value>
+    <value>Nâng cao</value>
   </data>
   <data name="SettingsOnStartupContinueWhereYouLeftOff.Content" xml:space="preserve">
-    <value>Tiếp tục ở nơi bạn đã khỏi ngừng</value>
+    <value>Tiếp tục từ nơi bạn đã dừng lại</value>
   </data>
   <data name="SettingsOnStartupOpenANewTab.Content" xml:space="preserve">
-    <value>Mở trong tab mới</value>
+    <value>Mở một thẻ mới</value>
   </data>
   <data name="SettingsOnStartupOpenASpecificPage.Content" xml:space="preserve">
-    <value>Mở một trang cụ thể hoặc những trang</value>
+    <value>Mở một trang cụ thể hoặc tập hợp các trang</value>
   </data>
   <data name="Desktop" xml:space="preserve">
-    <value>Màn hình nền</value>
+    <value>Màn hình chính</value>
   </data>
   <data name="Documents" xml:space="preserve">
     <value>Tài liệu</value>
@@ -241,52 +250,55 @@
     <value>Tăng dần</value>
   </data>
   <data name="Paste" xml:space="preserve">
-    <value>Paste</value>
+    <value>Dán</value>
+  </data>
+  <data name="PasteShortcut" xml:space="preserve">
+    <value>Dán dưới dạng lối tắt</value>
   </data>
   <data name="BaseLayoutContextFlyoutNew.Label" xml:space="preserve">
     <value>Mới</value>
   </data>
   <data name="Properties" xml:space="preserve">
-    <value>Properties</value>
+    <value>Thuộc tính</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>Mở</value>
   </data>
   <data name="OpenInNewTab" xml:space="preserve">
-    <value>Open in new tab</value>
+    <value>Mở trong thẻ mới</value>
   </data>
   <data name="OpenInNewWindow" xml:space="preserve">
-    <value>Open in new window</value>
+    <value>Mở trong cửa sổ mới</value>
   </data>
   <data name="Share" xml:space="preserve">
     <value>Chia sẻ</value>
   </data>
   <data name="Cut" xml:space="preserve">
-    <value>Cut</value>
+    <value>Cắt</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Xóa bỏ</value>
   </data>
-  <data name="PinToFavorites" xml:space="preserve">
-    <value>Pin to Favorites</value>
+  <data name="PinFolderToSidebar" xml:space="preserve">
+    <value>Ghim vào thanh bên</value>
   </data>
   <data name="WelcomeDialog.Title" xml:space="preserve">
-    <value>Chào mừng đến Files!</value>
+    <value>Chào mừng bạn đến với Files!</value>
   </data>
   <data name="WelcomeDialog.PrimaryButtonText" xml:space="preserve">
-    <value>Cho quyền phép</value>
+    <value>Cấp quyền</value>
   </data>
   <data name="WelcomeDialogTextBlock.Text" xml:space="preserve">
-    <value>Để bắt đầu, bạn sẽ cần cho chúng tôi quyền phép để hiển thị những tệp của bạn. Điều này sẽ mở một trang Cài đặt mà bạn có thể cho quyền phép này đến chúng tôi. Bạn sẽ cần khởi động lại ứng dụng khi bạn làm bước này xong. </value>
+    <value>Trước khi bắt đầu, bạn cần phải cấp quyền hiển thị các tệp. Ứng dụng sẽ tự động mở cửa số Cài đặt để bạn thực hiện cấp quyền truy cập này. Sau khi hoàn tất, bạn sẽ cần khởi động lại ứng dụng. </value>
   </data>
   <data name="Display" xml:space="preserve">
-    <value>Display</value>
+    <value>Hiển thị</value>
   </data>
   <data name="EnterAnItemName" xml:space="preserve">
-    <value>Enter an item name</value>
+    <value>Nhập tên khoản mục</value>
   </data>
-  <data name="RenameDialog.PrimaryButtonText" xml:space="preserve">
-    <value>Đặt tên</value>
+  <data name="CreateNewItemTitle" xml:space="preserve">
+    <value>Tạo {0} mới</value>
   </data>
   <data name="LightTheme" xml:space="preserve">
     <value>Sáng</value>
@@ -301,142 +313,150 @@
     <value>Hệ thống</value>
   </data>
   <data name="NewFolder" xml:space="preserve">
-    <value>Thư mục Mới</value>
+    <value>Thư mục mới</value>
   </data>
   <data name="NewFile" xml:space="preserve">
-    <value>Tệp Mới</value>
+    <value>Tệp mới</value>
   </data>
   <data name="EmptyFolder.Text" xml:space="preserve">
-    <value>Thư mục này trống.</value>
+    <value>Thư mục này đang trống.</value>
   </data>
   <data name="Back" xml:space="preserve">
-    <value>Lùi (Alt+Mũi tên Trái)</value>
+    <value>Quay lại</value>
   </data>
   <data name="Forward" xml:space="preserve">
-    <value>Chuyển tiếp (Alt+Mũi tên Phải)</value>
+    <value>Tiến</value>
   </data>
   <data name="Up" xml:space="preserve">
-    <value>Tên (Alt+Mũi tên trên)</value>
+    <value>Lùi về</value>
   </data>
   <data name="Refresh" xml:space="preserve">
-    <value>Refresh</value>
+    <value>Làm mới</value>
   </data>
   <data name="ItemAlreadyExistsDialogContent" xml:space="preserve">
-    <value>Có một mục với tên này trong danh mục này rồi.</value>
+    <value>Một khoản mục có cùng tên đã tồn tại trong thư mục.</value>
   </data>
   <data name="ItemAlreadyExistsDialogSecondaryButtonText" xml:space="preserve">
-    <value>Thay thế mục hiện hữu</value>
+    <value>Thay thế khoản mục đã tồn tại</value>
   </data>
   <data name="ItemAlreadyExistsDialogTitle" xml:space="preserve">
-    <value>Mục đã hiện hữu rồi</value>
+    <value>Khoản mục đã tồn tại</value>
   </data>
   <data name="SetAsLockscreen" xml:space="preserve">
-    <value>Set as lockscreen background</value>
+    <value>Hình nền màn hình khóa</value>
+  </data>
+  <data name="SetAsAppBackground" xml:space="preserve">
+    <value>Hình nền ứng dụng</value>
   </data>
   <data name="AccessDeniedDeleteDialog.Text" xml:space="preserve">
-    <value>Chúng tôi đã không xóa bỏ mục này được.</value>
+    <value>Chúng tôi không thể xóa khoản mục này</value>
   </data>
   <data name="DriveUnpluggedDialog.Text" xml:space="preserve">
-    <value>Làm ơn chèn ổ lưu trữ yêu cầu để truy cập mục này.</value>
+    <value>Vui lòng kết nối ổ lưu trữ cần để truy cập mục này.</value>
   </data>
   <data name="DriveUnpluggedDialog.Title" xml:space="preserve">
-    <value>Ổ lưu trữ đã bị rút ra</value>
+    <value>Ổ lưu trữ đã bị ngắt kết nối</value>
   </data>
   <data name="FileNotFoundDialog.Text" xml:space="preserve">
-    <value>Tệp bằng đang cố gắng để truy cập có thể đã bị di chuyển hoặc xóa bỏ.</value>
+    <value>Tệp bạn cố truy cập có thể đã bị di chuyển hoặc xóa bỏ.</value>
+  </data>
+  <data name="CannotAccessPropertiesTitle" xml:space="preserve">
+    <value>Không thể mở thuộc tính của tệp này</value>
+  </data>
+  <data name="CannotAccessPropertiesContent" xml:space="preserve">
+    <value>Tệp bạn cố truy cập có thể đã bị di chuyển hoặc xóa bỏ.</value>
   </data>
   <data name="FileNotFoundDialog.Title" xml:space="preserve">
-    <value>Không thấy tệp</value>
+    <value>Không tìm thấy tệp</value>
   </data>
   <data name="FolderNotFoundDialog.Text" xml:space="preserve">
-    <value>Thư mục bằng đang cố gắng để truy cập có thể đã bị di chuyển hoặc xóa bỏ.</value>
+    <value>Thư mục bạn cố truy cập có thể đã bị di chuyển hoặc xóa bỏ.</value>
   </data>
   <data name="FolderNotFoundDialog.Title" xml:space="preserve">
-    <value>Bạn có xóa bỏ thư mục này không?</value>
+    <value>Có lẽ bạn đã xóa thư mục này?</value>
   </data>
   <data name="FileInUseByDialog.Text" xml:space="preserve">
-    <value>Tệp bạn đang cố gắng truy cập hiện đang được sử dụng bởi {0}</value>
+    <value>Tệp bạn cố truy cập hiện đang được sử dụng bởi {0}</value>
   </data>
   <data name="FileInUseDialog.Text" xml:space="preserve">
-    <value>The file you are attempting to access is currently being used by another application</value>
+    <value>Tệp bạn cố truy cập hiện đang được sử dụng bởi ứng dụng khác</value>
   </data>
   <data name="FileInUseDialog.Title" xml:space="preserve">
     <value>Tệp đang được sử dụng</value>
   </data>
   <data name="Layout" xml:space="preserve">
-    <value>Layout</value>
+    <value>Bố cục</value>
   </data>
   <data name="PropertiesDialogReadOnly.Text" xml:space="preserve">
-    <value>Chỉ-đọc</value>
+    <value>Chỉ đọc</value>
   </data>
   <data name="DaysAgo" xml:space="preserve">
-    <value>{0} ngày trước</value>
+    <value>{0, plural, other {# ngày trước}}</value>
   </data>
-  <data name="DayAgo" xml:space="preserve">
+  <data name="DaysAgo_Singular" xml:space="preserve">
+    <value>1 ngày trước</value>
+  </data>
+  <data name="DaysAgo_Plural" xml:space="preserve">
     <value>{0} ngày trước</value>
   </data>
   <data name="HoursAgo" xml:space="preserve">
-    <value>{0} giờ trước</value>
+    <value>{0, plural, other {# giờ trước}}</value>
   </data>
-  <data name="HourAgo" xml:space="preserve">
+  <data name="HoursAgo_Singular" xml:space="preserve">
+    <value>1 giờ trước</value>
+  </data>
+  <data name="HoursAgo_Plural" xml:space="preserve">
     <value>{0} giờ trước</value>
   </data>
   <data name="MinutesAgo" xml:space="preserve">
+    <value>{0, plural, other {# phút trước}}</value>
+  </data>
+  <data name="MinutesAgo_Singular" xml:space="preserve">
+    <value>1 phút trước</value>
+  </data>
+  <data name="MinutesAgo_Plural" xml:space="preserve">
     <value>{0} phút trước</value>
   </data>
-  <data name="MinuteAgo" xml:space="preserve">
-    <value>Cách đây {0} phút</value>
-  </data>
   <data name="SecondsAgo" xml:space="preserve">
+    <value>{0, plural, other {# giây trước}}</value>
+  </data>
+  <data name="SecondsAgo_Singular" xml:space="preserve">
+    <value>1 giây trước</value>
+  </data>
+  <data name="SecondsAgo_Plural" xml:space="preserve">
     <value>{0} giây trước</value>
   </data>
-  <data name="OneSecondAgo" xml:space="preserve">
-    <value>1 second ago</value>
-  </data>
   <data name="Now" xml:space="preserve">
-    <value>Now</value>
+    <value>Vừa xong</value>
   </data>
   <data name="ErrorDialogUnsupportedOperation" xml:space="preserve">
-    <value>Hoạt động đã yêu cầu không hỗ trợ</value>
+    <value>Thao tác đã yêu cầu không được hỗ trợ</value>
   </data>
   <data name="DriveFreeSpaceAndCapacity" xml:space="preserve">
-    <value>{0} phần {1}</value>
-  </data>
-  <data name="BaseLayoutItemContextFlyoutOpenItemWith.Text" xml:space="preserve">
-    <value>Mở Bằng...</value>
+    <value>{0} trống trong {1}</value>
   </data>
   <data name="SendTo" xml:space="preserve">
-    <value>Send to</value>
+    <value>Gửi tới</value>
   </data>
   <data name="FileNameTeachingTip.Subtitle" xml:space="preserve">
-    <value>Tên mục không được có những ký tự trong danh sách sau: \ / : * ? " &lt; &gt; |</value>
+    <value>Tên khoản mục không được chứa những ký tự sau: \ / : * ? " &lt; &gt; |</value>
   </data>
   <data name="InvalidFilename.Text" xml:space="preserve">
-    <value>The item name specified is invalid</value>
+    <value>Tên khoản mục đã nhập không hợp lệ</value>
   </data>
-  <data name="ItemSelected.Text" xml:space="preserve">
-    <value>mục đã chọn</value>
+  <data name="SelectedItems" xml:space="preserve">
+    <value>{0, plural, other {# mục được chọn}}</value>
+    <comment>ICU format for plurals, more information here: https://support.crowdin.com/icu-message-syntax/#plural</comment>
   </data>
-  <data name="ItemsSelected.Text" xml:space="preserve">
-    <value>mục đã chọn</value>
-  </data>
-  <data name="ItemCount.Text" xml:space="preserve">
-    <value>mục</value>
-  </data>
-  <data name="ItemsCount.Text" xml:space="preserve">
-    <value>mục</value>
-  </data>
-  <data name="DeleteInProgress.Title" xml:space="preserve">
-    <value>Đang xóa tệp</value>
-  </data>
-  <data name="RecycleInProgress.Title" xml:space="preserve">
-    <value>Đang di chuyển tệp đến Thùng rác.</value>
+  <data name="Items" xml:space="preserve">
+    <value>{0, plural, other {mục}}</value>
+    <comment>ICU format for plurals, more information here: https://support.crowdin.com/icu-message-syntax/#plural</comment>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Có</value>
   </data>
   <data name="ConfirmEmptyBinDialogContent" xml:space="preserve">
-    <value>Chắc chắn bạn muốn xóa bỏ những mục này vĩnh viễn không?</value>
+    <value>Bạn có chắc chắn muốn xóa vĩnh viễn các khoản mục này không?</value>
   </data>
   <data name="ConfirmEmptyBinDialogTitle" xml:space="preserve">
     <value>Dọn sạch thùng rác</value>
@@ -460,31 +480,31 @@
     <value>PB</value>
   </data>
   <data name="ByteSymbol" xml:space="preserve">
-    <value>C</value>
+    <value>B</value>
   </data>
   <data name="PropertiesFilesAndFoldersCountString" xml:space="preserve">
-    <value>{0:#,##0} tệp, {1:#,##0} thư mục</value>
+    <value>{0, number} {0, plural, other {tệp}}, {1, number} {1, plural, other {thư mục}}</value>
   </data>
-  <data name="PropertiesFilesFoldersAndLocationsCountString" xml:space="preserve">
-    <value>{0:#,##0} tệp, {1:#,##0} thư mục từ vị trí {2:#,##0}</value>
+  <data name="PropertiesFilesAndFoldersAndLocationsCount" xml:space="preserve">
+    <value>{0, number} {0, plural, other {tệp}}, {1, number} {1, plural, other {thư mục}} từ {2, number} {2, plural, other {vị trí}}</value>
   </data>
   <data name="BaseLayoutContextFlyoutRunAsAnotherUser.Text" xml:space="preserve">
-    <value>Chạy như là người dùng khác</value>
+    <value>Chạy với vai trò là người dùng khác</value>
   </data>
   <data name="PropertiesDriveItemTypesEquals" xml:space="preserve">
-    <value>Tất cả kiểu của {0}</value>
+    <value>Loại chung của {0}</value>
   </data>
   <data name="PropertiesDriveItemTypeDifferent" xml:space="preserve">
-    <value>Loại khác nhau </value>
+    <value>Loại khác nhau</value>
   </data>
-  <data name="PropertiesCombinedItemPath" xml:space="preserve">
+  <data name="PropertiesCombinedItemLocation" xml:space="preserve">
     <value>Tất cả trong {0}</value>
   </data>
   <data name="PropertiesDriveUsedSpace.Text" xml:space="preserve">
-    <value>Không gian đã dùng:</value>
+    <value>Đã chiếm dụng:</value>
   </data>
   <data name="PropertiesDriveFreeSpace.Text" xml:space="preserve">
-    <value>Không gian Trống:</value>
+    <value>Còn trống:</value>
   </data>
   <data name="PropertiesDriveCapacity.Text" xml:space="preserve">
     <value>Dung lượng:</value>
@@ -496,13 +516,10 @@
     <value>Gần đây</value>
   </data>
   <data name="TabStripDragAndDropUIOverrideCaption" xml:space="preserve">
-    <value>Di chuyển tab đây</value>
+    <value>Di chuyển thẻ đến đây</value>
   </data>
-  <data name="syncStatusColumn.Header" xml:space="preserve">
+  <data name="Status" xml:space="preserve">
     <value>Trạng thái</value>
-  </data>
-  <data name="SettingsOnStartupPages.Text" xml:space="preserve">
-    <value>Trang</value>
   </data>
   <data name="SettingsPreferencesSystemDefaultLanguageOption" xml:space="preserve">
     <value>Mặc định của Windows</value>
@@ -511,16 +528,16 @@
     <value>Không có kết quả</value>
   </data>
   <data name="SubDirectoryAccessDenied" xml:space="preserve">
-    <value>Không được truy cập mục nào để hiển thị</value>
+    <value>Không hiển thị được khoản mục do không có quyền truy cập</value>
   </data>
   <data name="MoveToFolderCaptionText" xml:space="preserve">
-    <value>Chuyển đến ${0}</value>
+    <value>Di chuyển đến {0}</value>
   </data>
   <data name="CopyToFolderCaptionText" xml:space="preserve">
-    <value>Sao chép sang {0}</value>
+    <value>Sao chép đến {0}</value>
   </data>
   <data name="CreateShortcut" xml:space="preserve">
-    <value>Create shortcut</value>
+    <value>Tạo lối tắt</value>
   </data>
   <data name="OpenFileLocation" xml:space="preserve">
     <value>Mở vị trí tệp</value>
@@ -529,7 +546,7 @@
     <value>Đối số:</value>
   </data>
   <data name="PropertiesShortcutItemPath.Text" xml:space="preserve">
-    <value>Nơi đến:</value>
+    <value>Đích:</value>
   </data>
   <data name="PropertiesShortcutItemType.Text" xml:space="preserve">
     <value>Loại lối tắt:</value>
@@ -550,34 +567,31 @@
     <value>{0} - lối tắt</value>
   </data>
   <data name="ExceptionNotificationBody" xml:space="preserve">
-    <value>Files đã trải nghiệm một vấn đề mà những người phát triển chưa chuẩn bị về.</value>
+    <value>Files đã gặp một vấn đề chưa được xem xét trước đó.</value>
   </data>
   <data name="ExceptionNotificationHeader" xml:space="preserve">
-    <value>Đã xảy ra lỗi</value>
+    <value>Đã xảy ra lỗi!</value>
   </data>
   <data name="ExceptionNotificationReportButton" xml:space="preserve">
     <value>Báo cáo sự cố này</value>
   </data>
   <data name="InvalidItemDialogContent" xml:space="preserve">
-    <value>Mục đã nói về không truy cập được hoặc không hợp lệ.{0}Error message:{0}{1}</value>
+    <value>Khoản mục được chỉ định không truy cập được hoặc không hợp lệ.{0}Mã lỗi:{0}{1}</value>
   </data>
   <data name="InvalidItemDialogTitle" xml:space="preserve">
-    <value>Mục không lợp lệ</value>
-  </data>
-  <data name="Version" xml:space="preserve">
-    <value>Phiên bản</value>
+    <value>Khoản mục không hợp lệ</value>
   </data>
   <data name="SettingsAboutVersionTitle" xml:space="preserve">
     <value>Phiên bản:</value>
   </data>
   <data name="ShareDialogFailMessage" xml:space="preserve">
-    <value>Hiện không có gì để chia sẻ.</value>
+    <value>Hiện không có gì để chia sẻ...</value>
   </data>
   <data name="ShareDialogMultipleItemsDescription" xml:space="preserve">
-    <value>Những mục bạn đã chọn sẽ bị chia sẻ</value>
+    <value>Các khoản mục bạn đã chọn sẽ được chia sẻ</value>
   </data>
   <data name="ShareDialogSingleItemDescription" xml:space="preserve">
-    <value>Mục đang chọn sẽ bị chia sẻ</value>
+    <value>Khoản mục đã chọn sẽ được chia sẻ</value>
   </data>
   <data name="ShareDialogTitle" xml:space="preserve">
     <value>Đang chia sẻ {0}</value>
@@ -586,43 +600,37 @@
     <value>Đang chia sẻ {0} {1}</value>
   </data>
   <data name="RenameError.ItemDeleted.Text" xml:space="preserve">
-    <value>Mục bạn đang cố gắng để đặt tên lại không hiện hữu nữa. Làm ơn xác nhận vị trí đúng của mục bạn cần đặt tên lại.</value>
+    <value>Khoản mục bạn cố đặt lại tên không còn tồn tại nữa. Vui lòng kiểm tra lại vị trí chính xác của khoản mục.</value>
   </data>
   <data name="RenameError.ItemDeleted.Title" xml:space="preserve">
-    <value>Mục không hiện hữu</value>
+    <value>Mục không còn tồn tại</value>
   </data>
   <data name="RenameError.NameInvalid.Text" xml:space="preserve">
-    <value>Tên đã chỉ định không hợp lệ. Làm ơn kiểm tra tên mục mong muốn và thử lần nữa.</value>
+    <value>Tên đã nhập không hợp lệ. Vui lòng kiểm tra và thử lại.</value>
   </data>
   <data name="RenameError.NameInvalid.Title" xml:space="preserve">
-    <value>Tên mục không hợp lệ</value>
+    <value>Tên khoản mục không hợp lệ</value>
   </data>
   <data name="RenameError.TooLong.Text" xml:space="preserve">
-    <value>Chiều dài của tên mục đã chỉ định qua giới hạn tối đa. Làm ơn kiểm tra tên đã mong muốn và thử lần nữa.</value>
+    <value>Độ dài tên khoản mục đã nhập vượt quá giới hạn tối đa. Vui lòng kiểm tra và thử lại.</value>
   </data>
   <data name="RenameError.TooLong.Title" xml:space="preserve">
-    <value>Tên mục dài quá</value>
+    <value>Tên khoản mục quá dài</value>
   </data>
   <data name="ShowMoreOptions" xml:space="preserve">
-    <value>Show more options</value>
+    <value>Hiện thêm tùy chọn</value>
   </data>
   <data name="RestartNotificationText.Text" xml:space="preserve">
-    <value>Cần khởi động lại ứng dụng để áp dụng những cài đặt này, bạn có muốn khởi động lại ứng dụng không?</value>
+    <value>Ứng dụng cần khởi động lại để áp dụng các thay đổi, bạn có muốn khởi động lại ứng dụng không?</value>
   </data>
   <data name="SponsorUsOnGitHub" xml:space="preserve">
-    <value>Sponsor us on GitHub</value>
-  </data>
-  <data name="Personalization" xml:space="preserve">
-    <value>Personalization</value>
-  </data>
-  <data name="LayoutAndSorting" xml:space="preserve">
-    <value>Layout and sorting</value>
+    <value>Ủng hộ chúng tôi trên GitHub</value>
   </data>
   <data name="AccessDeniedCreateDialog.Text" xml:space="preserve">
-    <value>Chúng tôi không tạo mục này được</value>
+    <value>Chúng tôi không thể tạo khoản mục này</value>
   </data>
   <data name="AccessDenied" xml:space="preserve">
-    <value>Truy nhập bị Từ chối</value>
+    <value>Truy cập bị từ chối</value>
   </data>
   <data name="BaseLayoutItemContextFlyoutSetAs.Text" xml:space="preserve">
     <value>Đặt làm</value>
@@ -631,10 +639,10 @@
     <value>Hủy bỏ</value>
   </data>
   <data name="AddDialog.Title" xml:space="preserve">
-    <value>Tạo một mục mới</value>
+    <value>Tạo khoản mục mới</value>
   </data>
   <data name="AddDialogDescription.Text" xml:space="preserve">
-    <value>Chọn một loại cho mục mới này ở bên dưới</value>
+    <value>Chọn loại khoản mục</value>
   </data>
   <data name="File" xml:space="preserve">
     <value>Tệp</value>
@@ -646,25 +654,22 @@
     <value>Thư mục</value>
   </data>
   <data name="AddDialogListFolderSubHeader" xml:space="preserve">
-    <value>Tạo một thư mục trống </value>
-  </data>
-  <data name="LayoutMode" xml:space="preserve">
-    <value>Chế độ phân loại</value>
+    <value>Tạo một thư mục trống</value>
   </data>
   <data name="NavResfreshButton.AutomationProperties.Name" xml:space="preserve">
-    <value>Làm lại danh mục </value>
+    <value>Làm mới thư mục</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Language</value>
+    <value>Ngôn ngữ</value>
   </data>
   <data name="SettingsContextMenuOverflow" xml:space="preserve">
-    <value>Move shell extensions into a sub menu</value>
+    <value>Chuyển các tùy chọn mở rộng vào menu phụ</value>
   </data>
   <data name="ShowConfirmationWhenDeletingItems" xml:space="preserve">
-    <value>Show confirmation dialog when deleting items</value>
+    <value>Hiện hộp thoại xác nhận khi xóa khoản mục</value>
   </data>
   <data name="PropertySaveErrorMessage.Text" xml:space="preserve">
-    <value>Đã có một vấn đề lưu mấy thuộc tính.</value>
+    <value>Đã xảy ra vấn đề khi lưu một số thuộc tính.</value>
   </data>
   <data name="PropertySaveErrorDialog.Title" xml:space="preserve">
     <value>Lỗi</value>
@@ -673,13 +678,13 @@
     <value>Vẫn đóng</value>
   </data>
   <data name="PropertyRatingText" xml:space="preserve">
-    <value>Xếp loại</value>
+    <value>Xếp hạng</value>
   </data>
-  <data name="PropertyItemPathDisplay" xml:space="preserve">
-    <value>Hướng mục</value>
+  <data name="PropertyParsingPath" xml:space="preserve">
+    <value>Đường dẫn khoản mục</value>
   </data>
   <data name="PropertyItemTypeText" xml:space="preserve">
-    <value>Loại mục</value>
+    <value>Loại khoản mục</value>
   </data>
   <data name="PropertyTitle" xml:space="preserve">
     <value>Tiêu đề</value>
@@ -694,16 +699,16 @@
     <value>Bản quyền</value>
   </data>
   <data name="PropertyDateModified" xml:space="preserve">
-    <value>Ngày Sửa đổi</value>
+    <value>Ngày sửa đổi</value>
   </data>
   <data name="PropertyBitDepth" xml:space="preserve">
-    <value>Độ sâu Bit</value>
+    <value>Độ sâu bit</value>
   </data>
   <data name="PropertyDimensions" xml:space="preserve">
-    <value>Chiều</value>
+    <value>Kích thước</value>
   </data>
   <data name="PropertyHorizontalSize" xml:space="preserve">
-    <value>Kích thước Ngang</value>
+    <value>Kích thước ngang</value>
   </data>
   <data name="PropertyVerticalSize" xml:space="preserve">
     <value>Kích thước dọc</value>
@@ -715,7 +720,7 @@
     <value>Độ phân giải dọc</value>
   </data>
   <data name="PropertyColorSpace" xml:space="preserve">
-    <value>Quang phổ màu</value>
+    <value>Không gian màu</value>
   </data>
   <data name="PropertyColorSpace_Value0" xml:space="preserve">
     <value>sRGB</value>
@@ -724,16 +729,16 @@
     <value>Không xác định</value>
   </data>
   <data name="PropertyLongitudeDecimal" xml:space="preserve">
-    <value>Thập phân kinh độ</value>
+    <value>Kinh độ</value>
   </data>
   <data name="PropertyLatitudeDecimal" xml:space="preserve">
-    <value>Thập phân vĩ độ</value>
+    <value>Vĩ độ</value>
   </data>
   <data name="PropertyAltitude" xml:space="preserve">
     <value>Độ cao</value>
   </data>
   <data name="PropertyDateTaken" xml:space="preserve">
-    <value>Ngày Chụp</value>
+    <value>Ngày chụp</value>
   </data>
   <data name="PropertyCameraManufacturer" xml:space="preserve">
     <value>Nhà sản xuất máy ảnh</value>
@@ -748,19 +753,19 @@
     <value>Tiêu cự</value>
   </data>
   <data name="PropertyAperture" xml:space="preserve">
-    <value>Lỗ ống kính</value>
+    <value>Khẩu độ</value>
   </data>
   <data name="PropertyPeopleNames" xml:space="preserve">
-    <value>Tên Người</value>
+    <value>Tên người</value>
   </data>
   <data name="PropertyChannelCount" xml:space="preserve">
-    <value>Số đường</value>
+    <value>Số kênh</value>
   </data>
   <data name="PropertyFormat" xml:space="preserve">
     <value>Định dạng</value>
   </data>
   <data name="PropertySampleRate" xml:space="preserve">
-    <value>Tốc độ Lấy mẫu</value>
+    <value>Tốc độ lấy mẫu</value>
   </data>
   <data name="PropertyAlbumArtist" xml:space="preserve">
     <value>Nghệ sĩ Album</value>
@@ -775,10 +780,10 @@
     <value>Nhịp mỗi phút</value>
   </data>
   <data name="PropertyComposer" xml:space="preserve">
-    <value>Người sáng tác</value>
+    <value>Nhạc sĩ</value>
   </data>
   <data name="Conductor" xml:space="preserve">
-    <value>Người chỉ huy</value>
+    <value>Nhạc trưởng</value>
   </data>
   <data name="PropertyDiscNumber" xml:space="preserve">
     <value>Số đĩa</value>
@@ -787,7 +792,7 @@
     <value>Thể loại</value>
   </data>
   <data name="PropertyTrackNumber" xml:space="preserve">
-    <value>Số hiệu Rãnh</value>
+    <value>Số rãnh âm</value>
   </data>
   <data name="PropertyDuration" xml:space="preserve">
     <value>Thời lượng</value>
@@ -796,19 +801,19 @@
     <value>Số khung hình</value>
   </data>
   <data name="PropertyProtectionType" xml:space="preserve">
-    <value>Loại trình bảo về</value>
+    <value>Loại trình bảo vệ</value>
   </data>
   <data name="PropertyAuthorUrl" xml:space="preserve">
     <value>Url tác giả</value>
   </data>
   <data name="PropertyContentDistributor" xml:space="preserve">
-    <value>Người phân phối nội dung</value>
+    <value>Bên phân phối nội dung</value>
   </data>
   <data name="PropertyDateReleased" xml:space="preserve">
-    <value>Ngày ra</value>
+    <value>Ngày phát hành</value>
   </data>
   <data name="PropertySeriesName" xml:space="preserve">
-    <value>Tên chuỗi</value>
+    <value>Tên loạt</value>
   </data>
   <data name="PropertySeasonNumber" xml:space="preserve">
     <value>Số mùa</value>
@@ -823,25 +828,25 @@
     <value>Url quảng cáo</value>
   </data>
   <data name="PropertyProviderStyle" xml:space="preserve">
-    <value>Kiểu cung cấp</value>
+    <value>Hình thức cung cấp</value>
   </data>
   <data name="PropertyPublisher" xml:space="preserve">
     <value>Nhà phát hành</value>
   </data>
   <data name="PropertyThumbnailLargePath" xml:space="preserve">
-    <value>Đường dẫn Ảnh thu nhỏ Lớn</value>
+    <value>Đường dẫn hình xem trước lớn</value>
   </data>
   <data name="PropertyThumbnailLargeUri" xml:space="preserve">
-    <value>Đường dẫn Ảnh thu nhỏ Vừa</value>
+    <value>Uri hình xem trước lớn</value>
   </data>
   <data name="PropertyThumbnailSmallPath" xml:space="preserve">
-    <value>Đường dẫn Ảnh thu nhỏ Nhỏ</value>
+    <value>Đường dẫn hình xem trước nhỏ</value>
   </data>
   <data name="PropertyThumbnailSmallUri" xml:space="preserve">
-    <value>Đường dẫn Ảnh thu nhỏ Lớn</value>
+    <value>Uri hình xem trước nhỏ</value>
   </data>
   <data name="PropertyUserWebUrl" xml:space="preserve">
-    <value>Url người sử dụng Web</value>
+    <value>Url Web người dùng</value>
   </data>
   <data name="PropertyWriter" xml:space="preserve">
     <value>Nhà văn</value>
@@ -853,25 +858,25 @@
     <value>Người đóng góp</value>
   </data>
   <data name="PropertyLastAuthor" xml:space="preserve">
-    <value>Tác giả Cuối</value>
+    <value>Tác giả cuối</value>
   </data>
   <data name="PropertyRevisionNumber" xml:space="preserve">
-    <value>Số Hiệu đính</value>
+    <value>Số hiệu đính</value>
   </data>
   <data name="PropertyVersion" xml:space="preserve">
     <value>Phiên bản</value>
   </data>
   <data name="PropertyDateCreated" xml:space="preserve">
-    <value>Ngày Tạo</value>
+    <value>Ngày tạo</value>
   </data>
   <data name="PropertyTotalEditingTime" xml:space="preserve">
-    <value>Tổng Thời gian Chỉnh sửa:</value>
+    <value>Tổng thời gian chỉnh sửa</value>
   </data>
   <data name="PropertyTemplate" xml:space="preserve">
     <value>Mẫu</value>
   </data>
   <data name="PropertyWordCount" xml:space="preserve">
-    <value>Đếm chữ</value>
+    <value>Số từ</value>
   </data>
   <data name="PropertyCharacterCount" xml:space="preserve">
     <value>Số ký tự</value>
@@ -886,34 +891,40 @@
     <value>Số trang</value>
   </data>
   <data name="PropertySlideCount" xml:space="preserve">
-    <value>Đếm trang trình bày</value>
+    <value>Số trang trình bày</value>
   </data>
   <data name="PropertyFrameRate" xml:space="preserve">
     <value>Tốc độ khung hình</value>
   </data>
   <data name="PropertyEncodingBitrate" xml:space="preserve">
-    <value>Mã hóa tốc độ bit</value>
+    <value>Tốc độ bit mã hóa</value>
+  </data>
+  <data name="PropertyPreviewAudioEncodingBitrate" xml:space="preserve">
+    <value>Tốc độ bit mã hóa âm thanh</value>
+  </data>
+  <data name="PropertyPreviewVideoEncodingBitrate" xml:space="preserve">
+    <value>Tốc độ bit mã hóa video</value>
   </data>
   <data name="Compression" xml:space="preserve">
-    <value>Nén</value>
+    <value>Phương thức nén</value>
   </data>
   <data name="PropertyFrameWidth" xml:space="preserve">
-    <value>Chiều rộng khung</value>
+    <value>Chiều rộng khung hình</value>
   </data>
   <data name="PropertyFrameHeight" xml:space="preserve">
-    <value>Chiều cao Khung</value>
+    <value>Chiều cao khung hình</value>
   </data>
   <data name="PropertyOrientation" xml:space="preserve">
     <value>Hướng</value>
   </data>
   <data name="PropertySectionCore" xml:space="preserve">
-    <value>Cốt lõi</value>
+    <value>Thông tin cơ bản</value>
   </data>
   <data name="PropertySectionImage" xml:space="preserve">
     <value>Hình ảnh</value>
   </data>
   <data name="PropertySectionPhoto" xml:space="preserve">
-    <value>Ảnh</value>
+    <value>Ảnh chụp</value>
   </data>
   <data name="PropertySectionGPS" xml:space="preserve">
     <value>GPS</value>
@@ -925,7 +936,7 @@
     <value>Âm thanh</value>
   </data>
   <data name="PropertySectionMusic" xml:space="preserve">
-    <value>Âm nhạc</value>
+    <value>Nhạc</value>
   </data>
   <data name="PropertySectionVideo" xml:space="preserve">
     <value>Video</value>
@@ -937,64 +948,61 @@
     <value>Địa chỉ</value>
   </data>
   <data name="SelectionOptions" xml:space="preserve">
-    <value>Selection options</value>
+    <value>Thao tác lựa chọn</value>
   </data>
   <data name="NavToolbarSelectionOptions.Label" xml:space="preserve">
     <value>Chọn</value>
   </data>
   <data name="RecycleBinItemAutomation" xml:space="preserve">
-    <value>Mục thùng rác</value>
+    <value>Khoản mục thùng rác</value>
   </data>
   <data name="ShortcutItemAutomation" xml:space="preserve">
-    <value>Mục tắt lối</value>
+    <value>Mục lối tắt</value>
   </data>
   <data name="Drives" xml:space="preserve">
-    <value>Ổ đĩa:</value>
+    <value>Ổ lưu trữ</value>
   </data>
   <data name="PinToSidebarByDraggingCaptionText" xml:space="preserve">
-    <value>Di chuyển tới đây</value>
+    <value>Di chuyển đến đây</value>
   </data>
   <data name="EjectNotificationHeader" xml:space="preserve">
-    <value>An toàn để rút phần cứng</value>
+    <value>An toàn để ngắt kết nối phần cứng</value>
   </data>
   <data name="EjectNotificationBody" xml:space="preserve">
-    <value>Bây giờ an toàn để rút thiết bị từ máy vi tính.</value>
+    <value>Thiết bị hiện có thể được ngắt kết nối khỏi máy tính.</value>
   </data>
   <data name="EjectNotificationErrorDialogHeader" xml:space="preserve">
-    <value>Có vấn đề chuẩn bị ngắt kết nối thiết bị</value>
+    <value>Xảy ra vấn đề khi ngắt kết nối thiết bị</value>
   </data>
   <data name="EjectNotificationErrorDialogBody" xml:space="preserve">
-    <value>Thiết bị này đang sử dụng. Đóng ứng dụng, cửa sổ, hoặc tab nào chắc dùng thiết bị, xong rồi thử lần nữa.</value>
+    <value>Thiết bị này đang được sử dụng. Đóng các chương trình, cửa sổ hoặc thẻ có khả năng đang truy cập thiết bị và thử lại.</value>
   </data>
-  <data name="SideBarEjectDevice.Text" xml:space="preserve">
+  <data name="Eject" xml:space="preserve">
     <value>Gỡ bỏ</value>
   </data>
   <data name="DuplicateTab" xml:space="preserve">
-    <value>Duplicate tab</value>
+    <value>Nhân đôi thẻ</value>
   </data>
   <data name="HorizontalMultitaskingControlMoveTabToNewWindow.Text" xml:space="preserve">
-    <value>Di chuyển tab đến cửa sổ mới</value>
+    <value>Di chuyển thẻ đến cửa sổ mới</value>
   </data>
   <data name="NewTab" xml:space="preserve">
-    <value>New tab</value>
+    <value>Thẻ mới</value>
   </data>
   <data name="ClearPropertiesFlyoutText.Text" xml:space="preserve">
-    <value>Mấy thuộc tính có thể hữu thông tin cá nhân.</value>
+    <value>Một số thuộc tính có thể chứa thông tin cá nhân.</value>
   </data>
   <data name="ClearPropertiesButton.Content" xml:space="preserve">
-    <value>Xóa cả thuộc tính</value>
+    <value>Xóa tất cả thuộc tính</value>
   </data>
   <data name="OngoingTasksTeachingTip.Subtitle" xml:space="preserve">
-    <value>Kiểm tra tình trạng của hoạt động tệp ở đây</value>
+    <value>Kiểm tra trạng thái của các thao tác tệp tại đây</value>
   </data>
   <data name="OngoingTasksTeachingTip.Title" xml:space="preserve">
-    <value>Trung tâm tình trạng</value>
+    <value>Trung tâm trạng thái</value>
   </data>
   <data name="SearchPagePathBoxOverrideText" xml:space="preserve">
-    <value>Tìm kết quả trong </value>
-  </data>
-  <data name="SettingsListAndSortDirectoriesAlongsideFiles" xml:space="preserve">
-    <value>Danh và sắp xếp danh mụch kế bên tệp tin</value>
+    <value>Kết quả tìm kiếm {0} trong {1}</value>
   </data>
   <data name="Details" xml:space="preserve">
     <value>Chi tiết</value>
@@ -1003,19 +1011,16 @@
     <value>Không</value>
   </data>
   <data name="ShowProtectedSystemFiles" xml:space="preserve">
-    <value>Hiện các tệp hệ thống được bảo vệ</value>
-  </data>
-  <data name="SettingsSearchUnindexedItems" xml:space="preserve">
-    <value>Bao gồm các tệp chưa đánh chỉ mục trong kết quả tìm kiếm</value>
+    <value>Hiện tệp hệ thống được bảo vệ</value>
   </data>
   <data name="SyncFolderPreferencesAcrossDirectories" xml:space="preserve">
-    <value>Sync layout and sorting preferences across directories</value>
+    <value>Áp dụng lựa chọn bố cục và sắp xếp ở mọi thư mục</value>
   </data>
   <data name="SettingsContextMenu.Text" xml:space="preserve">
-    <value>Tùy chỉnh danh mục truy cập bằng cú nhấp phía phải</value>
+    <value>Tùy chỉnh menu chuột phải</value>
   </data>
   <data name="OriginalPath" xml:space="preserve">
-    <value>Original path</value>
+    <value>Đường dẫn gốc</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>Thêm</value>
@@ -1027,34 +1032,34 @@
     <value>Loại bỏ</value>
   </data>
   <data name="SettingsMultitaskingAlwaysOpenDualPane" xml:space="preserve">
-    <value>Open tabs in dual pane mode</value>
+    <value>Mở thẻ trong chế độ hai ngăn</value>
   </data>
   <data name="ShowOpenInNewPane" xml:space="preserve">
-    <value>Show option to open folders in a new pane</value>
+    <value>Hiện tùy chọn mở thư mục trong ngăn mới</value>
+  </data>
+  <data name="ShowCopyPath" xml:space="preserve">
+    <value>Hiện tùy chọn sao chép đường dẫn</value>
+  </data>
+  <data name="ShowCreateFolderWithSelection" xml:space="preserve">
+    <value>Hiện tùy chọn tạo thư mục với lựa chọn</value>
+  </data>
+  <data name="ShowCreateShortcut" xml:space="preserve">
+    <value>Hiện tùy chọn tạo lối tắt</value>
   </data>
   <data name="NavigationToolbarNewPane.Label" xml:space="preserve">
-    <value>Màn mới</value>
+    <value>Ngăn mới</value>
   </data>
   <data name="OpenInNewPane" xml:space="preserve">
-    <value>Open in new pane</value>
+    <value>Mở trong ngăn mới</value>
   </data>
-  <data name="Folders" xml:space="preserve">
-    <value>Thư mục</value>
+  <data name="FilesAndFolders" xml:space="preserve">
+    <value>Tệp &amp; thư mục</value>
   </data>
   <data name="NavToolbarDetails.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Xem thông tin chi tiết (Ctrl+Shift+1)</value>
-  </data>
-  <data name="NavToolbarLargeIcons.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Chế độ xem lưới (Lớn) (Ctrl+Shift+5)</value>
-  </data>
-  <data name="NavToolbarMediumIcons.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Chế độ xem lưới (Vừa) (Ctrl+Shift+4)</value>
-  </data>
-  <data name="NavToolbarSmallIcons.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Chế độ xem lưới (Nhỏ) (Ctrl+Shift+3)</value>
+    <value>Chi tiết (Ctrl+Shift+1)</value>
   </data>
   <data name="NavToolbarTiles.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Gạch (Ctrl+Shift+2)</value>
+    <value>Lát (Ctrl+Shift+2)</value>
   </data>
   <data name="DateDeleted" xml:space="preserve">
     <value>Ngày xóa</value>
@@ -1062,68 +1067,38 @@
   <data name="SidebarCloudDrives" xml:space="preserve">
     <value>Ổ lưu trữ đám mây</value>
   </data>
-  <data name="BundlesWidgetOptionsFlyoutExportBundlesMenuItem.Text" xml:space="preserve">
-    <value>Xuất khẩu bó</value>
-  </data>
-  <data name="BundlesWidgetOptionsFlyoutImportBundlesMenuItem.Text" xml:space="preserve">
-    <value>Nhập khẩu bó</value>
-  </data>
-  <data name="BundlesWidgetAddBundleErrorAlreadyExists" xml:space="preserve">
-    <value>Bó với tên giống nhau hiện hữu rồi!</value>
-  </data>
-  <data name="BundleItemFlyouOpenItemLocationMenuItem.Text" xml:space="preserve">
-    <value>Mở vị trí mục</value>
-  </data>
-  <data name="BundleItemFlyouRemoveFromBundleMenuItem.Text" xml:space="preserve">
-    <value>Xóa bỏ từ bó</value>
-  </data>
-  <data name="BundleOptionsFlyoutRemoveBundleMenuItem.Text" xml:space="preserve">
-    <value>Xóa bỏ bó</value>
-  </data>
-  <data name="Bundles" xml:space="preserve">
-    <value>Bó</value>
-  </data>
-  <data name="BundleNoContentsTextBlock.Text" xml:space="preserve">
-    <value>Lôi kéo và thả tệp tin hoặc thư mục nào đây để truy cập nó nhanh</value>
-  </data>
-  <data name="EnterBundleName" xml:space="preserve">
-    <value>Nhập vào tên bó</value>
-  </data>
-  <data name="BundlesWidgetRenameBundleDialogSubtitleText" xml:space="preserve">
-    <value>Nhập vào tên mới</value>
-  </data>
-  <data name="BundlesWidgetRenameBundleDialogTitleText" xml:space="preserve">
-    <value>Đổi tên "{0}"</value>
-  </data>
-  <data name="CreateBundle" xml:space="preserve">
-    <value>Tạo bó</value>
-  </data>
   <data name="Confirm" xml:space="preserve">
     <value>Xác nhận</value>
-  </data>
-  <data name="BundlesWidgetCreateBundleDialogSubtitleText" xml:space="preserve">
-    <value>Thêm gói</value>
-  </data>
-  <data name="BundleOptionsFlyoutRenameBundleMenuItem.Text" xml:space="preserve">
-    <value>Đặt tên bó lại</value>
   </data>
   <data name="DesiredName" xml:space="preserve">
     <value>Tên mong muốn</value>
   </data>
   <data name="TogglePreviewPane" xml:space="preserve">
-    <value>Toggle the preview pane</value>
+    <value>Bật/Tắt ngăn xem trước</value>
+  </data>
+  <data name="ToggleDetailsPane" xml:space="preserve">
+    <value>Bật/Tắt ngăn chi tiết</value>
+  </data>
+  <data name="ToggleDetailsPaneDescription" xml:space="preserve">
+    <value>Ẩn hoặc hiện ngăn chi tiết để xem các thuộc tính cơ bản của tệp</value>
+  </data>
+  <data name="ToggleInfoPane" xml:space="preserve">
+    <value>Bật/Tắt ngăn thông tin</value>
+  </data>
+  <data name="ToggleInfoPaneDescription" xml:space="preserve">
+    <value>Ẩn hoặc hiện ngăn thông tin để xem chi tiết hoặc xem trước tệp</value>
+  </data>
+  <data name="ToggleToolbar" xml:space="preserve">
+    <value>Bật/Tắt thanh công cụ</value>
   </data>
   <data name="DetailsPanePreviewNotAvaliableText" xml:space="preserve">
-    <value>Xem trước không sẵn dùng</value>
+    <value>Không có bản xem trước</value>
   </data>
   <data name="PropertyItemName" xml:space="preserve">
-    <value>Tên Mục</value>
+    <value>Tên khoản mục</value>
   </data>
-  <data name="UnpinFromFavorites" xml:space="preserve">
-    <value>Unpin from Favorites</value>
-  </data>
-  <data name="SidebarNetworkDrives" xml:space="preserve">
-    <value>Ổ lưu trữ mạng</value>
+  <data name="UnpinFolderFromSidebar" xml:space="preserve">
+    <value>Bỏ ghim khỏi thanh bên</value>
   </data>
   <data name="Network" xml:space="preserve">
     <value>Mạng</value>
@@ -1132,40 +1107,40 @@
     <value>Chi tiết tệp</value>
   </data>
   <data name="PreviewPaneFilePreview.AutomationProperties.Name" xml:space="preserve">
-    <value>Xem trước tệp tin</value>
+    <value>Xem trước tệp</value>
   </data>
   <data name="SelectedFilePreviewPane.AutomationProperties.Name" xml:space="preserve">
-    <value>Màn xem tệp tin trước đã chọn</value>
+    <value>Ngăn xem trước tệp đã chọn</value>
   </data>
   <data name="Feedback" xml:space="preserve">
-    <value>Feedback</value>
+    <value>Phản hồi</value>
   </data>
   <data name="CloudDriveSyncStatus_Online" xml:space="preserve">
-    <value>Sẵn sàng khi trực tuyến</value>
+    <value>Khả dụng khi trực tuyến</value>
   </data>
   <data name="Documentation" xml:space="preserve">
-    <value>Documentation</value>
+    <value>Tài liệu hướng dẫn</value>
   </data>
   <data name="CloudDriveSyncStatus_Offline" xml:space="preserve">
-    <value>Dùng được ngoại tuyến</value>
+    <value>Khả dụng khi ngoại tuyến</value>
   </data>
   <data name="CloudDriveSyncStatus_PartialOffline" xml:space="preserve">
-    <value>Có phần sẫn sàng ngoài tuyến</value>
+    <value>Khả dụng một phần khi ngoại tuyến</value>
   </data>
   <data name="CloudDriveSyncStatus_Sync" xml:space="preserve">
     <value>Đang đồng bộ hóa</value>
   </data>
   <data name="CloudDriveSyncStatus_Excluded" xml:space="preserve">
-    <value>Đã trừ từ đồng bộ hóa</value>
+    <value>Đã loại trừ khỏi đồng bộ hóa</value>
   </data>
   <data name="ItemSizeNotCalculated" xml:space="preserve">
-    <value>Không tính</value>
+    <value>Chưa tính toán</value>
   </data>
   <data name="CloudDriveSyncStatus_Unknown" xml:space="preserve">
     <value>Không xác định</value>
   </data>
   <data name="RenameFileDialog.Text" xml:space="preserve">
-    <value>Nếu bạn thay đổi định dạng của tệp tin, nó có thể mất khả năng để dùng. Chắc chắn bạn muốn thay đổi không?</value>
+    <value>Nếu bạn thay đổi phần mở rộng, tệp có thể không sử dụng được nữa. Bạn có chắc chắn muốn tiếp tục không?</value>
   </data>
   <data name="DriveTypeCDRom" xml:space="preserve">
     <value>Ổ đĩa CD ROM</value>
@@ -1174,22 +1149,22 @@
     <value>Ổ lưu trữ đám mây</value>
   </data>
   <data name="DriveTypeFixed" xml:space="preserve">
-    <value>Ổ đĩa cố định</value>
+    <value>Ổ lưu trữ cố định</value>
   </data>
   <data name="DriveTypeFloppyDisk" xml:space="preserve">
-    <value>Ổ Đĩa Mềm</value>
+    <value>Ổ đĩa mềm</value>
   </data>
   <data name="DriveTypeNetwork" xml:space="preserve">
-    <value>Ổ đĩa Mạng</value>
+    <value>Ổ đĩa mạng</value>
   </data>
   <data name="DriveTypeNoRootDirectory" xml:space="preserve">
-    <value>Ổ lưu trữ không kết nối</value>
+    <value>Ổ lưu trữ chưa gán</value>
   </data>
   <data name="DriveTypeRam" xml:space="preserve">
-    <value>Ổ lưu RAM</value>
+    <value>Ổ lưu trữ RAM</value>
   </data>
   <data name="DriveTypeRemovable" xml:space="preserve">
-    <value>Thiết bị lưu trữ không cố định</value>
+    <value>Thiết bị lưu trữ di động</value>
   </data>
   <data name="DriveTypeUnknown" xml:space="preserve">
     <value>Không xác định</value>
@@ -1201,142 +1176,115 @@
     <value>Ngày tạo</value>
   </data>
   <data name="MoreOptions" xml:space="preserve">
-    <value>Nhiều tùy chọn nữa...</value>
+    <value>Nhiều tùy chọn hơn...</value>
   </data>
   <data name="DrivesWidgetOptionsFlyoutMapNetDriveMenuItem.Text" xml:space="preserve">
     <value>Ánh xạ ổ đĩa mạng</value>
   </data>
-  <data name="BundlesWidgetMoreOptionsButton.AutomationProperties.Name" xml:space="preserve">
-    <value>Thêm tùy chọn về bó</value>
-  </data>
-  <data name="SidebarFavorites" xml:space="preserve">
-    <value>Mục yêu thích</value>
+  <data name="Pinned" xml:space="preserve">
+    <value>Đã ghim</value>
   </data>
   <data name="SidebarLibraries" xml:space="preserve">
     <value>Thư viện</value>
   </data>
   <data name="NoItemSelected" xml:space="preserve">
-    <value>Chưa chọn mục nào</value>
+    <value>Chưa chọn khoản mục nào</value>
   </data>
   <data name="PropertyItemTarget" xml:space="preserve">
-    <value>Mục tiêu</value>
+    <value>Đích</value>
   </data>
   <data name="Arguments" xml:space="preserve">
     <value>Đối số</value>
-  </data>
-  <data name="BundlesOpenInNewPane.Text" xml:space="preserve">
-    <value>Mở trong màn mới</value>
   </data>
   <data name="Default" xml:space="preserve">
     <value>Mặc định</value>
   </data>
   <data name="PropertyItemCount" xml:space="preserve">
-    <value>Số lượng mục</value>
-  </data>
-  <data name="StatusDeletionFailed" xml:space="preserve">
-    <value>Hoạt động xóa bỏ bị thất bại</value>
-  </data>
-  <data name="StatusDeletionComplete" xml:space="preserve">
-    <value>Hoạt động xóa bỏ xong</value>
-  </data>
-  <data name="StatusDeletionCancelled" xml:space="preserve">
-    <value>Hanh động xóa bỏ bị hủy bỏ</value>
-  </data>
-  <data name="StatusRecycleComplete" xml:space="preserve">
-    <value>Dọn thùng rác xong</value>
-  </data>
-  <data name="StatusMoveComplete" xml:space="preserve">
-    <value>Hoạt động di chuyển xong</value>
-  </data>
-  <data name="StatusCopyComplete" xml:space="preserve">
-    <value>Sao chép xong</value>
+    <value>Số lượng khoản mục</value>
   </data>
   <data name="ElevateConfirmDialog.Title" xml:space="preserve">
-    <value>Hoạt động này yêu cầu quyền người quản trị</value>
+    <value>Hành động này yêu cầu quyền quản trị viên</value>
   </data>
   <data name="ElevateConfirmDialog.Content" xml:space="preserve">
-    <value>Bạn có muốn tiếp tục như người quản trị không?</value>
+    <value>Bạn có muốn tiếp tục với quyền quản trị viên không?</value>
   </data>
   <data name="ColumnsShortcutTooltip" xml:space="preserve">
     <value>Cột (Ctrl+Shift+6)</value>
   </data>
   <data name="PinItemToStart.Text" xml:space="preserve">
-    <value>Ghim vào thực đơn Start</value>
+    <value>Ghim vào menu Bắt đầu</value>
   </data>
   <data name="UnpinItemFromStart.Text" xml:space="preserve">
-    <value>Ngừng ghim vào thực đơn Start</value>
+    <value>Bỏ ghim khỏi menu Bắt đầu</value>
   </data>
   <data name="Library" xml:space="preserve">
     <value>Thư viện</value>
   </data>
   <data name="LibraryLocations.Text" xml:space="preserve">
-    <value>Vị trí</value>
+    <value>Vị trí:</value>
   </data>
   <data name="SetAsDefaultSavePath" xml:space="preserve">
-    <value>Đặt hướng lưu mặc định</value>
+    <value>Đặt làm đường dẫn lưu mặc định</value>
   </data>
   <data name="LibraryNoLocations.Text" xml:space="preserve">
     <value>Không có vị trí</value>
   </data>
   <data name="ErrorInputEmpty" xml:space="preserve">
-    <value>Văn bản nhập chữ không được trống!</value>
+    <value>Trường nhập không được để trống!</value>
   </data>
   <data name="ErrorNameInputRestrictedCharacters" xml:space="preserve">
-    <value>Tên không được hữu những ký tự danh sau này: \ / : * ? " &lt; &gt; |</value>
+    <value>Tên không được chứa những kí tự sau: \ / : * ? " &lt; &gt; |</value>
   </data>
   <data name="ErrorNameInputRestricted" xml:space="preserve">
-    <value>Không cho phép sử dụng tên này!</value>
+    <value>Tên này không được phép sử dụng!</value>
   </data>
   <data name="CreateLibraryErrorAlreadyExists" xml:space="preserve">
-    <value>Thư viện với tên giống hiện hữu rồi!</value>
+    <value>Thư viện có cùng tên đã tồn tại!</value>
   </data>
   <data name="OpenStorageSense" xml:space="preserve">
-    <value>Open Storage Sense</value>
+    <value>Mở Storage Sense</value>
+  </data>
+  <data name="OpenStorageSenseDescription" xml:space="preserve">
+    <value>Mở trang Storage Sense trong Cài đặt Windows</value>
+  </data>
+  <data name="Cleanup" xml:space="preserve">
+    <value>Dọn dẹp</value>
   </data>
   <data name="Copy" xml:space="preserve">
     <value>Sao chép</value>
   </data>
-  <data name="CopyItemsDialogSubtitleMultiple" xml:space="preserve">
-    <value>{0} mục sẽ bị sao chép</value>
-  </data>
   <data name="CopyItemsDialogTitle" xml:space="preserve">
-    <value>Sao chép mục</value>
+    <value>Sao chép {0, plural, other {khoản mục}}</value>
   </data>
   <data name="DeleteItemsDialogTitle" xml:space="preserve">
-    <value>Xóa mục</value>
+    <value>Xóa bỏ {0, plural, other {khoản mục}}</value>
   </data>
   <data name="MoveItemsDialogPrimaryButtonText" xml:space="preserve">
     <value>Di chuyển</value>
   </data>
-  <data name="MoveItemsDialogSubtitleMultiple" xml:space="preserve">
-    <value>{0} mục sẽ bị di chuyển</value>
+  <data name="MoveItemsDialogSubtitle" xml:space="preserve">
+    <value>{0, plural, other {# khoản mục sẽ được di chuyển}}</value>
   </data>
   <data name="MoveItemsDialogTitle" xml:space="preserve">
-    <value>Di chuyển mục</value>
+    <value>Di chuyển {0, plural, other {khoản mục}}</value>
   </data>
-  <data name="DeleteItemsDialogSubtitleMultiple" xml:space="preserve">
-    <value>{0} mục sẽ bị xóa.</value>
+  <data name="DeleteItemsDialogSubtitle" xml:space="preserve">
+    <value>{0, plural, other {# khoản mục sẽ bị xóa bỏ}}</value>
   </data>
   <data name="ConflictingItemsDialogPrimaryButtonText" xml:space="preserve">
     <value>Tiếp tục</value>
   </data>
-  <data name="ConflictingItemsDialogSubtitleMultipleConflictsMultipleNonConflicts" xml:space="preserve">
-    <value>Đang có {0} tên tệp tin xung đột, và {1} mục đang hoạt động.</value>
+  <data name="ConflictingItemsDialogSubtitleConflicts" xml:space="preserve">
+    <value>{0, plural, other {Có # tên tệp xung đột}}</value>
+  </data>
+  <data name="ConflictingItemsDialogSubtitleConflictsNonConflicts" xml:space="preserve">
+    <value>{0, plural, other {Có # tên tệp xung đột}} và {1, plural, other {# mục đang chờ}}</value>
   </data>
   <data name="ConflictingItemsDialogTitle" xml:space="preserve">
-    <value>Tên mục xung đột</value>
+    <value>Xung đột {0, plural, other {tên tệp}}</value>
   </data>
-  <data name="ConflictingItemsDialogSubtitleSingleConflictMultipleNonConflicts" xml:space="preserve">
-    <value>Có một tên tệp tin xung đột, và {0} mục đang hoạt động.</value>
-  </data>
-  <data name="CopyItemsDialogSubtitleSingle" xml:space="preserve">
-    <value>Một mục sẽ bị sao chép</value>
-  </data>
-  <data name="DeleteItemsDialogSubtitleSingle" xml:space="preserve">
-    <value>Một mục sẽ bị xóa</value>
-  </data>
-  <data name="MoveItemsDialogSubtitleSingle" xml:space="preserve">
-    <value>Một mục sẽ bị di chuyển</value>
+  <data name="CopyItemsDialogSubtitle" xml:space="preserve">
+    <value>{0, plural, other {# khoản mục sẽ được sao chép}}</value>
   </data>
   <data name="DeleteItemsDialogPermanentlyDeleteCheckBox.Content" xml:space="preserve">
     <value>Xóa vĩnh viễn</value>
@@ -1344,74 +1292,53 @@
   <data name="PropertyISO" xml:space="preserve">
     <value>Tốc độ ISO</value>
   </data>
-  <data name="SearchUnindexedItemsLabel.Text" xml:space="preserve">
-    <value>Bạn không tìm thấy nội dung cần tìm?</value>
-  </data>
-  <data name="SearchUnindexedItemsButton.Content" xml:space="preserve">
-    <value>Search unindexed items</value>
-  </data>
   <data name="ReplaceExisting" xml:space="preserve">
-    <value>Replace existing</value>
+    <value>Thay thế hiện có</value>
   </data>
   <data name="GenerateNewName" xml:space="preserve">
-    <value>Phát ra tên mới</value>
+    <value>Tạo tên mới</value>
   </data>
-  <data name="ConflictingItemsDialogSubtitleMultipleConflictsNoNonConflicts" xml:space="preserve">
-    <value>Đang có {0} tên tệp tin xung đột.</value>
+  <data name="CreateFolderWithSelection" xml:space="preserve">
+    <value>Tạo thư mục với lựa chọn</value>
   </data>
-  <data name="ConflictingItemsDialogSubtitleSingleConflictNoNonConflicts" xml:space="preserve">
-    <value>Đang có một tên tệp tin xung đột.</value>
-  </data>
-  <data name="BaseLayoutItemContextFlyoutCreateFolderWithSelection.Text" xml:space="preserve">
-    <value>Tạo thư mục bằng chọn</value>
-  </data>
-  <data name="ToolTipDescriptionName" xml:space="preserve">
-    <value>Tên:</value>
-  </data>
-  <data name="ToolTipDescriptionType" xml:space="preserve">
+  <data name="ItemType" xml:space="preserve">
     <value>Loại:</value>
   </data>
   <data name="ToolTipDescriptionDate" xml:space="preserve">
     <value>Ngày sửa đổi:</value>
   </data>
-  <data name="OpenItemsWithCaptionText" xml:space="preserve">
+  <data name="OpenWith" xml:space="preserve">
     <value>Mở bằng</value>
   </data>
   <data name="FileBrowserThumbnailIconColumnGrid.AutomationProperties.Name" xml:space="preserve">
-    <value>Biểu tượng tệp tin</value>
+    <value>Biểu tượng tệp</value>
   </data>
   <data name="DetailsViewHeaderFlyout_ShowOriginalPath.Text" xml:space="preserve">
-    <value>Cột hướng đầu tiên</value>
+    <value>Cột đường dẫn gốc</value>
   </data>
   <data name="DetailsViewHeaderFlyout_ShowItemType.Text" xml:space="preserve">
-    <value>Cột loại mục</value>
+    <value>Cột loại khoản mục</value>
   </data>
   <data name="DetailsViewHeaderFlyout_ShowDateModified.Text" xml:space="preserve">
-    <value>Cột ngày chỉnh sửa</value>
+    <value>Cột ngày sửa đổi</value>
   </data>
   <data name="DetailsViewHeaderFlyout_ShowDateDeleted.Text" xml:space="preserve">
     <value>Cột ngày xóa</value>
   </data>
   <data name="Sort" xml:space="preserve">
-    <value>Sort</value>
-  </data>
-  <data name="NavToolbarGroupByRadioButtons.Text" xml:space="preserve">
-    <value>Nhóm bởi</value>
+    <value>Sắp xếp</value>
   </data>
   <data name="DateModifiedLowerCase" xml:space="preserve">
-    <value>Ngày thay đổi</value>
+    <value>Ngày sửa đổi</value>
   </data>
   <data name="OriginalFolder" xml:space="preserve">
-    <value>Original folder</value>
-  </data>
-  <data name="NavToolbarSortByRadioButtons.Text" xml:space="preserve">
-    <value>Sắp xếp theo</value>
+    <value>Thư mục gốc</value>
   </data>
   <data name="Descending" xml:space="preserve">
     <value>Giảm dần</value>
   </data>
   <data name="ItemSizeText_Huge" xml:space="preserve">
-    <value>Rất lớn</value>
+    <value>Cực lớn</value>
   </data>
   <data name="ItemSizeText_VeryLarge" xml:space="preserve">
     <value>Rất lớn</value>
@@ -1426,10 +1353,10 @@
     <value>Nhỏ</value>
   </data>
   <data name="ItemSizeText_Tiny" xml:space="preserve">
-    <value>Nhỏ</value>
+    <value>Rất nhỏ</value>
   </data>
   <data name="Future" xml:space="preserve">
-    <value>Future</value>
+    <value>Tương lai</value>
   </data>
   <data name="Today" xml:space="preserve">
     <value>Hôm nay</value>
@@ -1444,19 +1371,19 @@
     <value>Tuần trước</value>
   </data>
   <data name="EarlierThisMonth" xml:space="preserve">
-    <value>Earlier this month</value>
+    <value>Đầu tháng này</value>
   </data>
   <data name="LastMonth" xml:space="preserve">
     <value>Tháng trước</value>
   </data>
   <data name="EarlierThisYear" xml:space="preserve">
-    <value>Earlier this year</value>
+    <value>Đầu năm nay</value>
   </data>
   <data name="LastYear" xml:space="preserve">
-    <value>Last year</value>
+    <value>Năm ngoái</value>
   </data>
   <data name="YearN" xml:space="preserve">
-    <value>Year {0}</value>
+    <value>Năm {0}</value>
   </data>
   <data name="GroupItemsCount_Singular" xml:space="preserve">
     <value>{0} mục</value>
@@ -1465,112 +1392,19 @@
     <value>{0} mục</value>
   </data>
   <data name="ReopenClosedTab" xml:space="preserve">
-    <value>Mở lại cửa sổ đã đóng</value>
+    <value>Mở lại thẻ đã đóng</value>
   </data>
   <data name="Rename" xml:space="preserve">
-    <value>Rename</value>
+    <value>Đổi tên</value>
   </data>
   <data name="Privacy" xml:space="preserve">
-    <value>Privacy</value>
-  </data>
-  <data name="StatusMoveCanceled" xml:space="preserve">
-    <value>Hủy bỏ hoạt động di chuyển</value>
-  </data>
-  <data name="StatusCopyCanceled" xml:space="preserve">
-    <value>Hủy bỏ hoạt động sao chép</value>
-  </data>
-  <data name="StatusMoveCanceledDetails_Singular" xml:space="preserve">
-    <value>Hoạt động di chuyển {0} mục từ {1} đến {2} đã bị hủy bỏ</value>
-  </data>
-  <data name="StatusMoveCanceledDetails_Plural" xml:space="preserve">
-    <value>Hoạt động di chuyển {0} mục từ {1} đến {2} đã bị hủy bỏ sau khi di chuyển {3} mục</value>
-  </data>
-  <data name="StatusMoveCanceledDetails_Plural2" xml:space="preserve">
-    <value>Hoạt động di chuyển {0} mục từ {1} đến {2} đã bị hủy bỏ sau khi di chuyển {3} mục</value>
-  </data>
-  <data name="StatusMovingItemsDetails_Singular" xml:space="preserve">
-    <value>Đang di chuyển {0} mục từ {1} đến {2}</value>
-  </data>
-  <data name="StatusMovingItemsDetails_Plural" xml:space="preserve">
-    <value>Đang di chuyển {0} mục từ {1} đến {2}</value>
-  </data>
-  <data name="StatusMovedItemsDetails_Singular" xml:space="preserve">
-    <value>Hoạt động di chuyển {0} mục từ {1} đến {2} thành công</value>
-  </data>
-  <data name="StatusMovedItemsDetails_Plural" xml:space="preserve">
-    <value>Hoạt động di chuyển {0} mục từ {1} đến {2} thành công</value>
-  </data>
-  <data name="StatusMoveFailedDetails_Singular" xml:space="preserve">
-    <value>Hoạt động di chuyển {0} mục từ {1} đến {2} bị thất bại.</value>
-  </data>
-  <data name="StatusMoveFailedDetails_Plural" xml:space="preserve">
-    <value>Hoạt động di chuyển {0} mục từ {1} đến {2} bị thất bại.</value>
-  </data>
-  <data name="StatusCopyCanceledDetails_Singular" xml:space="preserve">
-    <value>Hoạt động sao chép {0} mục từ {1} đến {2} bị hủy bỏ.</value>
-  </data>
-  <data name="StatusCopyCanceledDetails_Plural" xml:space="preserve">
-    <value>Hoạt động sao chép {0} mục từ {1} bị hủy bỏ sau khi sao chép {2} mục</value>
-  </data>
-  <data name="StatusCopyCanceledDetails_Plural2" xml:space="preserve">
-    <value>Hoạt động sao chép {0} mục từ {1} bị hủy bỏ sau khi sao chép {2} mục</value>
-  </data>
-  <data name="StatusCopyingItemsDetails_Singular" xml:space="preserve">
-    <value>Đang sao chép {0} mục từ {1} </value>
-  </data>
-  <data name="StatusCopyingItemsDetails_Plural" xml:space="preserve">
-    <value>Đang sao chép {0} mục từ {1} </value>
-  </data>
-  <data name="StatusCopiedItemsDetails_Singular" xml:space="preserve">
-    <value>Hoạt động sao chép {0} mục từ {1} thành công</value>
-  </data>
-  <data name="StatusCopiedItemsDetails_Plural" xml:space="preserve">
-    <value>Hoạt động sao chép {0} mục từ {1} thành công</value>
-  </data>
-  <data name="StatusDeleteCanceledDetails_Singular" xml:space="preserve">
-    <value>Hoạt động xóa {0} mục từ {1} bị hủy bỏ</value>
-  </data>
-  <data name="StatusDeleteCanceledDetails_Plural" xml:space="preserve">
-    <value>Hoạt động xóa {0} mục từ {1} bị hủy bỏ sau khi xóa {3} mục</value>
-  </data>
-  <data name="StatusDeleteCanceledDetails_Plural2" xml:space="preserve">
-    <value>Hoạt động xóa {0} mục từ {1} bị hủy bỏ sau khi xóa {3} mục</value>
-  </data>
-  <data name="StatusDeletingItemsDetails_Singular" xml:space="preserve">
-    <value>Đang xóa {0} mục từ {1}</value>
-  </data>
-  <data name="StatusDeletingItemsDetails_Plural" xml:space="preserve">
-    <value>Đang xóa {0} mục từ {1}</value>
-  </data>
-  <data name="StatusDeletedItemsDetails_Singular" xml:space="preserve">
-    <value>Hoạt động xóa {0} mục từ {1} thành công</value>
-  </data>
-  <data name="StatusDeletedItemsDetails_Plural" xml:space="preserve">
-    <value>Hoạt động xóa {0} mục từ {1} thành công</value>
-  </data>
-  <data name="StatusDeletionFailedDetails_Singular" xml:space="preserve">
-    <value>Hoạt động xóa {0} mục từ {1} bị thất bại</value>
-  </data>
-  <data name="StatusDeletionFailedDetails_Plural" xml:space="preserve">
-    <value>Hoạt động xóa {0} mục từ {1} bị thất bại</value>
+    <value>Quyền riêng tư</value>
   </data>
   <data name="TheRecycleBin" xml:space="preserve">
     <value>Thùng rác</value>
   </data>
-  <data name="MoveInProgress" xml:space="preserve">
-    <value>Di chuyển mục</value>
-  </data>
-  <data name="CopyInProgress.Title" xml:space="preserve">
-    <value>Sao mục</value>
-  </data>
-  <data name="StatusRecycleFailed" xml:space="preserve">
-    <value>Hoạt động dọn thùng rác bị thất bại</value>
-  </data>
-  <data name="StatusRecycleCancelled" xml:space="preserve">
-    <value>Hoạt động dọn thùng rác bị hủy bỏ</value>
-  </data>
-  <data name="canceling" xml:space="preserve">
-    <value>Hoạt động dọn thùng rác bị hủy bỏ</value>
+  <data name="Canceling" xml:space="preserve">
+    <value>Đang hủy bỏ</value>
   </data>
   <data name="Clear" xml:space="preserve">
     <value>Xóa</value>
@@ -1579,82 +1413,79 @@
     <value>Tiện ích</value>
   </data>
   <data name="SyncStatus" xml:space="preserve">
-    <value>Trạng thái đồng bộ</value>
+    <value>Trạng thái đồng bộ hóa</value>
   </data>
   <data name="Security" xml:space="preserve">
     <value>Bảo mật</value>
   </data>
   <data name="AdvancedPermissions" xml:space="preserve">
-    <value>Cấp phép nâng cao</value>
+    <value>Quyền truy cập nâng cao</value>
   </data>
   <data name="Allow" xml:space="preserve">
     <value>Cho phép</value>
   </data>
   <data name="Deny" xml:space="preserve">
-    <value>Deny</value>
+    <value>Từ chối</value>
   </data>
   <data name="SecurityFullControlLabel.Text" xml:space="preserve">
     <value>Kiểm soát đầy đủ</value>
   </data>
   <data name="SecurityListDirectoryLabel.Text" xml:space="preserve">
-    <value>Danh nội dung của danh mục</value>
+    <value>Liệt kê nội dung thư mục</value>
   </data>
-  <data name="SecurityModifyLabel.Text" xml:space="preserve">
+  <data name="Modify" xml:space="preserve">
     <value>Sửa đổi</value>
   </data>
-  <data name="SecurityPermissionsLabel.Text" xml:space="preserve">
-    <value>Các quyền cho</value>
+  <data name="SecurityPermissionsHeaderText" xml:space="preserve">
+    <value>Quyền truy cập cho {0}</value>
   </data>
   <data name="SecurityReadAndExecuteLabel.Text" xml:space="preserve">
-    <value>Độc và thực hiện</value>
+    <value>Đọc và thực thi</value>
   </data>
   <data name="SecurityReadLabel.Text" xml:space="preserve">
     <value>Đọc</value>
   </data>
   <data name="SecurityUsersGroupLabel.Text" xml:space="preserve">
-    <value>Nhóm hoặc tên người sử dụng</value>
+    <value>Nhóm hoặc tên người dùng</value>
   </data>
   <data name="Write" xml:space="preserve">
-    <value>Viết</value>
+    <value>Ghi</value>
   </data>
   <data name="SecurityUnknownAccount" xml:space="preserve">
-    <value>Tài khoản lạ</value>
+    <value>Tài khoản không xác định</value>
   </data>
   <data name="SecurityCannotReadProperties.Text" xml:space="preserve">
-    <value>Bạn không có đủ quyền để xem thuộc tính bảo mật của trình này. Làm ơn nhấn "Quyền nâng cao" để tiến.</value>
+    <value>Bạn không có quyền để xem thuộc tính bảo mật của đối tượng này. Vui lòng nhấp vào "Quyền truy cập nâng cao" để tiếp tục.</value>
   </data>
   <data name="SecurityOwnerLabel.Text" xml:space="preserve">
-    <value>Owner:</value>
+    <value>Chủ sở hữu:</value>
   </data>
   <data name="SecurityUnknownOwnerText.Text" xml:space="preserve">
     <value>Chủ sở hữu không xác định</value>
   </data>
   <data name="ExtractArchive" xml:space="preserve">
-    <value>Extract Archive</value>
+    <value>Giải nén</value>
   </data>
   <data name="DecompressArchiveDialogOpenDestinationWhenComplete.Content" xml:space="preserve">
-    <value>Mở thư mục nơi đến khi xong</value>
+    <value>Mở thư mục đích khi hoàn tất</value>
   </data>
   <data name="BaseLayoutItemContextFlyoutExtractToChildFolder" xml:space="preserve">
-    <value>Trích xuất đến {0}\</value>
+    <value>Giải nén vào {0}\</value>
   </data>
   <data name="SideBarCreateNewLibrary.Text" xml:space="preserve">
-    <value>Tạo thư viện mới.</value>
+    <value>Tạo thư viện mới</value>
   </data>
   <data name="SideBarRestoreLibraries.Text" xml:space="preserve">
-    <value>Khôi phục các thư viện mặc định</value>
+    <value>Khôi phục thư viện mặc định</value>
   </data>
   <data name="DialogRestoreLibrariesSubtitleText" xml:space="preserve">
-    <value>Chắc chắn bạn muốn khôi phục thư viện mặc định không? Mọi tệp tin bạn sẽ vẫn còn ở lại trong ổ trữ của bạn.</value>
+    <value>Bạn có chắc chắn muốn khôi phục các thư viện mặc định không? Các tệp của bạn sẽ không bị ảnh hưởng.</value>
   </data>
   <data name="DialogRestoreLibrariesTitleText" xml:space="preserve">
     <value>Khôi phục thư viện</value>
   </data>
   <data name="PropertyFileOwner" xml:space="preserve">
     <value>Chủ sở hữu</value>
-  </data>
-  <data name="SecurityAdvancedPermissionsTitle" xml:space="preserve">
-    <value>Quyền nâng cao cho {0}</value>
   </data>
   <data name="SecuritySpecialLabel.Text" xml:space="preserve">
     <value>Đặc biệt</value>
@@ -1663,13 +1494,13 @@
     <value>Truy cập</value>
   </data>
   <data name="SecurityAdvancedAppliesTo" xml:space="preserve">
-    <value>Applies to</value>
+    <value>Áp dụng cho</value>
   </data>
   <data name="Principal" xml:space="preserve">
-    <value>Principal</value>
+    <value>Đối tượng</value>
   </data>
   <data name="SecurityAdvancedFlagsFilesLabel" xml:space="preserve">
-    <value>các tệp</value>
+    <value>tệp</value>
   </data>
   <data name="SecurityAdvancedFlagsFolderLabel" xml:space="preserve">
     <value>Thư mục này</value>
@@ -1678,37 +1509,37 @@
     <value>thư mục con</value>
   </data>
   <data name="Inherited" xml:space="preserve">
-    <value>Inherited</value>
+    <value>Được kế thừa</value>
   </data>
   <data name="Permissions" xml:space="preserve">
-    <value>Permissions</value>
+    <value>Quyền truy cập</value>
   </data>
   <data name="SecurityAdvancedCannotReadProperties.Text" xml:space="preserve">
-    <value>Bạn không có đủ quyền để xem thuộc tính bảo mật của trình này. Bạn có thể thử lấy hữu của trình này.</value>
+    <value>Bạn không có quyền để xem thuộc tính bảo mật của đối tượng này. Bạn có thể thử lấy quyền chủ sở hữu của đối tượng.</value>
   </data>
   <data name="SecurityAdvancedFolderFiles.Text" xml:space="preserve">
-    <value>Thư mục này và tệp tin</value>
+    <value>Thư mục này và các tệp</value>
   </data>
   <data name="SecurityAdvancedFolderSubfoldersFiles.Text" xml:space="preserve">
-    <value>Thư mục này, thư mục con và tệp tin</value>
+    <value>Thư mục này, thư mục con và các tệp</value>
   </data>
   <data name="SecurityAdvancedOnlyFiles.Text" xml:space="preserve">
-    <value>Chỉ các tệp tin</value>
+    <value>Chỉ các tệp</value>
   </data>
   <data name="SecurityAdvancedOnlySubfolders.Text" xml:space="preserve">
-    <value>Chỉ các thư mục con</value>
+    <value>Chỉ thư mục con</value>
   </data>
   <data name="SecurityAdvancedOnlySubfoldersFiles.Text" xml:space="preserve">
-    <value>Chỉ thư mục con và tệp tin</value>
+    <value>Chỉ thư mục con và các tệp</value>
   </data>
   <data name="SecurityAdvancedOnlyThisFolder.Text" xml:space="preserve">
     <value>Chỉ thư mục này</value>
   </data>
   <data name="SecurityAdvancedFolderSubfolders.Text" xml:space="preserve">
-    <value>Thư mục và thư mục con</value>
+    <value>Thư mục này và thư mục con</value>
   </data>
   <data name="SecurityAppendDataLabel.Text" xml:space="preserve">
-    <value>Nối thêm dữ liệu</value>
+    <value>Bổ sung dữ liệu</value>
   </data>
   <data name="SecurityChangePermissionsLabel.Text" xml:space="preserve">
     <value>Thay đổi quyền</value>
@@ -1717,13 +1548,13 @@
     <value>Tạo thư mục</value>
   </data>
   <data name="SecurityCreateFilesLabel.Text" xml:space="preserve">
-    <value>Tạo tệp tin</value>
+    <value>Tạo các tệp</value>
   </data>
   <data name="SecurityDeleteSubdirectoriesAndFilesLabel.Text" xml:space="preserve">
-    <value>Xóa bỏ danh mục con và tệp tin</value>
+    <value>Xóa bỏ thư mục con và các tệp</value>
   </data>
   <data name="SecurityExecuteFileLabel.Text" xml:space="preserve">
-    <value>Thực hiện tệp tin</value>
+    <value>Thực thi tệp</value>
   </data>
   <data name="SecurityReadAttributesLabel.Text" xml:space="preserve">
     <value>Đọc thuộc tính</value>
@@ -1732,49 +1563,49 @@
     <value>Đọc dữ liệu</value>
   </data>
   <data name="SecurityReadExtendedAttributesLabel.Text" xml:space="preserve">
-    <value>Đọc thuộc tính kéo dài thêm</value>
+    <value>Đọc thuộc tính mở rộng</value>
   </data>
   <data name="SecurityReadPermissionsLabel.Text" xml:space="preserve">
-    <value>Đọc quyền</value>
+    <value>Quyền đọc</value>
   </data>
   <data name="SecurityTakeOwnershipLabel.Text" xml:space="preserve">
-    <value>Nhận sở hữu</value>
+    <value>Lấy quyền sở hữu</value>
   </data>
   <data name="SecurityTraverseLabel.Text" xml:space="preserve">
-    <value>Thăm thư mục</value>
+    <value>Xem thư mục</value>
   </data>
   <data name="SecurityWriteAttributesLabel.Text" xml:space="preserve">
-    <value>Viết thuộc tính</value>
+    <value>Ghi thuộc tính</value>
   </data>
   <data name="SecurityWriteDataLabel.Text" xml:space="preserve">
-    <value>Viết dữ liệu</value>
+    <value>Ghi dữ liệu</value>
   </data>
   <data name="SecurityWriteExtendedAttributesLabel.Text" xml:space="preserve">
-    <value>Viết thuộc tính kéo dài thêm</value>
+    <value>Ghi thuộc tính mở rộng</value>
   </data>
   <data name="SecurityAdvancedInheritedConvert.Text" xml:space="preserve">
-    <value>Đổi quyền thừa hưởng thành quyền thẳng</value>
+    <value>Chuyển quyền được kế thừa thành quyền tách biệt</value>
   </data>
   <data name="SecurityAdvancedInheritedEnable.Text" xml:space="preserve">
-    <value>Bật thừa hưởng</value>
+    <value>Bật kế thừa quyền</value>
   </data>
   <data name="SecurityAdvancedInheritedRemove.Text" xml:space="preserve">
-    <value>Xóa bỏ mọi quyền thừa hưởng</value>
+    <value>Xóa bỏ mọi quyền được kế thừa</value>
   </data>
   <data name="SecurityAdvancedReplaceChildPermissions.Text" xml:space="preserve">
-    <value>Đặt lại quyền con</value>
+    <value>Đặt lại quyền của mục con</value>
   </data>
   <data name="SecurityAdvancedReplaceChildPermissions2.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Thay thế mọi quyền mục đối tượng con với quyền mục được thừa hưởng từ đối tượng này.</value>
+    <value>Thay thế mọi quyền truy cập của đối tượng con bằng quyền được kế thừa từ đối tượng này</value>
   </data>
-  <data name="NavigationToolbarClosePane.Label" xml:space="preserve">
-    <value>Đóng ngăn</value>
+  <data name="CloseActivePane" xml:space="preserve">
+    <value>Đóng ngăn hiện hoạt</value>
   </data>
   <data name="EnterCompactOverlay" xml:space="preserve">
-    <value>Chỉnh cửa sổ thành gọn</value>
+    <value>Bật chế độ thu gọn</value>
   </data>
   <data name="ExitCompactOverlay" xml:space="preserve">
-    <value>Chỉnh cửa sổ thành lớn</value>
+    <value>Tắt chế độ thu gọn</value>
   </data>
   <data name="PropertyFileDescription" xml:space="preserve">
     <value>Mô tả tệp</value>
@@ -1795,34 +1626,28 @@
     <value>Tải bản xem trước đầy đủ</value>
   </data>
   <data name="PreviewPaneLoadCloudItemButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Tải mục từ đám mây và tải xem trước</value>
+    <value>Tải xuống khoản mục từ đám mây cùng bản xem trước</value>
   </data>
-  <data name="DetailsArchiveItemCount" xml:space="preserve">
-    <value>{0} mục ({1} tệp tin, {2} thư mục)</value>
+  <data name="DetailsArchiveItems" xml:space="preserve">
+    <value>{0, plural, other {# mục}} ({1, plural, other {# tệp}}, {2, plural, other {# thư mục}})</value>
   </data>
   <data name="PropertyUncompressedSize" xml:space="preserve">
-    <value>Cỡ không nén</value>
+    <value>Kích cỡ chưa nén</value>
   </data>
   <data name="WSL" xml:space="preserve">
     <value>WSL</value>
   </data>
   <data name="SideBarHideSectionFromSideBar.Text" xml:space="preserve">
-    <value>Giấu {0} phần</value>
+    <value>Ẩn phần {0}</value>
   </data>
   <data name="AddFile" xml:space="preserve">
     <value>Thêm tệp</value>
-  </data>
-  <data name="BundleOptionsFlyoutAddFolderMenuItem.Text" xml:space="preserve">
-    <value>Thêm thư mục</value>
-  </data>
-  <data name="BundleOptionsFlyoutAddItemMenuItem.Text" xml:space="preserve">
-    <value>Thêm mục</value>
   </data>
   <data name="ConsentDialogTitle" xml:space="preserve">
     <value>Có bản cập nhật</value>
   </data>
   <data name="ConsentDialogContent" xml:space="preserve">
-    <value>Bản cập nhật đã sẵn sàng cài đặt</value>
+    <value>Bản cập nhật đã sẵn sàng để cài đặt</value>
   </data>
   <data name="Close" xml:space="preserve">
     <value>Đóng</value>
@@ -1833,59 +1658,44 @@
   <data name="Home" xml:space="preserve">
     <value>Trang chủ</value>
   </data>
-  <data name="NavigationToolbarNewWindow.KeyboardAcceleratorTextOverride" xml:space="preserve">
-    <value>Ctrl + N</value>
-  </data>
   <data name="BaseLayoutContextFlyoutDetails.KeyboardAcceleratorTextOverride" xml:space="preserve">
     <value>Ctrl+Shift+1</value>
   </data>
   <data name="BaseLayoutContextFlyoutTiles.KeyboardAcceleratorTextOverride" xml:space="preserve">
     <value>Ctrl+Shift+2</value>
   </data>
-  <data name="BaseLayoutContextFlyoutSmallIcons.KeyboardAcceleratorTextOverride" xml:space="preserve">
-    <value>Ctrl+Shift+3</value>
-  </data>
-  <data name="BaseLayoutContextFlyoutMediumIcons.KeyboardAcceleratorTextOverride" xml:space="preserve">
-    <value>Ctrl+Shift+4</value>
-  </data>
-  <data name="BaseLayoutContextFlyoutLargeIcons.KeyboardAcceleratorTextOverride" xml:space="preserve">
-    <value>Ctrl+Shift+5</value>
-  </data>
   <data name="BaseLayoutContextFlyoutColumn.KeyboardAcceleratorTextOverride" xml:space="preserve">
     <value>Ctrl+Shift+6</value>
   </data>
   <data name="ArchiveExtractionCompletedSuccessfullyText" xml:space="preserve">
-    <value>Quá trình giải nén kho lưu trữ đã hoàn tất.</value>
+    <value>Quá trình giải nén tệp đã hoàn tất.</value>
   </data>
   <data name="ExtractingArchiveText" xml:space="preserve">
-    <value>Giải nén kho lưu trữ</value>
+    <value>Đang giải nén tệp</value>
   </data>
   <data name="ExtractingCompleteText" xml:space="preserve">
-    <value>Giải nén thành công!</value>
-  </data>
-  <data name="BaseLayoutContextFlyoutNew.KeyboardAcceleratorTextOverride" xml:space="preserve">
-    <value>Ctrl+Shift+N</value>
+    <value>Giải nén hoàn tất!</value>
   </data>
   <data name="BaseLayoutItemContextFlyoutOpenParentFolder.Text" xml:space="preserve">
-    <value>Mở thư mục chính</value>
+    <value>Mở thư mục nguồn</value>
   </data>
   <data name="Unknown" xml:space="preserve">
-    <value>Unknown</value>
+    <value>Không xác định</value>
   </data>
-  <data name="SettingsEditFileTagsExpander.Title" xml:space="preserve">
-    <value>Chỉnh sửa các thẻ tệp</value>
+  <data name="EditTags" xml:space="preserve">
+    <value>Chỉnh sửa nhãn</value>
   </data>
   <data name="PropertyPartOfSet" xml:space="preserve">
-    <value>Một phần của bộ</value>
+    <value>Là một phần của bản</value>
   </data>
   <data name="InsertDiscDialog.OpenDriveButton" xml:space="preserve">
-    <value>Mở Ổ đĩa</value>
+    <value>Mở ổ đĩa</value>
   </data>
   <data name="InsertDiscDialog.Text" xml:space="preserve">
     <value>Vui lòng cho đĩa vào ổ đĩa {0}</value>
   </data>
   <data name="InsertDiscDialog.Title" xml:space="preserve">
-    <value>Gắn đĩa</value>
+    <value>Chèn đĩa</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
@@ -1902,20 +1712,8 @@
   <data name="CredentialDialogUserName.PlaceholderText" xml:space="preserve">
     <value>Tên người dùng</value>
   </data>
-  <data name="BundlesWidgetAutomationProperties.Name" xml:space="preserve">
-    <value>Widget Gói</value>
-  </data>
-  <data name="DrivesWidgetAutomationProperties.Name" xml:space="preserve">
-    <value>Widget Ổ đĩa</value>
-  </data>
-  <data name="RecentFilesWidgetAutomationProperties.Name" xml:space="preserve">
-    <value>Widget Các tệp gần đây</value>
-  </data>
   <data name="NoSearchResultsFound" xml:space="preserve">
-    <value>Không tìm thấy mục nào</value>
-  </data>
-  <data name="PreviewPaneShowPreviewOnly.Text" xml:space="preserve">
-    <value>Chỉ hiển thị bản xem trước</value>
+    <value>Không tìm thấy khoản mục nào</value>
   </data>
   <data name="OpenLogLocation" xml:space="preserve">
     <value>Mở vị trí nhật ký</value>
@@ -1926,182 +1724,176 @@
   <data name="Columns" xml:space="preserve">
     <value>Cột</value>
   </data>
-  <data name="LargeIcons" xml:space="preserve">
-    <value>Chế độ xem lưới (Lớn)</value>
-  </data>
-  <data name="MediumIcons" xml:space="preserve">
-    <value>Chế độ xem lưới (Vừa)</value>
-  </data>
-  <data name="SmallIcons" xml:space="preserve">
-    <value>Chế độ xem lưới (Nhỏ)</value>
-  </data>
   <data name="Tiles" xml:space="preserve">
-    <value>Gạch</value>
+    <value>Lát</value>
   </data>
   <data name="OpenFoldersInNewTab" xml:space="preserve">
-    <value>Open folders in new tab</value>
+    <value>Mở thư mục trong thẻ mới</value>
   </data>
-  <data name="OngoingTasks" xml:space="preserve">
-    <value>Công việc đang thực hiện</value>
+  <data name="StatusCenter" xml:space="preserve">
+    <value>Trung tâm trạng thái</value>
   </data>
   <data name="DetailsViewHeaderFlyout_ShowDateCreated.Text" xml:space="preserve">
     <value>Cột ngày tạo</value>
   </data>
   <data name="DetailsViewHeaderFlyout_ShowItemSize.Text" xml:space="preserve">
-    <value>Cột kích thước mục</value>
+    <value>Cột kích cỡ khoản mục</value>
   </data>
   <data name="ExperimentalFeatureFlags" xml:space="preserve">
-    <value>Experimental feature flags</value>
+    <value>Tính năng thử nghiệm</value>
   </data>
   <data name="HelpAndSupport" xml:space="preserve">
-    <value>Help and support</value>
+    <value>Trợ giúp và hỗ trợ</value>
   </data>
   <data name="SubmitFeatureRequest" xml:space="preserve">
-    <value>Submit feature request</value>
+    <value>Gửi yêu cầu tính năng</value>
   </data>
   <data name="SubmitBugReport" xml:space="preserve">
-    <value>Submit bug report</value>
+    <value>Gửi báo cáo lỗi</value>
   </data>
   <data name="SettingsSetAsDefaultFileManager" xml:space="preserve">
     <value>Đặt Files làm trình quản lý tệp mặc định</value>
   </data>
   <data name="SettingsSetAsOpenDialog" xml:space="preserve">
-    <value>Sử dụng Files làm Hộp thoại Mở Tệp</value>
+    <value>Sử dụng Files làm hộp thoại mở tệp</value>
   </data>
   <data name="Tag" xml:space="preserve">
-    <value>Thẻ tệp</value>
+    <value>Nhãn</value>
   </data>
   <data name="SettingsOpenItemsWithOneClick" xml:space="preserve">
-    <value>Mở mục bằng một cú nhấp chuột</value>
+    <value>Mở khoản mục bằng một lần nhấp</value>
   </data>
   <data name="FolderPath" xml:space="preserve">
-    <value>Folder path</value>
+    <value>Đường dẫn thư mục</value>
   </data>
   <data name="ExportSettings" xml:space="preserve">
-    <value>Xuất các thiết lập</value>
+    <value>Xuất cài đặt</value>
   </data>
   <data name="ImportSettings" xml:space="preserve">
-    <value>Chèn các thiết lập</value>
-  </data>
-  <data name="ManageSettings" xml:space="preserve">
-    <value>Manage settings</value>
+    <value>Nhập cài đặt</value>
   </data>
   <data name="SettingsImportErrorDescription" xml:space="preserve">
-    <value>Không thể chèn các thiết lập. Tệp thiết lập bị hỏng.</value>
+    <value>Không thể nhập các cài đặt. Tệp cài đặt đã bị hỏng.</value>
   </data>
   <data name="SettingsImportErrorTitle" xml:space="preserve">
-    <value>Lỗi chèn các thiết lập</value>
+    <value>Đã xảy ra lỗi khi nhập các cài đặt</value>
   </data>
   <data name="EmptyRecycleBin" xml:space="preserve">
-    <value>Thùng rác trống</value>
+    <value>Dọn sạch thùng rác</value>
   </data>
   <data name="Sidebar" xml:space="preserve">
     <value>Thanh bên</value>
   </data>
   <data name="ChooseCustomIcon" xml:space="preserve">
-    <value>Chọn biểu tượng thư mục tuỳ chỉnh</value>
+    <value>Chọn biểu tượng thư mục tùy chỉnh</value>
   </data>
   <data name="Customization" xml:space="preserve">
-    <value>Tuỳ chỉnh</value>
+    <value>Tùy chỉnh</value>
   </data>
   <data name="RestoreDefault" xml:space="preserve">
     <value>Khôi phục mặc định</value>
   </data>
-  <data name="OpenNewInstance" xml:space="preserve">
-    <value>Mở phiên bản mới khi mở thư mục từ danh sách nhảy trên thanh tác vụ</value>
+  <data name="OpenTabInExistingInstance" xml:space="preserve">
+    <value>Mở thẻ mới trong cửa sổ hiện hoạt khi chạy Files từ ứng dụng khác</value>
   </data>
   <data name="StartupSettings" xml:space="preserve">
-    <value>Thiết lập Khởi động</value>
+    <value>Cài đặt khởi động</value>
   </data>
   <data name="Compatibility" xml:space="preserve">
     <value>Tương thích</value>
   </data>
   <data name="None" xml:space="preserve">
-    <value>Không có</value>
+    <value>Không</value>
   </data>
-  <data name="HighDpiOption_UseDPIOnLogin" xml:space="preserve">
+  <data name="CompatibilityOnWindowsLogin" xml:space="preserve">
     <value>Khi đăng nhập Windows</value>
   </data>
-  <data name="HighDpiOption_UseDPIOnProgramStart" xml:space="preserve">
-    <value>Khi bắt đầu chương trình</value>
+  <data name="CompatibilityOnProgramStart" xml:space="preserve">
+    <value>Khi chạy chương trình này</value>
   </data>
-  <data name="HighDpiOverride_System" xml:space="preserve">
+  <data name="System" xml:space="preserve">
     <value>Hệ thống</value>
   </data>
-  <data name="HighDpiOverride_SystemAdvanced" xml:space="preserve">
+  <data name="CompatibilitySystemEnhanced" xml:space="preserve">
     <value>Hệ thống (nâng cao)</value>
   </data>
-  <data name="OSCompatibility_Windows7" xml:space="preserve">
-    <value>Windows 7</value>
+  <data name="CompatibilityReducedColorModeColor16bit" xml:space="preserve">
+    <value>16-bit (65536) màu</value>
   </data>
-  <data name="OSCompatibility_Windows8" xml:space="preserve">
-    <value>Windows 8</value>
+  <data name="CompatibilityReducedColorModeColor8bit" xml:space="preserve">
+    <value>8-bit (256) màu</value>
   </data>
-  <data name="OSCompatibility_WindowsVista" xml:space="preserve">
-    <value>Windows Vista</value>
+  <data name="CompatibilityDisableFullscreenOptimizations" xml:space="preserve">
+    <value>Tắt tối ưu hóa toàn màn hình</value>
   </data>
-  <data name="OSCompatibility_WindowsVistaSP1" xml:space="preserve">
-    <value>Windows Vista SP1</value>
+  <data name="CompatibilityRunIn640x480Resolution" xml:space="preserve">
+    <value>Chạy ở độ phân giải 640 x 480</value>
   </data>
-  <data name="OSCompatibility_WindowsVistaSP2" xml:space="preserve">
-    <value>Windows Vista SP2</value>
+  <data name="CompatibilityOverrideHighDPIBehavior" xml:space="preserve">
+    <value>Ghi đè hành vi chia tỷ lệ DPI cao</value>
   </data>
-  <data name="ReducedColorMode_Color16Bit" xml:space="preserve">
-    <value>16 bit màu (65536)</value>
+  <data name="CompatibilityReducedColorMode" xml:space="preserve">
+    <value>Chế độ giảm màu</value>
   </data>
-  <data name="ReducedColorMode_Color8Bit" xml:space="preserve">
-    <value>8 bit màu (256)</value>
+  <data name="CompatibilityRegisterThisProgramForRestart" xml:space="preserve">
+    <value>Gửi yêu cầu khởi động lại chương trình</value>
+  </data>
+  <data name="StartWindow" xml:space="preserve">
+    <value>Start window</value>
+  </data>
+  <data name="NormalWindow" xml:space="preserve">
+    <value>Normal window</value>
+  </data>
+  <data name="Minimized" xml:space="preserve">
+    <value>Minimized</value>
+  </data>
+  <data name="Maximized" xml:space="preserve">
+    <value>Maximized</value>
+  </data>
+  <data name="RunAsAdministrator" xml:space="preserve">
+    <value>Chạy với quyền quản trị viên</value>
+  </data>
+  <data name="CompatibilityRunTroubleshooter" xml:space="preserve">
+    <value>Chạy trình khắc phục sự cố tương thích</value>
+  </data>
+  <data name="CompatibilityUseDPISettings" xml:space="preserve">
+    <value>Sử dụng cài đặt DPI của màn hình hiển thị chính</value>
+  </data>
+  <data name="CompatibilityDoNotAdjustDPI" xml:space="preserve">
+    <value>Không điều chỉnh giá trị DPI</value>
+  </data>
+  <data name="CompatibilityDoNotOverrideDPI" xml:space="preserve">
+    <value>Không ghi đè giá trị DPI</value>
   </data>
   <data name="CompatibilityMode" xml:space="preserve">
     <value>Chế độ tương thích</value>
   </data>
-  <data name="DisableFullscreenOptimizations" xml:space="preserve">
-    <value>Tắt tối ưu hóa toàn màn hình</value>
+  <data name="CompatibilityNoReducedColor" xml:space="preserve">
+    <value>Không sử dụng chế độ giảm màu</value>
   </data>
-  <data name="ExecuteAt640X480" xml:space="preserve">
-    <value>Chạy ở độ phân giải màn hình 640 x 480</value>
-  </data>
-  <data name="OverrideDPIScalingBehaviour" xml:space="preserve">
-    <value>Ghi đè hành vi chia tỷ lệ DPI cao</value>
-  </data>
-  <data name="ReducedColorMode" xml:space="preserve">
-    <value>Chế độ màu giảm</value>
-  </data>
-  <data name="RegisterForRestart" xml:space="preserve">
-    <value>Đăng ký để khởi động lại</value>
-  </data>
-  <data name="RunAsAdministrator" xml:space="preserve">
-    <value>Chạy với quyền người quản trị</value>
-  </data>
-  <data name="RunCompatibilityTroubleShooter" xml:space="preserve">
-    <value>Chạy trình khắc phục sự cố tương thích</value>
-  </data>
-  <data name="UseMainMonitorDPISettings" xml:space="preserve">
-    <value>Sử dụng cài đặt DPI của điều khiển chính</value>
-  </data>
-  <data name="ThirdPartyLicenses" xml:space="preserve">
-    <value>Giấy phép bên thứ ba</value>
+  <data name="ThirdPartyLibraries" xml:space="preserve">
+    <value>Thư viện bên thứ ba</value>
   </data>
   <data name="SettingsSetAsDefaultFileManagerDescription" xml:space="preserve">
-    <value>Thiết lập này sửa đổi các tệp hệ thống và có thể có các tác dụng không mong muốn trên thiết bị của bạn. Các nhà phát triển không chịu trách nhiệm trong trường hợp có sự cố xảy ra. Tiếp tục với tùy chọn này là sự thừa nhận rủi ro liên quan đến hành động này.</value>
+    <value>Tùy chọn này sửa đổi các khóa registry của hệ thống và có thể gây ra vấn đề trên thiết bị của bạn. Vui lòng cân nhắc trước khi bật tùy chọn.</value>
   </data>
-  <data name="ClearAll" xml:space="preserve">
-    <value>Dọn dẹp toàn bộ</value>
+  <data name="ShowFlattenOptionsDescription" xml:space="preserve">
+    <value>Thao tác làm phẳng có hiệu lực vĩnh viễn và không thể hoàn tác, không được khuyến khích sử dụng. Vui lòng cân nhắc trước khi thực hiện.</value>
   </data>
   <data name="FolderWidgetCreateNewLibraryDialogTitleText" xml:space="preserve">
-    <value>Tạo thư mục</value>
+    <value>Tạo thư viện</value>
   </data>
   <data name="FolderWidgetCreateNewLibraryInputPlaceholderText" xml:space="preserve">
-    <value>Nhập tên thư mục</value>
+    <value>Nhập tên thư viện</value>
   </data>
   <data name="CalculateFolderSizes" xml:space="preserve">
-    <value>Tính toán kích thước thư mục</value>
+    <value>Tính toán kích cỡ thư mục</value>
   </data>
   <data name="RecentFiles" xml:space="preserve">
-    <value>Recent files</value>
+    <value>Tệp gần đây</value>
   </data>
   <data name="SettingsOpenInLogin" xml:space="preserve">
-    <value>Mở tệp trong Windows Startup</value>
+    <value>Mở Files khi khởi động Windows</value>
   </data>
   <data name="Attributes" xml:space="preserve">
     <value>Thuộc tính</value>
@@ -2110,34 +1902,28 @@
     <value>Ẩn</value>
   </data>
   <data name="MoreDetails" xml:space="preserve">
-    <value>Xem chi tiết</value>
+    <value>Thông tin</value>
   </data>
   <data name="ReadOnly" xml:space="preserve">
     <value>Chỉ đọc</value>
   </data>
   <data name="CleanupDrive" xml:space="preserve">
-    <value>Dọn dẹp dữ liệu ổ đĩa</value>
-  </data>
-  <data name="DiskCleanup" xml:space="preserve">
-    <value>Dọn dẹp ổ đĩa</value>
+    <value>Dọn dẹp ổ lưu trữ</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Loại</value>
-  </data>
-  <data name="IconGrid" xml:space="preserve">
-    <value>Lưới biểu tượng</value>
   </data>
   <data name="Bytes" xml:space="preserve">
     <value>Byte</value>
   </data>
   <data name="Extract" xml:space="preserve">
-    <value>Trích xuất</value>
+    <value>Giải nén</value>
   </data>
   <data name="ExtractFiles" xml:space="preserve">
-    <value>Trích xuất những tệp tin</value>
+    <value>Giải nén tệp</value>
   </data>
   <data name="ExtractHere" xml:space="preserve">
-    <value>Trích xuất ở đây</value>
+    <value>Giải nén tại đây</value>
   </data>
   <data name="ExtractKeyboardAcceleratorTextOverride" xml:space="preserve">
     <value>Ctrl+E</value>
@@ -2146,13 +1932,13 @@
     <value>Giải nén vào {0}</value>
   </data>
   <data name="RunScript" xml:space="preserve">
-    <value>Chạy script</value>
+    <value>Chạy kịch bản</value>
   </data>
   <data name="RunWithPowerShell" xml:space="preserve">
     <value>Chạy bằng PowerShell</value>
   </data>
   <data name="ShowFolderSizesWarning" xml:space="preserve">
-    <value>Việc tính toán kích thước thư mục tốn nhiều tài nguyên và có thể khiến mức sử dụng CPU của bạn tăng lên.</value>
+    <value>Việc tính toán kích cỡ thư mục có thể tốn nhiều tài nguyên thiết bị và khiến mức sử dụng CPU tăng lên.</value>
   </data>
   <data name="RotateLeft" xml:space="preserve">
     <value>Xoay trái</value>
@@ -2167,85 +1953,67 @@
     <value>Đóng các thẻ bên trái</value>
   </data>
   <data name="CloseTabsToTheRight" xml:space="preserve">
-    <value>Đóng các tab bên phải</value>
+    <value>Đóng các thẻ bên phải</value>
   </data>
   <data name="CloseOtherTabs" xml:space="preserve">
-    <value>Đóng các tab Khác</value>
+    <value>Đóng các thẻ khác</value>
+  </data>
+  <data name="CloseAllTabs" xml:space="preserve">
+    <value>Đóng tất cả các thẻ</value>
   </data>
   <data name="Music" xml:space="preserve">
-    <value>Âm nhạc</value>
+    <value>Nhạc</value>
   </data>
   <data name="Pictures" xml:space="preserve">
-    <value>ảnh</value>
+    <value>Hình ảnh</value>
   </data>
   <data name="UpdateFiles" xml:space="preserve">
     <value>Cập nhật Files</value>
   </data>
-  <data name="StatusPreparingItemsDetails_Plural" xml:space="preserve">
-    <value>Đang chuẩn bị {0} mục</value>
-  </data>
-  <data name="PrepareInProgress" xml:space="preserve">
-    <value>Đang chuẩn bị mục</value>
-  </data>
-  <data name="StatusCopyFailed" xml:space="preserve">
-    <value>Không sao chép được</value>
-  </data>
-  <data name="StatusCopyFailedDetails_Plural" xml:space="preserve">
-    <value>Hoạt động sao chép {0} mục từ {1} đến {2} bị thất bại</value>
-  </data>
-  <data name="StatusCopyFailedDetails_Singular" xml:space="preserve">
-    <value>Hoạt động sao chép {0} mục từ {1} đến {2} bị thất bại</value>
-  </data>
-  <data name="StatusMoveFailed" xml:space="preserve">
-    <value>Di chuyển không thành công.</value>
-  </data>
   <data name="FileTags" xml:space="preserve">
-    <value>Thẻ</value>
-  </data>
-  <data name="UseCompactSpacing" xml:space="preserve">
-    <value>Use compact spacing in the details layout</value>
+    <value>Nhãn</value>
   </data>
   <data name="Universal" xml:space="preserve">
-    <value>Toàn diện</value>
+    <value>Phổ thông</value>
   </data>
   <data name="DateFormatSample" xml:space="preserve">
     <value>vd: {0}, {1}</value>
   </data>
   <data name="SettingsFilesAndFoldersShowThumbnails" xml:space="preserve">
-    <value>Hiển thị Hình ảnh thu nhỏ</value>
+    <value>Hiện hình xem trước</value>
   </data>
   <data name="Retry" xml:space="preserve">
     <value>Thử lại</value>
   </data>
   <data name="ErrorDialogUnsupportedMoveOperation" xml:space="preserve">
-    <value>Không hỗ trợ hành động di chuyển trong ngữ cảnh này. Bạn có muốn sao chép các mục thay vào đó không?</value>
+    <value>Thao tác di chuyển không được hỗ trợ trong ngữ cảnh này. Thay vào đó, bạn có muốn sao chép khoản mục không?</value>
   </data>
   <data name="HiddenItems" xml:space="preserve">
-    <value>Mục ẩn</value>
+    <value>Mục bị ẩn</value>
   </data>
   <data name="Custom" xml:space="preserve">
-    <value>Tuỳ chỉnh</value>
+    <value>Tùy chỉnh</value>
   </data>
   <data name="SetAsSlideshow" xml:space="preserve">
-    <value>Đặt làm trình chiếu màn hình nền</value>
+    <value>Trình chiếu trên màn hình chính</value>
   </data>
   <data name="SizeAllColumnsToFit" xml:space="preserve">
-    <value>Đặt khớp chiều rộng mọi cột</value>
+    <value>Căn chỉnh lại chiều rộng cột</value>
   </data>
   <data name="Adaptive" xml:space="preserve">
-    <value>Thích ứng</value>
+    <value>Chuyển bố cục tự động</value>
   </data>
   <data name="AdaptiveShortcutTooltip" xml:space="preserve">
-    <value>Thích ứng (Ctrl+Shift+7)</value>
+    <value>Chuyển bố cục tự động (Ctrl+Shift+7)</value>
   </data>
   <data name="BaseLayoutContextFlyoutAdaptive.KeyboardAcceleratorTextOverride" xml:space="preserve">
     <value>Ctrl+Shift+7</value>
   </data>
   <data name="ShowAlternateStreams" xml:space="preserve">
-    <value>Show alternate data streams</value>
+    <value>Hiện luồng dữ liệu phụ</value>
   </data>
   <data name="Behaviors" xml:space="preserve">
-    <value>Behaviors</value>
+    <value>Hành vi</value>
   </data>
   <data name="ReviewFiles" xml:space="preserve">
     <value>Đánh giá Files</value>
@@ -2257,7 +2025,7 @@
     <value>Đặt làm hình nền</value>
   </data>
   <data name="SetAsBackground" xml:space="preserve">
-    <value>Đặt như nền bàn làm việc</value>
+    <value>Hình nền màn hình chính</value>
   </data>
   <data name="SetAsDefault" xml:space="preserve">
     <value>Đặt làm mặc định</value>
@@ -2269,127 +2037,118 @@
     <value>Cột ngày tạo</value>
   </data>
   <data name="SizeColumn" xml:space="preserve">
-    <value>Cột kích thước</value>
+    <value>Cột kích cỡ</value>
   </data>
   <data name="TagColumn" xml:space="preserve">
-    <value>Cột thẻ</value>
+    <value>Cột nhãn</value>
   </data>
   <data name="TypeColumn" xml:space="preserve">
     <value>Cột loại</value>
   </data>
-  <data name="DetailsLayoutColumns" xml:space="preserve">
-    <value>Cột bố trí chi tiết</value>
-  </data>
   <data name="Lockscreen" xml:space="preserve">
-    <value>Màn hình khoá</value>
+    <value>Màn hình khóa</value>
   </data>
   <data name="OpenFolderWithOneClickColumnsLayout" xml:space="preserve">
-    <value>Mở thư mục bằng một cú nhấp chuột ở bố trí cột</value>
+    <value>Mở thư mục bằng một lần nhấp ở bố cục dạng cột</value>
   </data>
   <data name="OpeningItems" xml:space="preserve">
-    <value>Đang mở khoản mục</value>
+    <value>Mở các khoản mục</value>
   </data>
-  <data name="CompressionCompleted" xml:space="preserve">
-    <value>Đã hoàn thành nén</value>
+  <data name="Compress" xml:space="preserve">
+    <value>Nén</value>
   </data>
-  <data name="CompressionSucceded" xml:space="preserve">
-    <value>{0} đã được nén</value>
+  <data name="FlattenFolderDescription" xml:space="preserve">
+    <value>Di chuyển tất cả nội dung từ thư mục con đến vị trí đã chọn</value>
   </data>
-  <data name="CompressionFailed" xml:space="preserve">
-    <value>Không thể nén {0}</value>
+  <data name="FlattenFolder" xml:space="preserve">
+    <value>Làm phẳng thư mục</value>
   </data>
-  <data name="CompressionInProgress" xml:space="preserve">
-    <value>Đang nén lưu trữ</value>
+  <data name="Flatten" xml:space="preserve">
+    <value>Làm phẳng</value>
+  </data>
+  <data name="FlattenFolderDialogContent" xml:space="preserve">
+    <value>Tùy chọn này sẽ di chuyển tất cả nội dung từ thư mục con đến vị trí đã chọn. Thao tác có hiệu lực vĩnh viễn và không thể hoàn tác. Đây là tính năng thử nghiệm và bằng việc sử dụng, bạn đã hiểu các rủi ro và đồng ý miễn trừ trách nhiệm của đội ngũ Files khi xảy ra mất mát dữ liệu.</value>
+  </data>
+  <data name="ShowFlattenOptions" xml:space="preserve">
+    <value>Hiện tùy chọn làm phẳng</value>
   </data>
   <data name="SelectFilesAndFoldersOnHover" xml:space="preserve">
-    <value>Chọn tệp và thư mục khi di chuột lên chúng</value>
+    <value>Chọn tệp và thư mục khi di chuột lên</value>
   </data>
   <data name="ConfirmRestoreBinDialogContent" xml:space="preserve">
-    <value>Bạn có chắc muốn khôi phục mọi khoản mục trong Thùng rác?</value>
+    <value>Bạn có chắc chắn muốn khôi phục tất cả khoản mục từ Thùng rác không?</value>
   </data>
   <data name="ConfirmRestoreBinDialogTitle" xml:space="preserve">
-    <value>Khôi phục mọi khoản mục</value>
+    <value>Khôi phục tất cả khoản mục</value>
   </data>
   <data name="ConfirmRestoreSelectionBinDialogContent" xml:space="preserve">
-    <value>Bạn có muốn khôi phục {0} khoản mục được chọn?</value>
+    <value>Bạn có muốn khôi phục {0} khoản mục đã chọn không?</value>
   </data>
   <data name="ConfirmRestoreSelectionBinDialogTitle" xml:space="preserve">
     <value>Khôi phục các khoản mục đã chọn</value>
   </data>
   <data name="RestoreAllItems" xml:space="preserve">
-    <value>Khôi phục mọi khoản mục</value>
+    <value>Khôi phục tất cả khoản mục</value>
   </data>
   <data name="Restore" xml:space="preserve">
-    <value>Restore</value>
+    <value>Khôi phục</value>
   </data>
   <data name="ShortcutCannotBeOpened" xml:space="preserve">
     <value>Không thể mở lối tắt</value>
   </data>
   <data name="DeleteShortcutDescription" xml:space="preserve">
-    <value>Không thể tìm thấy đối tượng {0}. Bạn có muốn xóa bỏ lối tắt này không?</value>
+    <value>Không thể tìm thấy khoản mục đích {0}. Bạn có muốn xóa bỏ lối tắt này không?</value>
   </data>
   <data name="AccessDeniedToFolder" xml:space="preserve">
-    <value>You don't have permission to access this folder.</value>
-  </data>
-  <data name="EmptyingRecycleBin" xml:space="preserve">
-    <value>Emptying recycle bin</value>
-  </data>
-  <data name="BinEmptyingSucceded" xml:space="preserve">
-    <value>Successfully emptied recycle bin</value>
-  </data>
-  <data name="BinEmptyingFailed" xml:space="preserve">
-    <value>Failed to empty recycle bin</value>
+    <value>Bạn không có quyền truy cập thư mục này.</value>
   </data>
   <data name="ArchivePassword" xml:space="preserve">
-    <value>Archive password</value>
+    <value>Mật khẩu tệp nén</value>
   </data>
   <data name="ExtractToPath" xml:space="preserve">
-    <value>Path</value>
+    <value>Đường dẫn</value>
   </data>
   <data name="SortingAndGrouping" xml:space="preserve">
-    <value>Sorting and grouping</value>
-  </data>
-  <data name="Archive" xml:space="preserve">
-    <value>Archive</value>
+    <value>Sắp xếp và nhóm</value>
   </data>
   <data name="CreateArchive" xml:space="preserve">
-    <value>Create archive</value>
+    <value>Tạo tệp nén</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>Tạo</value>
   </data>
   <data name="CreateNamedArchive" xml:space="preserve">
-    <value>Create {0}</value>
+    <value>Tạo {0}</value>
   </data>
   <data name="EnterName" xml:space="preserve">
-    <value>Enter a name</value>
+    <value>Nhập tên</value>
   </data>
   <data name="CompressionLevel" xml:space="preserve">
-    <value>Compression level</value>
+    <value>Mức độ nén</value>
   </data>
   <data name="CompressionLevelUltra" xml:space="preserve">
-    <value>Ultra</value>
+    <value>Rất cao</value>
   </data>
   <data name="CompressionLevelHigh" xml:space="preserve">
-    <value>High</value>
+    <value>Cao</value>
   </data>
   <data name="CompressionLevelNormal" xml:space="preserve">
-    <value>Normal</value>
+    <value>Bình thường</value>
   </data>
   <data name="CompressionLevelLow" xml:space="preserve">
-    <value>Low</value>
+    <value>Thấp</value>
   </data>
   <data name="CompressionLevelFast" xml:space="preserve">
-    <value>Fast</value>
+    <value>Nhanh</value>
   </data>
   <data name="CompressionLevelNone" xml:space="preserve">
     <value>Không có</value>
   </data>
   <data name="SplittingSize" xml:space="preserve">
-    <value>Splitting size</value>
+    <value>Kích cỡ chia nhỏ</value>
   </data>
   <data name="Do not split" xml:space="preserve">
-    <value>Do not split</value>
+    <value>Không chia nhỏ</value>
   </data>
   <data name="CD" xml:space="preserve">
     <value>CD</value>
@@ -2404,7 +2163,7 @@
     <value>Blu-ray</value>
   </data>
   <data name="Encryption" xml:space="preserve">
-    <value>Encryption</value>
+    <value>Mã hóa</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Mật khẩu</value>
@@ -2413,547 +2172,580 @@
     <value>Định dạng</value>
   </data>
   <data name="DetailsViewHeaderFlyout_ShowSyncStatus.Text" xml:space="preserve">
-    <value>Sync status column</value>
+    <value>Cột trạng thái đồng bộ hóa</value>
   </data>
   <data name="GroupBy" xml:space="preserve">
-    <value>Group by</value>
+    <value>Nhóm theo</value>
   </data>
   <data name="SortBy" xml:space="preserve">
     <value>Sắp xếp theo</value>
   </data>
   <data name="GroupInDescendingOrder" xml:space="preserve">
-    <value>Group in descending order</value>
+    <value>Nhóm theo thứ tự giảm dần</value>
   </data>
   <data name="SortInDescendingOrder" xml:space="preserve">
-    <value>Sort in descending order</value>
+    <value>Sắp xếp theo thứ tự giảm dần</value>
   </data>
   <data name="NewShortcutDialogTitle" xml:space="preserve">
-    <value>Create a new shortcut</value>
+    <value>Tạo lối tắt mới</value>
   </data>
   <data name="NewShortcutDialogDescription" xml:space="preserve">
-    <value>Create shortcuts to local or network programs, files, folders, computers or Internet addresses.</value>
+    <value>Tạo lối tắt đến địa chỉ Internet hoặc các tài nguyên, máy tính trên mạng/cục bộ.</value>
   </data>
   <data name="NewShortcutDialogPrompt" xml:space="preserve">
-    <value>Enter the location of the item:</value>
+    <value>Nhập vị trí khoản mục:</value>
   </data>
   <data name="AddDialogListShortcutSubHeader" xml:space="preserve">
-    <value>Creates a shortcut</value>
+    <value>Tạo lối tắt</value>
   </data>
   <data name="RecentFilesDisabledOnWindowsWarning" xml:space="preserve">
-    <value>Recently used files is currently disabled in Windows File Explorer.</value>
+    <value>Tính năng Tệp gần đây hiện đang tắt trong File Explorer của Windows.</value>
   </data>
   <data name="EditSettingsFile" xml:space="preserve">
-    <value>Edit Settings File</value>
+    <value>Chỉnh sửa tệp cài đặt</value>
   </data>
-  <data name="ReleaseNotes" xml:space="preserve">
-    <value>Release Notes</value>
+  <data name="WhatsNew" xml:space="preserve">
+    <value>Có gì mới</value>
+  </data>
+  <data name="WhatsNewDescription" xml:space="preserve">
+    <value>Mở nội dung bản cập nhật</value>
   </data>
   <data name="CannotCreateShortcutDialogTitle" xml:space="preserve">
-    <value>Creating a shortcut in this location requires administrator privileges</value>
+    <value>Tạo lối tắt ở vị trí này yêu cầu quyền quản trị viên</value>
   </data>
   <data name="CannotCreateShortcutDialogMessage" xml:space="preserve">
-    <value>Would you like to create the shortcut on the desktop instead?</value>
+    <value>Thay vào đó, bạn có muốn tạo lối tắt ở màn hình chính không?</value>
   </data>
   <data name="ErrorDialogNameNotAllowed" xml:space="preserve">
-    <value>The specified item name is invalid</value>
+    <value>Tên khoản mục đã nhập không hợp lệ</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Cài đặt</value>
   </data>
   <data name="DoubleClickBlankSpaceToGoUp" xml:space="preserve">
-    <value>Double click on a blank space to go up one directory</value>
+    <value>Nhấn đúp chuột ở vùng trống để quay lại thư mục nguồn</value>
   </data>
   <data name="ViewMore" xml:space="preserve">
-    <value>View more</value>
-  </data>
-  <data name="BundlesBeingRemovedMessage" xml:space="preserve">
-    <value>But don't worry, we built a fantistic replacement that's more reliable and has more features. You can enable the File Tags widget from Settings &gt; Preferences &gt; Widgets. Enabling the tags widget will automatically turn off the bundles widget.</value>
-  </data>
-  <data name="BundlesBeingRemovedTitle" xml:space="preserve">
-    <value>Bundles will be retiring in a future update 📎</value>
+    <value>Xem thêm</value>
   </data>
   <data name="ShowEditTagsMenu" xml:space="preserve">
-    <value>Show edit tags flyout</value>
+    <value>Hiện tùy chọn chỉnh sửa nhãn</value>
+  </data>
+  <data name="ShowCompressionOptions" xml:space="preserve">
+    <value>Hiện tùy chọn nén</value>
+  </data>
+  <data name="ShowSendToMenu" xml:space="preserve">
+    <value>Hiện menu gửi tới</value>
   </data>
   <data name="ShowOpenInNewTab" xml:space="preserve">
-    <value>Show option to open folders in a new tab</value>
+    <value>Hiện tùy chọn mở thư mục trong thẻ mới</value>
   </data>
   <data name="ShowOpenInNewWindow" xml:space="preserve">
-    <value>Show option to open folders in a new window</value>
+    <value>Hiện tùy chọn mở thư mục trong cửa sổ mới</value>
   </data>
   <data name="QuickAccess" xml:space="preserve">
-    <value>Quick access</value>
+    <value>Truy cập nhanh</value>
   </data>
   <data name="NetworkAuthenticationDialogMessage" xml:space="preserve">
-    <value>Enter your credentials to connect to: {0}</value>
+    <value>Nhập thông tin đăng nhập của bạn để kết nối đến: {0}</value>
   </data>
   <data name="NetworkAuthenticationDialogTitle" xml:space="preserve">
-    <value>Enter Network Credentials</value>
+    <value>Nhập thông tin đăng nhập mạng</value>
   </data>
   <data name="NetworkAuthenticationSaveCheckbox" xml:space="preserve">
-    <value>Remember my credentials</value>
+    <value>Ghi nhớ thông tin đăng nhập</value>
   </data>
   <data name="NetworkFolderErrorDialogTitle" xml:space="preserve">
-    <value>Network folder error</value>
+    <value>Lỗi thư mục mạng</value>
   </data>
   <data name="AppVersion" xml:space="preserve">
-    <value>App version</value>
+    <value>Phiên bản ứng dụng</value>
   </data>
   <data name="WindowsVersion" xml:space="preserve">
-    <value>Windows version</value>
+    <value>Phiên bản Windows</value>
   </data>
   <data name="Always" xml:space="preserve">
-    <value>Always</value>
+    <value>Luôn luôn</value>
   </data>
   <data name="PermanentDeletionOnly" xml:space="preserve">
-    <value>Permanent deletion only</value>
+    <value>Chỉ khi xóa vĩnh viễn</value>
   </data>
   <data name="Never" xml:space="preserve">
-    <value>Never</value>
+    <value>Không bao giờ</value>
   </data>
   <data name="TagColor" xml:space="preserve">
-    <value>Tag color</value>
-  </data>
-  <data name="SaveChanges" xml:space="preserve">
-    <value>Save changes</value>
+    <value>Màu nhãn</value>
   </data>
   <data name="NewTag" xml:space="preserve">
-    <value>New tag</value>
+    <value>Nhãn mới</value>
   </data>
   <data name="CreateNewTag" xml:space="preserve">
-    <value>Create new tag</value>
+    <value>Tạo nhãn mới</value>
   </data>
   <data name="Loading" xml:space="preserve">
-    <value>Loading...</value>
+    <value>Đang tải...</value>
   </data>
   <data name="ContextMenuOptions" xml:space="preserve">
-    <value>Context menu options</value>
+    <value>Tùy chọn menu ngữ cảnh</value>
   </data>
   <data name="ShowFileExtensions" xml:space="preserve">
-    <value>Show file extensions</value>
+    <value>Hiện phần mở rộng tệp</value>
   </data>
   <data name="ShowHiddenItems" xml:space="preserve">
-    <value>Show hidden items</value>
+    <value>Hiện khoản mục bị ẩn</value>
   </data>
   <data name="FormatDriveText" xml:space="preserve">
-    <value>Format...</value>
+    <value>Định dạng</value>
   </data>
   <data name="Help" xml:space="preserve">
-    <value>Help</value>
+    <value>Trợ giúp</value>
   </data>
   <data name="FullScreen" xml:space="preserve">
-    <value>Toggle full screen</value>
+    <value>Bật/Tắt toàn màn hình</value>
   </data>
   <data name="ConfirmDeleteTag" xml:space="preserve">
-    <value>Are you sure you want to delete this tag?</value>
+    <value>Bạn có chắc chắn muốn xóa nhãn này không?</value>
   </data>
   <data name="PlayAll" xml:space="preserve">
-    <value>Play all</value>
+    <value>Phát tất cả</value>
   </data>
   <data name="Height" xml:space="preserve">
-    <value>Height</value>
+    <value>Chiều cao</value>
   </data>
   <data name="Width" xml:space="preserve">
-    <value>Width</value>
+    <value>Chiều rộng</value>
   </data>
   <data name="ApplyToAllConflictingItems" xml:space="preserve">
-    <value>Apply this action to all conflicting items</value>
+    <value>Áp dụng hành động này với mọi khoản mục xung đột</value>
   </data>
   <data name="OpenTerminal" xml:space="preserve">
-    <value>Open in terminal</value>
+    <value>Mở trong Windows Terminal</value>
   </data>
   <data name="OpenTerminalAsAdmin" xml:space="preserve">
-    <value>Open in terminal as administrator</value>
+    <value>Mở trong Windows Terminal với quyền quản trị viên</value>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>Save</value>
+    <value>Lưu</value>
   </data>
   <data name="MultiSelect" xml:space="preserve">
-    <value>Multiselect</value>
+    <value>Chọn nhiều</value>
   </data>
   <data name="ReorderSidebarItemsDialogText" xml:space="preserve">
-    <value>Reorder sidebar items</value>
+    <value>Sắp xếp các mục ở thanh bên</value>
   </data>
   <data name="Hashes" xml:space="preserve">
-    <value>Hashes</value>
+    <value>Hash</value>
   </data>
   <data name="CalculationError" xml:space="preserve">
-    <value>An error occurred during the calculation</value>
+    <value>Đã xảy ra lỗi trong quá trình tính toán</value>
+  </data>
+  <data name="CalculationErrorFileIsOpen" xml:space="preserve">
+    <value>Không thể tính toán hash, vui lòng đóng tệp và thử lại.</value>
+  </data>
+  <data name="CalculationOnlineFileHashError" xml:space="preserve">
+    <value>Hash không khả dụng cho các tệp trực tuyến</value>
   </data>
   <data name="Algorithm" xml:space="preserve">
-    <value>Algorithm</value>
+    <value>Th.toán</value>
   </data>
   <data name="HashValue" xml:space="preserve">
-    <value>Hash value</value>
+    <value>Giá trị hash</value>
   </data>
   <data name="SelectHashesToShow" xml:space="preserve">
-    <value>Select hashes to show</value>
+    <value>Chọn hash để hiển thị</value>
   </data>
   <data name="Calculating" xml:space="preserve">
-    <value>Calculating...</value>
+    <value>Đang tính toán...</value>
   </data>
   <data name="JumpListPinnedGroupHeader" xml:space="preserve">
-    <value>Pinned items</value>
+    <value>Các mục được ghim</value>
   </data>
   <data name="DecreaseSize" xml:space="preserve">
-    <value>Decrease size</value>
+    <value>Giảm kích thước</value>
   </data>
   <data name="IncreaseSize" xml:space="preserve">
-    <value>Increase size</value>
+    <value>Tăng kích thước</value>
   </data>
   <data name="ToggleSortDirection" xml:space="preserve">
-    <value>Toggle sort direction</value>
+    <value>Chuyển đổi hướng sắp xếp</value>
   </data>
   <data name="InvalidTagNameWarning" xml:space="preserve">
-    <value>Invalid name</value>
+    <value>Tên không hợp lệ</value>
   </data>
   <data name="TagNameRules" xml:space="preserve">
-    <value>Name must not be empty or start or end with a period.</value>
+    <value>Tên không được để trống hoặc bắt đầu/kết thúc với một dấu chấm.</value>
   </data>
   <data name="Videos" xml:space="preserve">
     <value>Video</value>
   </data>
-  <data name="LaunchQuickLook" xml:space="preserve">
-    <value>Launch QuickLook</value>
+  <data name="LaunchPreviewPopup" xml:space="preserve">
+    <value>Mở cửa sổ xem trước</value>
   </data>
   <data name="ToggleCompactOverlay" xml:space="preserve">
-    <value>Toggle compact overlay</value>
+    <value>Bật/Tắt chế độ thu gọn</value>
   </data>
   <data name="OpenHelpDescription" xml:space="preserve">
-    <value>Open online help page in browser</value>
+    <value>Mở trang trợ giúp trực tuyến trong trình duyệt</value>
   </data>
   <data name="ToggleFullScreenDescription" xml:space="preserve">
-    <value>Toggle full screen</value>
+    <value>Bật hoặc tắt chế độ toàn màn hình</value>
   </data>
   <data name="EnterCompactOverlayDescription" xml:space="preserve">
-    <value>Chỉnh cửa sổ thành gọn</value>
+    <value>Mở cửa sổ dạng thu gọn</value>
   </data>
   <data name="ExitCompactOverlayDescription" xml:space="preserve">
-    <value>Chỉnh cửa sổ thành lớn</value>
+    <value>Thoát cửa sổ dạng thu gọn</value>
   </data>
   <data name="ToggleCompactOverlayDescription" xml:space="preserve">
-    <value>Toggle compact overlay</value>
+    <value>Bật hoặc tắt cửa sổ dạng thu gọn</value>
   </data>
   <data name="SearchDescription" xml:space="preserve">
-    <value>Go to search box</value>
+    <value>Đặt tiêu điểm vào hộp tìm kiếm</value>
   </data>
   <data name="ToggleShowHiddenItemsDescription" xml:space="preserve">
-    <value>Toggle whether to show hidden items</value>
+    <value>Ẩn hoặc hiện khoản mục bị ẩn</value>
+  </data>
+  <data name="ToggleDotFilesSettingDescription" xml:space="preserve">
+    <value>Ẩn hoặc hiện tệp có tên bắt đầu bằng dấu chấm</value>
   </data>
   <data name="ToggleShowFileExtensionsDescription" xml:space="preserve">
-    <value>Toggle whether to show file extensions</value>
+    <value>Ẩn hoặc hiện phần mở rộng tệp</value>
   </data>
   <data name="TogglePreviewPaneDescription" xml:space="preserve">
-    <value>Toggle whether to show preview pane</value>
+    <value>Ẩn hoặc hiện ngăn xem trước để xem nhanh nội dung tệp</value>
   </data>
   <data name="ToggleSidebarDescription" xml:space="preserve">
-    <value>Toggle whether to show sidebar</value>
+    <value>Ẩn hoặc hiện thanh bên</value>
   </data>
   <data name="CopyItemDescription" xml:space="preserve">
-    <value>Copy item(s) to clipboard</value>
+    <value>Sao chép khoản mục vào bộ nhớ tạm</value>
   </data>
   <data name="CopyPathDescription" xml:space="preserve">
-    <value>Copy path of item to clipboard</value>
+    <value>Sao chép đường dẫn khoản mục đã chọn vào bộ nhớ tạm</value>
+  </data>
+  <data name="CopyItemPathDescription" xml:space="preserve">
+    <value>Sao chép đường dẫn khoản mục đã chọn vào bộ nhớ tạm</value>
+  </data>
+  <data name="CopyItemPathWithQuotesDescription" xml:space="preserve">
+    <value>Sao chép đường dẫn khoản mục đã chọn kèm dấu ngoặc kép vào bộ nhớ tạm</value>
+  </data>
+  <data name="CopyPathWithQuotesDescription" xml:space="preserve">
+    <value>Sao chép đường dẫn khoản mục đã chọn kèm dấu ngoặc kép vào bộ nhớ tạm</value>
   </data>
   <data name="CutItemDescription" xml:space="preserve">
-    <value>Cut item(s) to clipboard</value>
+    <value>Chuyển khoản mục vào bộ nhớ tạm</value>
   </data>
   <data name="PasteItemDescription" xml:space="preserve">
-    <value>Paste item(s) from clipboard to current folder</value>
+    <value>Dán khoản mục từ bộ nhớ tạm vào thư mục hiện tại</value>
+  </data>
+  <data name="PasteShortcutDescription" xml:space="preserve">
+    <value>Dán khoản mục từ bộ nhớ tạm vào thư mục hiện tại dưới dạng lối tắt</value>
   </data>
   <data name="PasteItemToSelectionDescription" xml:space="preserve">
-    <value>Paste item(s) from clipboard to selected folder</value>
+    <value>Dán khoản mục từ bộ nhớ tạm vào thư mục đã chọn</value>
   </data>
   <data name="DeleteItemDescription" xml:space="preserve">
-    <value>Xóa mục</value>
+    <value>Xóa khoản mục</value>
   </data>
   <data name="CreateFolderDescription" xml:space="preserve">
-    <value>Create new folder</value>
+    <value>Tạo thư mục mới</value>
   </data>
   <data name="CreateShortcutDescription" xml:space="preserve">
-    <value>Create new shortcut(s) to selected item(s)</value>
+    <value>Tạo lối tắt mới đến khoản mục đã chọn</value>
   </data>
   <data name="CreateShortcutFromDialogDescription" xml:space="preserve">
-    <value>Create new shortcut to any item</value>
+    <value>Tạo lối tắt mới đến khoản mục bất kỳ</value>
   </data>
   <data name="EmptyRecycleBinDescription" xml:space="preserve">
     <value>Dọn sạch thùng rác</value>
   </data>
   <data name="FormatDriveDescription" xml:space="preserve">
-    <value>Open "Format Drive" menu for selected item</value>
+    <value>Mở menu "Định dạng ổ lưu trữ" cho khoản mục đã chọn</value>
   </data>
   <data name="RestoreRecycleBinDescription" xml:space="preserve">
-    <value>Restore selected item(s) from recycle bin</value>
+    <value>Khôi phục khoản mục đã chọn từ thùng rác</value>
   </data>
   <data name="RestoreAllRecycleBinDescription" xml:space="preserve">
-    <value>Restore all items from recycle bin</value>
+    <value>Khôi phục tất cả khoản mục từ thùng rác</value>
   </data>
   <data name="OpenItemDescription" xml:space="preserve">
-    <value>Open item(s)</value>
+    <value>Mở khoản mục</value>
   </data>
   <data name="OpenItemWithApplicationPickerDescription" xml:space="preserve">
-    <value>Open item(s) with selected application</value>
+    <value>Mở khoản mục bằng ứng dụng đã chọn</value>
   </data>
   <data name="OpenParentFolderDescription" xml:space="preserve">
-    <value>Open parent folder of searched item</value>
+    <value>Mở thư mục nguồn của khoản mục đã tìm được</value>
   </data>
   <data name="RefreshItemsDescription" xml:space="preserve">
-    <value>Refresh page contents</value>
+    <value>Làm mới nội dung hiển thị</value>
   </data>
   <data name="RenameDescription" xml:space="preserve">
-    <value>Rename selected item</value>
+    <value>Đổi tên khoản mục đã chọn</value>
   </data>
   <data name="SelectAllDescription" xml:space="preserve">
-    <value>Select all items</value>
+    <value>Chọn tất cả khoản mục</value>
   </data>
   <data name="InvertSelectionDescription" xml:space="preserve">
-    <value>Invert item selection</value>
+    <value>Đảo lựa chọn</value>
   </data>
   <data name="ClearSelectionDescription" xml:space="preserve">
-    <value>Clear item selection</value>
+    <value>Bỏ lựa chọn</value>
   </data>
   <data name="ToggleSelectDescription" xml:space="preserve">
-    <value>Toggle item selection</value>
+    <value>Chuyển đổi chọn/bỏ chọn khoản mục đã thao tác gần nhất</value>
   </data>
   <data name="ShareItemDescription" xml:space="preserve">
-    <value>Share selected file(s) with others</value>
+    <value>Chia sẻ tệp đã chọn với người khác</value>
   </data>
   <data name="PinToStartDescription" xml:space="preserve">
-    <value>Pin item(s) to the Start Menu</value>
+    <value>Ghim mục vào menu Bắt đầu</value>
   </data>
   <data name="UnpinFromStartDescription" xml:space="preserve">
-    <value>Unpin item(s) from the Start Menu</value>
+    <value>Bỏ ghim mục khỏi menu Bắt đầu</value>
   </data>
-  <data name="PinItemToFavoritesDescription" xml:space="preserve">
-    <value>Pin folder(s) to Favorites</value>
+  <data name="PinFolderToSidebarDescription" xml:space="preserve">
+    <value>Ghim thư mục vào thanh bên</value>
   </data>
-  <data name="UnpinItemFromFavoritesDescription" xml:space="preserve">
-    <value>Unpin folder(s) from Favorites</value>
+  <data name="UnpinFolderFromSidebarDescription" xml:space="preserve">
+    <value>Bỏ ghim thư mục khỏi thanh bên</value>
   </data>
   <data name="SetAsWallpaperBackgroundDescription" xml:space="preserve">
-    <value>Set selected picture as desktop background</value>
+    <value>Đặt hình ảnh đã chọn làm hình nền màn hình chính</value>
   </data>
   <data name="SetAsSlideshowBackgroundDescription" xml:space="preserve">
-    <value>Set selected pictures as desktop slideshow</value>
+    <value>Dùng hình ảnh đã chọn để trình chiếu trên màn hình chính</value>
   </data>
   <data name="SetAsLockscreenBackgroundDescription" xml:space="preserve">
-    <value>Set selected picture as lockscreen background</value>
+    <value>Đặt hình ảnh đã chọn làm hình nền màn hình khóa</value>
+  </data>
+  <data name="SetAsAppBackgroundDescription" xml:space="preserve">
+    <value>Đặt hình ảnh đã chọn làm hình nền ứng dụng</value>
   </data>
   <data name="InstallFontDescription" xml:space="preserve">
-    <value>Install selected font(s)</value>
+    <value>Cài đặt phông chữ đã chọn</value>
   </data>
   <data name="InstallInfDriverDescription" xml:space="preserve">
-    <value>Install driver(s) using selected inf file(s)</value>
+    <value>Cài đặt trình điều khiển bằng tệp inf đã chọn</value>
+  </data>
+  <data name="InstallCertificateDescription" xml:space="preserve">
+    <value>Cài đặt chứng chỉ đã chọn</value>
   </data>
   <data name="RunAsAdminDescription" xml:space="preserve">
-    <value>Run selected application as administrator</value>
+    <value>Chạy ứng dụng đã chọn với quyền quản trị viên</value>
   </data>
   <data name="RunAsAnotherUserDescription" xml:space="preserve">
-    <value>Run selected application as another user</value>
+    <value>Chạy ứng dụng đã chọn với vai trò là người dùng khác</value>
   </data>
   <data name="RunWithPowershellDescription" xml:space="preserve">
-    <value>Run selected PowerShell script</value>
+    <value>Chạy kịch bản PowerShell đã chọn</value>
   </data>
-  <data name="LaunchQuickLookDescription" xml:space="preserve">
-    <value>Launch QuickLook with selected item</value>
+  <data name="LaunchPreviewPopupDescription" xml:space="preserve">
+    <value>Khởi chạy bản xem trước trong cửa sổ bật lên</value>
   </data>
   <data name="CompressIntoArchiveDescription" xml:space="preserve">
-    <value>Create archive with selected item(s)</value>
+    <value>Tạo tệp nén từ khoản mục đã chọn</value>
   </data>
   <data name="CompressIntoSevenZipDescription" xml:space="preserve">
-    <value>Create 7z archive instantly with selected item(s)</value>
+    <value>Tạo tệp nén 7z ngay lập tức từ khoản mục đã chọn</value>
   </data>
   <data name="CompressIntoZipDescription" xml:space="preserve">
-    <value>Create zip archive instantly with selected item(s)</value>
+    <value>Tạo tệp nén zip ngay lập tức từ khoản mục đã chọn</value>
   </data>
   <data name="DecompressArchiveDescription" xml:space="preserve">
-    <value>Extract items from selected archive(s) to any folder</value>
+    <value>Giải nén tệp đã chọn vào thư mục bất kỳ</value>
   </data>
   <data name="DecompressArchiveHereDescription" xml:space="preserve">
-    <value>Extract items from selected archive(s) to current folder</value>
+    <value>Giải nén tệp đã chọn vào thư mục hiện tại</value>
   </data>
   <data name="DecompressArchiveToChildFolderDescription" xml:space="preserve">
-    <value>Extract items from selected archive(s) to new folder</value>
+    <value>Giải nén tệp đã chọn vào thư mục mới</value>
   </data>
   <data name="RotateLeftDescription" xml:space="preserve">
-    <value>Rotate selected image(s) to the left</value>
+    <value>Xoay hình ảnh đã chọn sang trái</value>
   </data>
   <data name="RotateRightDescription" xml:space="preserve">
-    <value>Rotate selected image(s) to the right</value>
+    <value>Xoay hình ảnh đã chọn sang phải</value>
   </data>
   <data name="OpenSettingsDescription" xml:space="preserve">
-    <value>Open settings page</value>
+    <value>Mở trang cài đặt</value>
   </data>
   <data name="OpenTerminalDescription" xml:space="preserve">
-    <value>Open folder in terminal</value>
+    <value>Mở thư mục trong cửa sổ lệnh</value>
   </data>
   <data name="OpenTerminalAsAdminDescription" xml:space="preserve">
-    <value>Open folder in terminal as administrator</value>
+    <value>Mở thư mục trong cửa sổ lệnh với quyền quản trị viên</value>
   </data>
   <data name="LayoutDecreaseSizeDescription" xml:space="preserve">
-    <value>Decrease icon size in grid view</value>
+    <value>Giảm kích thước khoản mục trong bố cục hiện tại</value>
   </data>
   <data name="LayoutIncreaseSizeDescription" xml:space="preserve">
-    <value>Increase icon size in grid view</value>
+    <value>Tăng kích thước khoản mục trong bố cục hiện tại</value>
   </data>
   <data name="LayoutDetailsDescription" xml:space="preserve">
-    <value>Switch to details view</value>
+    <value>Chuyển sang bố cục chi tiết</value>
   </data>
   <data name="LayoutTilesDescription" xml:space="preserve">
-    <value>Switch to tiles view</value>
+    <value>Chuyển sang bố cục lát</value>
   </data>
-  <data name="LayoutGridSmallDescription" xml:space="preserve">
-    <value>Switch to grid view with small icons</value>
+  <data name="LayoutListDescription" xml:space="preserve">
+    <value>Chuyển sang bố cục danh sách</value>
   </data>
-  <data name="LayoutGridMediumDescription" xml:space="preserve">
-    <value>Switch to grid view with medium icons</value>
+  <data name="List" xml:space="preserve">
+    <value>Danh sách</value>
   </data>
-  <data name="LayoutGridLargeDescription" xml:space="preserve">
-    <value>Switch to grid view with large icons</value>
+  <data name="Grid" xml:space="preserve">
+    <value>Lưới</value>
+  </data>
+  <data name="LayoutGridDescription" xml:space="preserve">
+    <value>Chuyển sang bố cục lưới</value>
   </data>
   <data name="LayoutColumnsDescription" xml:space="preserve">
-    <value>Switch to columns view</value>
+    <value>Chuyển sang bố cục dạng cột</value>
   </data>
   <data name="LayoutAdaptiveDescription" xml:space="preserve">
-    <value>Switch views adaptively</value>
+    <value>Tự động lựa chọn bố cục phù hợp</value>
   </data>
   <data name="SortByNameDescription" xml:space="preserve">
-    <value>Sort items by name</value>
+    <value>Sắp xếp khoản mục theo tên</value>
   </data>
   <data name="SortByDateModifiedDescription" xml:space="preserve">
-    <value>Sort items by date modified</value>
+    <value>Sắp xếp khoản mục theo ngày sửa đổi</value>
   </data>
   <data name="SortByDateCreatedDescription" xml:space="preserve">
-    <value>Sort items by date created</value>
+    <value>Sắp xếp khoản mục theo ngày tạo</value>
   </data>
   <data name="SortBySizeDescription" xml:space="preserve">
-    <value>Sort items by size</value>
+    <value>Sắp xếp khoản mục theo kích cỡ</value>
   </data>
   <data name="SortByTypeDescription" xml:space="preserve">
-    <value>Sort items by type</value>
+    <value>Sắp xếp khoản mục theo loại</value>
   </data>
   <data name="SortBySyncStatusDescription" xml:space="preserve">
-    <value>Sort items by sync status</value>
+    <value>Sắp xếp khoản mục theo trạng thái đồng bộ hóa</value>
   </data>
   <data name="SortByTagDescription" xml:space="preserve">
-    <value>Sort items by tags</value>
+    <value>Sắp xếp khoản mục theo nhãn</value>
   </data>
   <data name="SortByOriginalFolderDescription" xml:space="preserve">
-    <value>Sort items by original folder</value>
+    <value>Sắp xếp khoản mục theo thư mục gốc</value>
   </data>
   <data name="SortByDateDeletedDescription" xml:space="preserve">
-    <value>Sort items by date deleted</value>
+    <value>Sắp xếp khoản mục theo ngày xóa</value>
   </data>
   <data name="SortAscendingDescription" xml:space="preserve">
-    <value>Sort items in ascending order</value>
+    <value>Sắp xếp khoản mục theo thứ tự tăng dần</value>
   </data>
   <data name="SortDescendingDescription" xml:space="preserve">
-    <value>Sort items in descending order</value>
+    <value>Sắp xếp khoản mục theo thứ tự giảm dần</value>
   </data>
   <data name="ToggleSortDirectionDescription" xml:space="preserve">
-    <value>Toggle item sort direction</value>
-  </data>
-  <data name="ToggleSortDirectoriesAlongsideFilesDescription" xml:space="preserve">
-    <value>Danh và sắp xếp danh mụch kế bên tệp tin</value>
+    <value>Chuyển đổi hướng sắp xếp khoản mục</value>
   </data>
   <data name="GroupByNoneDescription" xml:space="preserve">
-    <value>List items without grouping</value>
+    <value>Liệt kê các khoản mục mà không nhóm</value>
   </data>
   <data name="GroupByNameDescription" xml:space="preserve">
-    <value>Group items by name</value>
+    <value>Nhóm khoản mục theo tên</value>
   </data>
   <data name="GroupByDateModifiedDescription" xml:space="preserve">
-    <value>Group items by date modified</value>
+    <value>Nhóm khoản mục theo ngày sửa đổi</value>
   </data>
   <data name="GroupByDateCreatedDescription" xml:space="preserve">
-    <value>Group items by date created</value>
+    <value>Nhóm khoản mục theo ngày tạo</value>
   </data>
   <data name="GroupBySizeDescription" xml:space="preserve">
-    <value>Group items by size</value>
+    <value>Nhóm khoản mục theo kích cỡ</value>
   </data>
   <data name="GroupByTypeDescription" xml:space="preserve">
-    <value>Group items by type</value>
+    <value>Nhóm khoản mục theo loại</value>
   </data>
   <data name="GroupBySyncStatusDescription" xml:space="preserve">
-    <value>Group items by sync status</value>
+    <value>Nhóm khoản mục theo trạng thái đồng bộ hóa</value>
   </data>
   <data name="GroupByTagDescription" xml:space="preserve">
-    <value>Group items by tags</value>
+    <value>Nhóm khoản mục theo nhãn</value>
   </data>
   <data name="GroupByOriginalFolderDescription" xml:space="preserve">
-    <value>Group items by original folder</value>
+    <value>Nhóm khoản mục theo thư mục gốc</value>
   </data>
   <data name="GroupByDateDeletedDescription" xml:space="preserve">
-    <value>Group items by date deleted</value>
+    <value>Nhóm khoản mục theo ngày xóa</value>
   </data>
   <data name="GroupByFolderPathDescription" xml:space="preserve">
-    <value>Group items by folder path</value>
+    <value>Nhóm khoản mục theo đường dẫn thư mục</value>
   </data>
   <data name="GroupAscendingDescription" xml:space="preserve">
-    <value>Sort groups in ascending order</value>
+    <value>Sắp xếp nhóm theo thứ tự tăng dần</value>
   </data>
   <data name="GroupDescendingDescription" xml:space="preserve">
-    <value>Sort groups in descending order</value>
+    <value>Sắp xếp nhóm theo thứ tự giảm dần</value>
   </data>
   <data name="ToggleGroupDirectionDescription" xml:space="preserve">
-    <value>Toggle group sort direction</value>
+    <value>Chuyển đổi hướng sắp xếp nhóm</value>
   </data>
   <data name="NewTabDescription" xml:space="preserve">
-    <value>Open new tab</value>
+    <value>Mở thẻ mới</value>
   </data>
   <data name="NavigateBackDescription" xml:space="preserve">
-    <value>Navigate backward in navigation history</value>
+    <value>Điều hướng lùi về trong lịch sử duyệt</value>
   </data>
   <data name="NavigateForwardDescription" xml:space="preserve">
-    <value>Navigate forward in navigation history</value>
+    <value>Điều hướng tiến lên trong lịch sử duyệt</value>
   </data>
   <data name="NavigateUpDescription" xml:space="preserve">
-    <value>Navigate up one directory</value>
+    <value>Điều hướng về thư mục nguồn</value>
   </data>
   <data name="DuplicateCurrentTabDescription" xml:space="preserve">
-    <value>Duplicate current tab</value>
+    <value>Nhân đôi thẻ hiện tại</value>
   </data>
   <data name="DuplicateSelectedTabDescription" xml:space="preserve">
-    <value>Duplicate selected tab</value>
+    <value>Nhân đôi thẻ đã chọn</value>
   </data>
   <data name="CloseTabsToTheLeftCurrentDescription" xml:space="preserve">
-    <value>Close tabs to the left of current tab</value>
+    <value>Đóng các thẻ ở phía bên trái thẻ hiện tại</value>
   </data>
   <data name="CloseTabsToTheLeftSelectedDescription" xml:space="preserve">
-    <value>Close tabs to the left of selected tab</value>
+    <value>Đóng các thẻ ở phía bên trái thẻ đã chọn</value>
   </data>
   <data name="CloseTabsToTheRightCurrentDescription" xml:space="preserve">
-    <value>Close tabs to the right of current tab</value>
+    <value>Đóng các thẻ ở phía bên phải thẻ hiện tại</value>
   </data>
   <data name="CloseTabsToTheRightSelectedDescription" xml:space="preserve">
-    <value>Close tabs to the right of selected tab</value>
+    <value>Đóng các thẻ ở phía bên phải thẻ đã chọn</value>
   </data>
   <data name="CloseOtherTabsCurrentDescription" xml:space="preserve">
-    <value>Close tabs other than current tab</value>
+    <value>Đóng các thẻ khác ngoài thẻ hiện tại</value>
   </data>
   <data name="CloseOtherTabsSelectedDescription" xml:space="preserve">
-    <value>Close tabs other than selected tab</value>
+    <value>Đóng các thẻ khác ngoài thẻ đã chọn</value>
+  </data>
+  <data name="CloseAllTabsDescription" xml:space="preserve">
+    <value>Đóng tất cả các thẻ bao gồm thẻ hiện tại</value>
   </data>
   <data name="ReopenClosedTabDescription" xml:space="preserve">
-    <value>Reopen last closed tab</value>
+    <value>Mở lại thẻ đã đóng</value>
   </data>
   <data name="PreviousTabDescription" xml:space="preserve">
-    <value>Move to the previous tab</value>
+    <value>Chuyển đến thẻ trước đó</value>
   </data>
   <data name="NextTabDescription" xml:space="preserve">
-    <value>Move to the next tab</value>
+    <value>Chuyển đến thẻ tiếp theo</value>
   </data>
   <data name="CloseSelectedTabDescription" xml:space="preserve">
-    <value>Close current tab</value>
+    <value>Đóng thẻ hiện tại</value>
   </data>
-  <data name="OpenNewPaneDescription" xml:space="preserve">
-    <value>Open new pane</value>
+  <data name="CloseActivePaneDescription" xml:space="preserve">
+    <value>Đóng ngăn hiện hoạt</value>
   </data>
-  <data name="ClosePaneDescription" xml:space="preserve">
-    <value>Close right pane</value>
+  <data name="FocusOtherPane" xml:space="preserve">
+    <value>Chuyển đến ngăn còn lại</value>
+  </data>
+  <data name="FocusOtherPaneDescription" xml:space="preserve">
+    <value>Đặt tiêu điểm vào ngăn còn lại</value>
   </data>
   <data name="ToggleSidebar" xml:space="preserve">
-    <value>Toggle the sidebar</value>
+    <value>Bật/Tắt thanh bên</value>
   </data>
   <data name="Key.Menu" xml:space="preserve">
     <value>Alt</value>
@@ -2972,11 +2764,11 @@
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.Enter" xml:space="preserve">
-    <value>Return</value>
+    <value>Enter</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.Space" xml:space="preserve">
-    <value>Space</value>
+    <value>Phím cách</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.Escape" xml:space="preserve">
@@ -3000,19 +2792,19 @@
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.Left" xml:space="preserve">
-    <value>Left</value>
+    <value>Trái</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.Right" xml:space="preserve">
-    <value>Right</value>
+    <value>Phải</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.Down" xml:space="preserve">
-    <value>Down</value>
+    <value>Xuống</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.Up" xml:space="preserve">
-    <value>Tên (Alt+Mũi tên trên)</value>
+    <value>Lên</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.Home" xml:space="preserve">
@@ -3032,15 +2824,15 @@
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.Separator" xml:space="preserve">
-    <value>Sep</value>
+    <value>Dấu phân cách</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.Pause" xml:space="preserve">
-    <value>Pause</value>
+    <value>Tạm dừng</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.Sleep" xml:space="preserve">
-    <value>Sleep</value>
+    <value>Ngủ</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.Clear" xml:space="preserve">
@@ -3052,7 +2844,7 @@
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.Help" xml:space="preserve">
-    <value>Help</value>
+    <value>Tr.giúp</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.Mouse4" xml:space="preserve">
@@ -3080,27 +2872,27 @@
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.BrowserGoHome" xml:space="preserve">
-    <value>GoHome</value>
+    <value>Trang chủ</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.BrowserGoBack" xml:space="preserve">
-    <value>GoBack</value>
+    <value>Lùi trang</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.BrowserGoForward" xml:space="preserve">
-    <value>GoForward</value>
+    <value>Tiến trang</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.BrowserRefresh" xml:space="preserve">
-    <value>BrowserRefresh</value>
+    <value>Làm mới trang</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.BrowserStop" xml:space="preserve">
-    <value>BrowserStop</value>
+    <value>Dừng tải trang</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.BrowserSearch" xml:space="preserve">
-    <value>Search</value>
+    <value>Tìm kiếm</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.BrowserFavorites" xml:space="preserve">
@@ -3108,80 +2900,1158 @@
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.MediaPlayPause" xml:space="preserve">
-    <value>PlayPause</value>
+    <value>Phát/T.dừng</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.MediaStop" xml:space="preserve">
-    <value>MediaStop</value>
+    <value>Dừng phát</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.MediaPreviousTrack" xml:space="preserve">
-    <value>PrevTrack</value>
+    <value>Phát trước đó</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.MediaNextTrack" xml:space="preserve">
-    <value>NextTrack</value>
+    <value>Phát tiếp theo</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.MediaSelect" xml:space="preserve">
-    <value>MediaSelect</value>
+    <value>Chọn phương tiện</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.MediaMute" xml:space="preserve">
-    <value>Mute</value>
+    <value>Tắt tiếng</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.MediaVolumeDown" xml:space="preserve">
-    <value>VolDown</value>
+    <value>Giảm âm lượng</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Key.MediaVolumeUp" xml:space="preserve">
-    <value>VolUp</value>
+    <value>Tăng âm lượng</value>
     <comment>Key name for hotkeys in menus. Use abbreviation if possible.</comment>
   </data>
   <data name="Change" xml:space="preserve">
-    <value>Change</value>
+    <value>Thay đổi</value>
   </data>
   <data name="ToggleSelect" xml:space="preserve">
-    <value>Toggle Selection</value>
+    <value>Đảo lựa chọn cuối</value>
   </data>
   <data name="ShowFileExtensionWarning" xml:space="preserve">
-    <value>Show warning when changing file extensions</value>
+    <value>Hiện cảnh báo khi thay đổi phần mở rộng tệp</value>
   </data>
   <data name="ThisPC" xml:space="preserve">
-    <value>This PC</value>
+    <value>PC này</value>
   </data>
   <data name="RecycleBin" xml:space="preserve">
-    <value>Recycle Bin</value>
+    <value>Thùng rác</value>
   </data>
   <data name="Untagged" xml:space="preserve">
-    <value>Untagged</value>
+    <value>Chưa gắn nhãn</value>
   </data>
   <data name="PreviousTab" xml:space="preserve">
-    <value>Moves to the previous tab</value>
+    <value>Chuyển đến thẻ trước đó</value>
   </data>
   <data name="NextTab" xml:space="preserve">
-    <value>Moves to the next tab</value>
+    <value>Chuyển đến thẻ tiếp theo</value>
   </data>
   <data name="CloseTab" xml:space="preserve">
-    <value>Closes current tab</value>
+    <value>Đóng thẻ hiện tại</value>
+  </data>
+  <data name="EditPath" xml:space="preserve">
+    <value>Chỉnh sửa đường dẫn</value>
+  </data>
+  <data name="Redo" xml:space="preserve">
+    <value>Làm lại</value>
+  </data>
+  <data name="Undo" xml:space="preserve">
+    <value>Hoàn tác</value>
   </data>
   <data name="InvalidLocation" xml:space="preserve">
-    <value>Invalid location</value>
+    <value>Vị trí không hợp lệ</value>
   </data>
   <data name="CopyFileWithoutProperties" xml:space="preserve">
-    <value>Are you sure you want to copy these files without their properties?</value>
+    <value>Bạn có chắc chắn muốn sao chép các tệp này mà không có thuộc tính không?</value>
   </data>
   <data name="FilePropertiesCannotBeCopied" xml:space="preserve">
-    <value>These files have properties that can't be copied to the new location</value>
+    <value>Các tệp này có các thuộc tính không thể được sao chép sang vị trí mới</value>
   </data>
   <data name="FilePropertiesCannotBeMoved" xml:space="preserve">
-    <value>These files have properties that can't be moved to the new location</value>
+    <value>Các tệp này có các thuộc tính không thể được di chuyển sang vị trí mới</value>
   </data>
   <data name="MoveFileWithoutProperties" xml:space="preserve">
-    <value>Are you sure you want to move these files without their properties?</value>
+    <value>Bạn có chắc chắn muốn di chuyển các tệp này mà không có thuộc tính không?</value>
   </data>
   <data name="ShowCheckboxesWhenSelectingItems" xml:space="preserve">
-    <value>Show checkboxes when selecting items</value>
+    <value>Hiện hộp kiểm khi chọn khoản mục</value>
+  </data>
+  <data name="EditPathDescription" xml:space="preserve">
+    <value>Đặt tiêu điểm vào thanh đường dẫn</value>
+  </data>
+  <data name="AddItemDescription" xml:space="preserve">
+    <value>Tạo khoản mục mới</value>
+  </data>
+  <data name="SecurityNoAccessControlEntriesText" xml:space="preserve">
+    <value>Không có nhóm hoặc người dùng nào có quyền truy cập đối tượng này. Tuy nhiên, chủ sở hữu đối tượng này có thể gán quyền truy cập.</value>
+  </data>
+  <data name="OpenFileLocationDescription" xml:space="preserve">
+    <value>Mở vị trí khoản mục</value>
+  </data>
+  <data name="DeletePermanently" xml:space="preserve">
+    <value>Xóa vĩnh viễn</value>
+  </data>
+  <data name="DeleteItemPermanentlyDescription" xml:space="preserve">
+    <value>Xóa vĩnh viễn khoản mục</value>
+  </data>
+  <data name="PlayAllDescription" xml:space="preserve">
+    <value>Phát các tệp phương tiện đã chọn</value>
+  </data>
+  <data name="UndoDescription" xml:space="preserve">
+    <value>Hoàn tác thao tác tệp cuối cùng</value>
+  </data>
+  <data name="RedoDescription" xml:space="preserve">
+    <value>Làm lại thao tác tệp cuối cùng</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Vị trí:</value>
+  </data>
+  <data name="GroupByMonthDescription" xml:space="preserve">
+    <value>Nhóm khoản mục theo tháng</value>
+  </data>
+  <data name="GroupByYearDescription" xml:space="preserve">
+    <value>Nhóm khoản mục theo năm</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Tháng</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Ngày</value>
+  </data>
+  <data name="ToggleGroupByDateUnitDescription" xml:space="preserve">
+    <value>Ẩn hoặc hiện đơn vị khi nhóm theo ngày tháng</value>
+  </data>
+  <data name="ToggleGroupingUnit" xml:space="preserve">
+    <value>Ẩn/Hiện đơn vị nhóm</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Năm</value>
+  </data>
+  <data name="GroupByDateUnit" xml:space="preserve">
+    <value>Nhóm theo đơn vị</value>
+  </data>
+  <data name="GroupByDateCreatedDayDescription" xml:space="preserve">
+    <value>Nhóm khoản mục theo ngày tạo</value>
+  </data>
+  <data name="GroupByDateCreatedMonthDescription" xml:space="preserve">
+    <value>Nhóm khoản mục theo tháng tạo</value>
+  </data>
+  <data name="GroupByDateCreatedYearDescription" xml:space="preserve">
+    <value>Nhóm khoản mục theo năm tạo</value>
+  </data>
+  <data name="GroupByDateDeletedDayDescription" xml:space="preserve">
+    <value>Nhóm khoản mục theo ngày xóa</value>
+  </data>
+  <data name="GroupByDateDeletedMonthDescription" xml:space="preserve">
+    <value>Nhóm khoản mục theo tháng xóa</value>
+  </data>
+  <data name="GroupByDateDeletedYearDescription" xml:space="preserve">
+    <value>Nhóm khoản mục theo năm xóa</value>
+  </data>
+  <data name="GroupByDateModifiedDayDescription" xml:space="preserve">
+    <value>Nhóm khoản mục theo ngày sửa đổi</value>
+  </data>
+  <data name="GroupByDateModifiedMonthDescription" xml:space="preserve">
+    <value>Nhóm khoản mục theo tháng sửa đổi</value>
+  </data>
+  <data name="GroupByDateModifiedYearDescription" xml:space="preserve">
+    <value>Nhóm khoản mục theo năm sửa đổi</value>
+  </data>
+  <data name="SecurityClickAdvancedPermissions" xml:space="preserve">
+    <value>Nhấp vào 'Quyền truy cập nâng cao' để tiếp tục.</value>
+  </data>
+  <data name="SecurityRequireReadPermissions" xml:space="preserve">
+    <value>Bạn phải có quyền Đọc để xem các thuộc tính của khoản mục này.</value>
+  </data>
+  <data name="SecuritySuggestToTakeOwnership" xml:space="preserve">
+    <value>Để lấy quyền sở hữu khoản mục, bao gồm quyền xem các thuộc tính của khoản mục này, hãy thử nhấp vào nút "Thay đổi" ở trên.</value>
+  </data>
+  <data name="SecurityUnableToDisplayPermissions" xml:space="preserve">
+    <value>Không thể hiển thị quyền truy cập.</value>
+  </data>
+  <data name="StashChanges" xml:space="preserve">
+    <value>Để các thay đổi của tôi vào '{0}'</value>
+  </data>
+  <data name="DiscardChanges" xml:space="preserve">
+    <value>Hủy các thay đổi của tôi</value>
+  </data>
+  <data name="BringChanges" xml:space="preserve">
+    <value>Đưa các thay đổi của tôi vào '{0}'</value>
+  </data>
+  <data name="UncommittedChanges" xml:space="preserve">
+    <value>Bạn có các thay đổi chưa commit ở nhánh này. Bạn muốn làm gì với các thay đổi này?</value>
+  </data>
+  <data name="SwitchBranch" xml:space="preserve">
+    <value>Chuyển nhánh</value>
+  </data>
+  <data name="Branches" xml:space="preserve">
+    <value>Nhánh</value>
+  </data>
+  <data name="Switch" xml:space="preserve">
+    <value>Chuyển</value>
+  </data>
+  <data name="NewBranch" xml:space="preserve">
+    <value>Nhánh mới</value>
+  </data>
+  <data name="InvalidBranchName" xml:space="preserve">
+    <value>Tên nhánh không hợp lệ</value>
+  </data>
+  <data name="CreateBranch" xml:space="preserve">
+    <value>Tạo nhánh</value>
+  </data>
+  <data name="CreateNewBranch" xml:space="preserve">
+    <value>Tạo nhánh</value>
+  </data>
+  <data name="BasedOn" xml:space="preserve">
+    <value>Dựa trên</value>
+  </data>
+  <data name="SwitchToNewBranch" xml:space="preserve">
+    <value>Chuyển sang nhánh mới</value>
+  </data>
+  <data name="CreateFolderWithSelectionDescription" xml:space="preserve">
+    <value>Tạo thư mục với khoản mục đã chọn</value>
+  </data>
+  <data name="OpenProperties" xml:space="preserve">
+    <value>Thuộc tính</value>
+  </data>
+  <data name="OpenClassicProperties" xml:space="preserve">
+    <value>Mở bảng thuộc tính gốc</value>
+  </data>
+  <data name="OpenPropertiesDescription" xml:space="preserve">
+    <value>Mở cửa sổ thuộc tính</value>
+  </data>
+  <data name="OpenClassicPropertiesDescription" xml:space="preserve">
+    <value>Mở cửa sổ thuộc tính gốc của File Explorer</value>
+  </data>
+  <data name="Locals" xml:space="preserve">
+    <value>Cục bộ</value>
+  </data>
+  <data name="Remotes" xml:space="preserve">
+    <value>Máy chủ</value>
+  </data>
+  <data name="ImproveTranslation" xml:space="preserve">
+    <value>Dịch thuật trên Crowdin</value>
+  </data>
+  <data name="GitFetch" xml:space="preserve">
+    <value>Fetch</value>
+  </data>
+  <data name="GitPull" xml:space="preserve">
+    <value>Pull</value>
+  </data>
+  <data name="GitFetchDescription" xml:space="preserve">
+    <value>Chạy git fetch</value>
+  </data>
+  <data name="GitPullDescription" xml:space="preserve">
+    <value>Chạy git pull</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Xem trước</value>
+  </data>
+  <data name="GitStatus" xml:space="preserve">
+    <value>Trạng thái Git</value>
+  </data>
+  <data name="GitError" xml:space="preserve">
+    <value>Lỗi Git</value>
+  </data>
+  <data name="PullTimeoutError" xml:space="preserve">
+    <value>git pull không thành công do hết thời gian chờ</value>
+  </data>
+  <data name="MultipleValues" xml:space="preserve">
+    <value>(đa giá trị)</value>
+    <comment>Text indicating that multiple selected files have different metadata values.</comment>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Tác giả</value>
+  </data>
+  <data name="DateCommitted" xml:space="preserve">
+    <value>Ngày commit</value>
+  </data>
+  <data name="CommitMessage" xml:space="preserve">
+    <value>Mô tả commit</value>
+  </data>
+  <data name="CommitSha" xml:space="preserve">
+    <value>SHA commit</value>
+  </data>
+  <data name="Git" xml:space="preserve">
+    <value>Git</value>
+  </data>
+  <data name="Acrylic" xml:space="preserve">
+    <value>Acrylic</value>
+  </data>
+  <data name="Mica" xml:space="preserve">
+    <value>Mica</value>
+  </data>
+  <data name="MicaAlt" xml:space="preserve">
+    <value>Mica Alt</value>
+  </data>
+  <data name="BackdropMaterial" xml:space="preserve">
+    <value>Nền</value>
+  </data>
+  <data name="Solid" xml:space="preserve">
+    <value>Màu đơn</value>
+  </data>
+  <data name="ManageBranches" xml:space="preserve">
+    <value>Quản lý nhánh</value>
+  </data>
+  <data name="Push" xml:space="preserve">
+    <value>Push</value>
+  </data>
+  <data name="GitPushDescription" xml:space="preserve">
+    <value>Chạy git push</value>
+  </data>
+  <data name="GitSync" xml:space="preserve">
+    <value>Sync</value>
+  </data>
+  <data name="GitSyncDescription" xml:space="preserve">
+    <value>Chạy git pull sau đó chạy git push</value>
+  </data>
+  <data name="GitSyncStatusExtendedInfo" xml:space="preserve">
+    <value>{0} outgoing commit / {1} incoming commit</value>
+  </data>
+  <data name="ConnectGitHub" xml:space="preserve">
+    <value>Kết nối với GitHub</value>
+  </data>
+  <data name="ConnectGitHubDescription" xml:space="preserve">
+    <value>Nhập mã đang được hiển thị vào liên kết bên dưới để bắt đầu làm việc với kho lưu trữ GitHub.</value>
+  </data>
+  <data name="CannotReachGitHubError" xml:space="preserve">
+    <value>Files hiện không thể truy cập GitHub.</value>
+  </data>
+  <data name="OpenInVSCode" xml:space="preserve">
+    <value>Mở thư mục trong VS Code</value>
+  </data>
+  <data name="OpenInVSCodeDescription" xml:space="preserve">
+    <value>Mở thư mục hiện tại trong Visual Studio Code</value>
+  </data>
+  <data name="OpenRepoInVSCode" xml:space="preserve">
+    <value>Mở kho lưu trữ trong VS Code</value>
+  </data>
+  <data name="OpenRepoInVSCodeDescription" xml:space="preserve">
+    <value>Mở gốc của kho lưu trữ Git trong Visual Studio Code</value>
+  </data>
+  <data name="CopyCode" xml:space="preserve">
+    <value>Sao chép mã</value>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>Đã thêm</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>Đã xóa</value>
+  </data>
+  <data name="Modified" xml:space="preserve">
+    <value>Đã sửa đổi</value>
+  </data>
+  <data name="Untracked" xml:space="preserve">
+    <value>Không được theo dõi</value>
+  </data>
+  <data name="UnableToDisplayOwner" xml:space="preserve">
+    <value>Không thể hiển thị chủ sở hữu hiện tại.</value>
+  </data>
+  <data name="AuthorizationSucceded" xml:space="preserve">
+    <value>Tuyệt! Bạn đã được ủy quyền.</value>
+  </data>
+  <data name="InitRepo" xml:space="preserve">
+    <value>Khởi tạo kho lưu trữ</value>
+  </data>
+  <data name="InitRepoDescription" xml:space="preserve">
+    <value>Khởi tạo một kho lưu trữ Git</value>
+  </data>
+  <data name="GitOriginRepositoryName" xml:space="preserve">
+    <value>Tên kho lưu trữ từ xa</value>
+  </data>
+  <data name="GitCurrentBranch" xml:space="preserve">
+    <value>Nhánh hiện tại</value>
+  </data>
+  <data name="PathColumn" xml:space="preserve">
+    <value>Cột đường dẫn</value>
+  </data>
+  <data name="SortByPathDescription" xml:space="preserve">
+    <value>Sắp xếp khoản mục theo đường dẫn</value>
+  </data>
+  <data name="OpenDirectoryInNewPaneDescription" xml:space="preserve">
+    <value>Mở thư mục trong ngăn mới</value>
+  </data>
+  <data name="OpenDirectoryInNewTabDescription" xml:space="preserve">
+    <value>Mở thư mục trong thẻ mới</value>
+  </data>
+  <data name="OpenInNewWindowDescription" xml:space="preserve">
+    <value>Mở thư mục trong cửa sổ mới</value>
+  </data>
+  <data name="OpenAllTaggedItems" xml:space="preserve">
+    <value>Mở tất cả</value>
+  </data>
+  <data name="OpenAllTaggedItemsDescription" xml:space="preserve">
+    <value>Mở tất cả khoản mục được gắn nhãn</value>
+  </data>
+  <data name="DriveWithLetter" xml:space="preserve">
+    <value>Ổ lưu trữ ({0})</value>
+    <comment>{0} is the drive letter.</comment>
+  </data>
+  <data name="InvalidCommand" xml:space="preserve">
+    <value>Lệnh không hợp lệ</value>
+  </data>
+  <data name="InvalidCommandContent" xml:space="preserve">
+    <value>'{0}' không phải là một lệnh.</value>
+  </data>
+  <data name="CommandNotExecutable" xml:space="preserve">
+    <value>Lệnh không thể thực thi</value>
+  </data>
+  <data name="CommandNotExecutableContent" xml:space="preserve">
+    <value>Lệnh '{0}' chưa sẵn sàng để thực thi.</value>
+  </data>
+  <data name="CommandPalette" xml:space="preserve">
+    <value>Bảng lệnh</value>
+  </data>
+  <data name="OpenCommandPaletteDescription" xml:space="preserve">
+    <value>Mở bảng lệnh</value>
+  </data>
+  <data name="ShortcutItemWorkingDir" xml:space="preserve">
+    <value>Bắt đầu trong:</value>
+  </data>
+  <data name="TurnOnBitLocker" xml:space="preserve">
+    <value>Bật BitLocker</value>
+  </data>
+  <data name="ManageBitLocker" xml:space="preserve">
+    <value>Quản lý BitLocker</value>
+  </data>
+  <data name="CopyFailureFileToLarge" xml:space="preserve">
+    <value>Những khoản mục sau là quá lớn để có thể sao chép vào ổ lưu trữ này</value>
+  </data>
+  <data name="FormatDrive" xml:space="preserve">
+    <value>Định dạng ổ lưu trữ</value>
+  </data>
+  <data name="DontShowAgain" xml:space="preserve">
+    <value>Không hiện lại</value>
+  </data>
+  <data name="FilesRunningAsAdmin" xml:space="preserve">
+    <value>Files đang chạy với quyền quản trị viên</value>
+  </data>
+  <data name="FilesRunningAsAdminContent" xml:space="preserve">
+    <value>Do giới hạn của Windows và WinAppSdk, tính năng kéo thả sẽ không khả dụng khi chạy Files với quyền quản trị viên. Để khắc phục, hãy mở cài đặt UAC (User Account Control) từ menu Bắt đầu, chọn mức thứ ba rồi khởi động lại máy. Lưu ý rằng bạn vẫn có thể tiếp tục sử dụng Files mà không cần tính năng này.</value>
+  </data>
+  <data name="SettingsLeaveAppRunning" xml:space="preserve">
+    <value>Chạy ứng dụng trong nền khi đóng cửa sổ</value>
+  </data>
+  <data name="Blue" xml:space="preserve">
+    <value>Xanh dương</value>
+    <comment>One of the custom color themes</comment>
+  </data>
+  <data name="BlueGray" xml:space="preserve">
+    <value>Xanh xám</value>
+    <comment>One of the custom color themes</comment>
+  </data>
+  <data name="BrickRed" xml:space="preserve">
+    <value>Đỏ gạch</value>
+    <comment>One of the custom color themes</comment>
+  </data>
+  <data name="Camouflage" xml:space="preserve">
+    <value>Rằn ri</value>
+    <comment>One of the custom color themes</comment>
+  </data>
+  <data name="CoolBlueBright" xml:space="preserve">
+    <value>Xanh dương sáng</value>
+    <comment>One of the custom color themes</comment>
+  </data>
+  <data name="Gray" xml:space="preserve">
+    <value>Xám</value>
+    <comment>One of the custom color themes</comment>
+  </data>
+  <data name="GrayDark" xml:space="preserve">
+    <value>Xám tối</value>
+    <comment>One of the custom color themes</comment>
+  </data>
+  <data name="Green" xml:space="preserve">
+    <value>Xanh lục</value>
+    <comment>One of the custom color themes</comment>
+  </data>
+  <data name="IrisPastel" xml:space="preserve">
+    <value>Tím pastel</value>
+    <comment>One of the custom color themes</comment>
+  </data>
+  <data name="MintLight" xml:space="preserve">
+    <value>Bạc hà sáng</value>
+    <comment>One of the custom color themes</comment>
+  </data>
+  <data name="ModRed" xml:space="preserve">
+    <value>Đỏ phai</value>
+    <comment>One of the custom color themes</comment>
+  </data>
+  <data name="OrangeBright" xml:space="preserve">
+    <value>Cam sáng</value>
+    <comment>One of the custom color themes</comment>
+  </data>
+  <data name="Overcast" xml:space="preserve">
+    <value>Âm u</value>
+    <comment>One of the custom color themes</comment>
+  </data>
+  <data name="Red" xml:space="preserve">
+    <value>Đỏ</value>
+    <comment>One of the custom color themes</comment>
+  </data>
+  <data name="RoseBright" xml:space="preserve">
+    <value>Hồng sáng</value>
+    <comment>One of the custom color themes</comment>
+  </data>
+  <data name="Seafoam" xml:space="preserve">
+    <value>Xanh pastel</value>
+    <comment>One of the custom color themes</comment>
+  </data>
+  <data name="Storm" xml:space="preserve">
+    <value>Giông bão</value>
+    <comment>One of the custom color themes</comment>
+  </data>
+  <data name="VioletRedLight" xml:space="preserve">
+    <value>Đỏ tím sáng</value>
+    <comment>One of the custom color themes</comment>
+  </data>
+  <data name="YellowGold" xml:space="preserve">
+    <value>Vàng kim</value>
+    <comment>One of the custom color themes</comment>
+  </data>
+  <data name="ClearCompleted" xml:space="preserve">
+    <value>Xóa t.vụ đã hoàn tất</value>
+  </data>
+  <data name="NameWithColon" xml:space="preserve">
+    <value>Tên:</value>
+  </data>
+  <data name="StatusCenter_ProcessedSize_Header" xml:space="preserve">
+    <value>{0} trong tổng {1} đã được xử lý</value>
+    <comment>Shown in a StatusCenter card. Used as "64 MB of 1 GB processed"</comment>
+  </data>
+  <data name="ItemsLower" xml:space="preserve">
+    <value>mục</value>
+  </data>
+  <data name="CannotInitializeGitRepo" xml:space="preserve">
+    <value>Files không thể khởi tạo thư mục này dưới dạng kho lưu trữ Git.</value>
+  </data>
+  <data name="ContributingArtist" xml:space="preserve">
+    <value>Nghệ sĩ đóng góp</value>
+  </data>
+  <data name="AddPage" xml:space="preserve">
+    <value>Thêm trang</value>
+  </data>
+  <data name="ProcessingItems" xml:space="preserve">
+    <value>Đang xử lý khoản mục...</value>
+  </data>
+  <data name="SpeedWithColon" xml:space="preserve">
+    <value>Tốc độ:</value>
+  </data>
+  <data name="StatusCenter_CompressCanceled_Header" xml:space="preserve">
+    <value>Đã hủy nén {0} mục đến "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_CompressCanceled_SubHeader" xml:space="preserve">
+    <value>Đã hủy thao tác nén {0} mục từ "{1}" đến "{2}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_CompressComplete_Header" xml:space="preserve">
+    <value>Đã nén {0} mục đến "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_CompressComplete_SubHeader" xml:space="preserve">
+    <value>Đã nén {0} mục từ "{1}" đến "{2}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_CompressFailed_Header" xml:space="preserve">
+    <value>Đã xảy ra lỗi khi nén {0} mục đến "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_CompressFailed_SubHeader" xml:space="preserve">
+    <value>Không thể nén {0} mục từ "{1}" đến "{2}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_CompressInProgress_Header" xml:space="preserve">
+    <value>Đang nén {0} mục đến "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_CompressInProgress_SubHeader" xml:space="preserve">
+    <value>Đang thực hiện nén {0} mục từ "{1}" đến "{2}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_CopyCanceled_Header" xml:space="preserve">
+    <value>Đã hủy sao chép {0} mục đến "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_CopyCanceled_SubHeader" xml:space="preserve">
+    <value>Đã hủy thao tác sao chép {0} mục từ "{1}" đến "{2}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_CopyComplete_Header" xml:space="preserve">
+    <value>Đã sao chép {0} mục đến "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_CopyComplete_SubHeader" xml:space="preserve">
+    <value>Đã sao chép {0} mục từ "{1}" đến "{2}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_CopyFailed_Header" xml:space="preserve">
+    <value>Đã xảy ra lỗi khi sao chép {0} mục đến "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_CopyFailed_SubHeader" xml:space="preserve">
+    <value>Không thể sao chép {0} mục từ "{1}" đến "{2}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_CopyInProgress_Header" xml:space="preserve">
+    <value>Đang sao chép {0} mục đến "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_CopyInProgress_SubHeader" xml:space="preserve">
+    <value>Đang thực hiện sao chép {0} mục từ "{1}" đến "{2}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_DecompressCanceled_Header" xml:space="preserve">
+    <value>Đã hủy giải nén "{0}" vào "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_DecompressCanceled_SubHeader" xml:space="preserve">
+    <value>Đã hủy thao tác giải nén "{0}" từ "{1}" vào "{2}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_DecompressComplete_Header" xml:space="preserve">
+    <value>Đã giải nén "{0}" vào "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_DecompressComplete_SubHeader" xml:space="preserve">
+    <value>Đã giải nén "{0}" từ "{1}" vào "{2}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_DecompressFailed_Header" xml:space="preserve">
+    <value>Đã xảy ra lỗi khi giải nén "{0}" vào "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_DecompressFailed_SubHeader" xml:space="preserve">
+    <value>Không thể giải nén "{0}" từ "{1}" vào "{2}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_DecompressInProgress_Header" xml:space="preserve">
+    <value>Đang giải nén "{0}" vào "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_DecompressInProgress_SubHeader" xml:space="preserve">
+    <value>Đang thực hiện giải nén "{0}" từ "{1}" vào "{2}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_DeleteCanceled_Header" xml:space="preserve">
+    <value>Đã hủy xóa {0} mục khỏi "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_DeleteComplete_Header" xml:space="preserve">
+    <value>Đã xóa {0} mục khỏi "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_DeleteFailed_Header" xml:space="preserve">
+    <value>Đã xảy ra lỗi khi xóa {0} mục khỏi "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_DeleteFailed_SubHeader" xml:space="preserve">
+    <value>Không thể xóa {0} mục khỏi "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_DeleteInProgress_Header" xml:space="preserve">
+    <value>Đang xóa {0} mục khỏi "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_MoveCanceled_Header" xml:space="preserve">
+    <value>Đã hủy di chuyển {0} mục đến "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_MoveCanceled_SubHeader" xml:space="preserve">
+    <value>Đã hủy thao tác di chuyển {0} mục từ "{1}" đến "{2}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_MoveComplete_Header" xml:space="preserve">
+    <value>Đã di chuyển {0} mục đến "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_MoveComplete_SubHeader" xml:space="preserve">
+    <value>Đã di chuyển {0} mục từ "{1}" đến "{2}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_MoveInProgress_Header" xml:space="preserve">
+    <value>Đang di chuyển {0} mục đến "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_MoveInProgress_SubHeader" xml:space="preserve">
+    <value>Đang thực hiện di chuyển {0} mục từ "{1}" đến "{2}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_MoveFailed_Header" xml:space="preserve">
+    <value>Đã xảy ra lỗi khi di chuyển {0} mục đến "{1}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_MoveFailed_SubHeader" xml:space="preserve">
+    <value>Không thể di chuyển {0} mục từ "{1}" đến "{2}"</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_EmptyRecycleBinCancel_Header" xml:space="preserve">
+    <value>Đã hủy dọn sạch thùng rác</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_EmptyRecycleBinComplete_Header" xml:space="preserve">
+    <value>Đã dọn sạch thùng rác</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_EmptyRecycleBinInProgress_Header" xml:space="preserve">
+    <value>Đang dọn sạch thùng rác</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_EmptyRecycleBinFailed_Header" xml:space="preserve">
+    <value>Đã xảy ra lỗi khi dọn sạch thùng rác</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_EmptyRecycleBinFailed_SubHeader" xml:space="preserve">
+    <value>Không thể dọn sạch thùng rác</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_Prepare_Header" xml:space="preserve">
+    <value>Đang chuẩn bị thực hiện...</value>
+    <comment>Shown in a StatusCenter card.</comment>
+  </data>
+  <data name="StatusCenter_ProcessedItems_Header" xml:space="preserve">
+    <value>{0}/{1} khoản mục đã được xử lý</value>
+    <comment>Shown in a StatusCenter card. Used as "8/20 items processed"</comment>
+  </data>
+  <data name="UnblockDownloadedFile" xml:space="preserve">
+    <value>Bỏ chặn tệp đã tải xuống</value>
+  </data>
+  <data name="NoFileOperations" xml:space="preserve">
+    <value>Không có tác vụ đang thực hiện nào</value>
+  </data>
+  <data name="OpenOnStartupDisabled" xml:space="preserve">
+    <value>Tùy chọn mở Files khi khởi động Windows không khả dụng do các cài đặt hệ thống hoặc group policy của bạn. Để kích hoạt lại, hãy mở mục khởi động trong Trình quản lý Tác vụ.</value>
+  </data>
+  <data name="FailedToRestore" xml:space="preserve">
+    <value>Không thể khôi phục khoản mục từ thùng rác</value>
+  </data>
+  <data name="FailedToSetBackground" xml:space="preserve">
+    <value>Không thể đặt làm hình nền</value>
+  </data>
+  <data name="GitDeleteBranch" xml:space="preserve">
+    <value>Xóa nhánh Git</value>
+  </data>
+  <data name="GitDeleteBranchSubtitle" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xóa vĩnh viễn nhánh "{0}" không?</value>
+  </data>
+  <data name="ConnectedToGitHub" xml:space="preserve">
+    <value>Đã kết nối với GitHub</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Đăng xuất</value>
+  </data>
+  <data name="ConnectToGitHub" xml:space="preserve">
+    <value>Kết nối với GitHub</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="ErrorApplyingTagContent" xml:space="preserve">
+    <value>Nhãn hiện chỉ tương thích với các ổ lưu trữ ở định dạng NTFS.</value>
+  </data>
+  <data name="ErrorApplyingTagTitle" xml:space="preserve">
+    <value>Đã xảy ra lỗi khi gắn nhãn</value>
+  </data>
+  <data name="DecompressArchiveHereSmartDescription" xml:space="preserve">
+    <value>Giải nén tệp đã chọn vào thư mục hiện tại nếu tệp chỉ chứa một khoản mục, hoặc vào thư mục mới nếu tệp chứa nhiều khoản mục</value>
+  </data>
+  <data name="ExtractHereSmart" xml:space="preserve">
+    <value>Giải nén tại đây (Thông minh)</value>
+  </data>
+  <data name="SortFilesAndFoldersTogether" xml:space="preserve">
+    <value>Sắp xếp tệp chung với thư mục</value>
+  </data>
+  <data name="SortFilesAndFoldersTogetherDescription" xml:space="preserve">
+    <value>Sắp xếp tệp và thư mục chung với nhau</value>
+  </data>
+  <data name="SortFilesFirst" xml:space="preserve">
+    <value>Sắp xếp tệp lên đầu</value>
+  </data>
+  <data name="SortFilesFirstDescription" xml:space="preserve">
+    <value>Sắp xếp tệp lên đầu tiên rồi đến thư mục</value>
+  </data>
+  <data name="SortFoldersFirst" xml:space="preserve">
+    <value>Sắp xếp thư mục lên đầu</value>
+  </data>
+  <data name="SortFoldersFirstDescription" xml:space="preserve">
+    <value>Sắp xếp thư mục lên đầu tiên rồi đến tệp</value>
+  </data>
+  <data name="SortPriority" xml:space="preserve">
+    <value>Ưu tiên sắp xếp</value>
+  </data>
+  <data name="FailedToRotateImage" xml:space="preserve">
+    <value>Không thể xoay hình ảnh</value>
+  </data>
+  <data name="Restart" xml:space="preserve">
+    <value>Khởi động lại</value>
+  </data>
+  <data name="Quit" xml:space="preserve">
+    <value>Thoát</value>
+  </data>
+  <data name="FaildToShareItems" xml:space="preserve">
+    <value>Không thể chia sẻ khoản mục</value>
+  </data>
+  <data name="ScrollToPreviousFolderWhenNavigatingUp" xml:space="preserve">
+    <value>Cuộn đến vị trí thư mục trước đó khi điều hướng lùi về</value>
+  </data>
+  <data name="NewWindowDescription" xml:space="preserve">
+    <value>Mở cửa sổ mới</value>
+  </data>
+  <data name="ChangeAlbumCover" xml:space="preserve">
+    <value>Thay đổi bìa album</value>
+  </data>
+  <data name="ItemRenameFailed" xml:space="preserve">
+    <value>Không thể đổi tên khoản mục</value>
+  </data>
+  <data name="HigherPermissionsRequired" xml:space="preserve">
+    <value>Chỉnh sửa "{0}" yêu cầu quyền truy cập bổ sung</value>
+  </data>
+  <data name="EditPermissions" xml:space="preserve">
+    <value>Chỉnh sửa quyền</value>
+  </data>
+  <data name="BackgroundRunningNotificationBody" xml:space="preserve">
+    <value>Files sẽ chạy trong nền để cải thiện tốc độ khởi động ứng dụng.</value>
+  </data>
+  <data name="BackgroundRunningNotificationHeader" xml:space="preserve">
+    <value>Files đang chạy trong nền</value>
+  </data>
+  <data name="QuestionsAndDiscussions" xml:space="preserve">
+    <value>Câu hỏi &amp; thảo luận</value>
+  </data>
+  <data name="TilesViewSizeInfo" xml:space="preserve">
+    <value>Các lựa chọn kích thước bổ sung hiện chưa khả dụng trong bố cục lát.</value>
+  </data>
+  <data name="Compact" xml:space="preserve">
+    <value>Thu gọn</value>
+    <comment>Used to describe layout sizes</comment>
+  </data>
+  <data name="Small" xml:space="preserve">
+    <value>Nhỏ</value>
+    <comment>Used to describe layout sizes</comment>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Vừa</value>
+    <comment>Used to describe layout sizes</comment>
+  </data>
+  <data name="Medium+" xml:space="preserve">
+    <value>Vừa +</value>
+    <comment>Used to describe layout sizes</comment>
+  </data>
+  <data name="Medium++" xml:space="preserve">
+    <value>Vừa ++</value>
+    <comment>Used to describe layout sizes</comment>
+  </data>
+  <data name="Medium+++" xml:space="preserve">
+    <value>Vừa +++</value>
+    <comment>Used to describe layout sizes</comment>
+  </data>
+  <data name="Medium++++" xml:space="preserve">
+    <value>Vừa ++++</value>
+    <comment>Used to describe layout sizes</comment>
+  </data>
+  <data name="Medium+++++" xml:space="preserve">
+    <value>Vừa +++++</value>
+    <comment>Used to describe layout sizes</comment>
+  </data>
+  <data name="Large" xml:space="preserve">
+    <value>Lớn</value>
+    <comment>Used to describe layout sizes</comment>
+  </data>
+  <data name="Large+" xml:space="preserve">
+    <value>Lớn +</value>
+    <comment>Used to describe layout sizes</comment>
+  </data>
+  <data name="Large++" xml:space="preserve">
+    <value>Lớn ++</value>
+    <comment>Used to describe layout sizes</comment>
+  </data>
+  <data name="Large+++" xml:space="preserve">
+    <value>Lớn +++</value>
+    <comment>Used to describe layout sizes</comment>
+  </data>
+  <data name="ExtraLarge" xml:space="preserve">
+    <value>Rất lớn</value>
+    <comment>Used to describe layout sizes</comment>
+  </data>
+  <data name="DetailsView" xml:space="preserve">
+    <value>Bố cục chi tiết</value>
+  </data>
+  <data name="LayoutType" xml:space="preserve">
+    <value>Bố cục</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Phím tắt tác vụ</value>
+  </data>
+  <data name="Commands" xml:space="preserve">
+    <value>Lệnh</value>
+  </data>
+  <data name="AddCommand" xml:space="preserve">
+    <value>Thêm lệnh</value>
+  </data>
+  <data name="RestoreDefaults" xml:space="preserve">
+    <value>Khôi phục mặc định</value>
+  </data>
+  <data name="ChooseAnAction" xml:space="preserve">
+    <value>Chọn một tác vụ</value>
+  </data>
+  <data name="RestoreDefaultKeybindingsConfirmation" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn khôi phục tổ hợp phím mặc định không? Bạn sẽ không thể hoàn tác sau khi tiếp tục.</value>
+  </data>
+  <data name="KeybindingAlreadyUsedNotification" xml:space="preserve">
+    <value>Tổ hợp phím này đã được sử dụng, vui lòng chọn một tổ hợp phím khác để tiếp tục.</value>
+  </data>
+  <data name="KeybindingInvalidKeyNotification" xml:space="preserve">
+    <value>Không thể sử dụng tổ hợp phím này, vui lòng chọn một tổ hợp phím khác.</value>
+  </data>
+  <data name="Customized" xml:space="preserve">
+    <value>Tùy chỉnh</value>
+  </data>
+  <data name="AdaptiveLayoutDisabledNotification" xml:space="preserve">
+    <value>Tùy chọn bố cục tự động không khả dụng khi các thiết đặt được đồng bộ. Vì vậy, bố cục sẽ được đặt lại thành Chi tiết.</value>
+  </data>
+  <data name="BackgroundImage" xml:space="preserve">
+    <value>Hình nền</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Bên dưới</value>
+    <comment>Image alignment type</comment>
+  </data>
+  <data name="Center" xml:space="preserve">
+    <value>Chính giữa</value>
+    <comment>Image alignment type</comment>
+  </data>
+  <data name="Fill" xml:space="preserve">
+    <value>Kéo giãn</value>
+    <comment>Image stretch type</comment>
+  </data>
+  <data name="HorizontalAlignment" xml:space="preserve">
+    <value>Căn ngang</value>
+  </data>
+  <data name="ImageFit" xml:space="preserve">
+    <value>Khớp cỡ ảnh</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Bên trái</value>
+    <comment>Image alignment type</comment>
+  </data>
+  <data name="Opacity" xml:space="preserve">
+    <value>Độ trong suốt</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Bên phải</value>
+    <comment>Image alignment type</comment>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Bên trên</value>
+    <comment>Image alignment type</comment>
+  </data>
+  <data name="Uniform" xml:space="preserve">
+    <value>Vừa cửa sổ</value>
+    <comment>Image stretch type</comment>
+  </data>
+  <data name="UniformToFill" xml:space="preserve">
+    <value>Lấp đầy</value>
+    <comment>Image stretch type</comment>
+  </data>
+  <data name="VerticalAlignment" xml:space="preserve">
+    <value>Căn dọc</value>
+  </data>
+  <data name="ThinAcrylic" xml:space="preserve">
+    <value>Acrylic nhẹ</value>
+    <comment>This is a type of backdrop for the application background</comment>
+  </data>
+  <data name="AllLocations" xml:space="preserve">
+    <value>Hiện ở mọi vị trí</value>
+    <comment>Setting where users can choose to display "Open IDE" button for Git Repos</comment>
+  </data>
+  <data name="DevTools" xml:space="preserve">
+    <value>Công cụ nhà phát triển</value>
+  </data>
+  <data name="DisplayOpenIDE" xml:space="preserve">
+    <value>Cấu hình nút "Mở IDE" trên thanh trạng thái</value>
+  </data>
+  <data name="GitRepos" xml:space="preserve">
+    <value>Hiện ở kho lưu trữ Git</value>
+    <comment>Setting where users can choose to display "Open IDE" button for all locations.</comment>
+  </data>
+  <data name="ApplicationExtension" xml:space="preserve">
+    <value>Phần mở rộng ứng dụng</value>
+    <comment>This is the friendly name for DLL files.</comment>
+  </data>
+  <data name="IcoFileCapitalized" xml:space="preserve">
+    <value>Tệp ICO</value>
+    <comment>This is the friendly name for ICO files.</comment>
+  </data>
+  <data name="ZipFileCapitalized" xml:space="preserve">
+    <value>Tệp Zip</value>
+    <comment>This is the friendly name for ZIP files.</comment>
+  </data>
+  <data name="BitmapFiles" xml:space="preserve">
+    <value>Tệp Bitmap</value>
+    <comment>This is the friendly name for bitmap files.</comment>
+  </data>
+  <data name="NumPadTypeName" xml:space="preserve">
+    <value>Num</value>
+  </data>
+  <data name="NetworkLocations" xml:space="preserve">
+    <value>Vị trí mạng</value>
+  </data>
+  <data name="NoNetworkLocationsInfo" xml:space="preserve">
+    <value>Hiện không có vị trí mạng nào. Bạn có thể tắt tiện ích này nếu không sử dụng tính năng.</value>
+  </data>
+  <data name="Disable" xml:space="preserve">
+    <value>Tắt</value>
+  </data>
+  <data name="EditInNotepad" xml:space="preserve">
+    <value>Chỉnh sửa bằng Notepad</value>
+  </data>
+  <data name="EditInNotepadDescription" xml:space="preserve">
+    <value>Chỉnh sửa tệp đã chọn bằng Notepad</value>
+  </data>
+  <data name="PropertyDimensionsColon" xml:space="preserve">
+    <value>Kích thước:</value>
+  </data>
+  <data name="StatusWithColon" xml:space="preserve">
+    <value>Trạng thái:</value>
+  </data>
+  <data name="ShowToolbar" xml:space="preserve">
+    <value>Hiện thanh công cụ</value>
+    <comment>Setting that controls if the toolbar is shown in the main view</comment>
+  </data>
+  <data name="TabActions" xml:space="preserve">
+    <value>Menu tác vụ</value>
+  </data>
+  <data name="AddVerticalPane" xml:space="preserve">
+    <value>Thêm ngăn dọc</value>
+  </data>
+  <data name="AddVerticalPaneDescription" xml:space="preserve">
+    <value>Thêm ngăn theo chiều dọc</value>
+  </data>
+  <data name="AddHorizontalPane" xml:space="preserve">
+    <value>Thêm ngăn ngang</value>
+  </data>
+  <data name="AddHorizontalPaneDescription" xml:space="preserve">
+    <value>Thêm ngăn theo chiều ngang</value>
+  </data>
+  <data name="ArrangePanesVertically" xml:space="preserve">
+    <value>Bố trí dọc</value>
+  </data>
+  <data name="ArrangePanesVerticallyDescription" xml:space="preserve">
+    <value>Bố trí ngăn theo chiều dọc</value>
+  </data>
+  <data name="ArrangePanesHorizontally" xml:space="preserve">
+    <value>Bố trí ngang</value>
+  </data>
+  <data name="ArrangePanesHorizontallyDescription" xml:space="preserve">
+    <value>Bố trí ngăn theo chiều ngang</value>
+  </data>
+  <data name="AddPane" xml:space="preserve">
+    <value>Thêm ngăn</value>
+  </data>
+  <data name="ShowTabActions" xml:space="preserve">
+    <value>Hiện nút menu tác vụ trên thanh tiêu đề</value>
+  </data>
+  <data name="ArrangePanes" xml:space="preserve">
+    <value>Bố trí ngăn</value>
+  </data>
+  <data name="DefaultPaneArrangement" xml:space="preserve">
+    <value>Bố trí ngăn mặc định</value>
+  </data>
+  <data name="Horizontal" xml:space="preserve">
+    <value>Ngang</value>
+  </data>
+  <data name="Vertical" xml:space="preserve">
+    <value>Dọc</value>
+  </data>
+  <data name="ShowSystemTrayIcon" xml:space="preserve">
+    <value>Hiện biểu tượng Files trong khay hệ thống</value>
+  </data>
+  <data name="CPUThreads" xml:space="preserve">
+    <value>Luồng CPU</value>
+  </data>
+  <data name="NavigateHomeDescription" xml:space="preserve">
+    <value>Điều hướng về trang chủ</value>
+  </data>
+  <data name="ShowHomeButton" xml:space="preserve">
+    <value>Hiện nút trang chủ trên thanh địa chỉ</value>
+  </data>
+  <data name="Toolbars" xml:space="preserve">
+    <value>Thanh công cụ</value>
+  </data>
+  <data name="UserID" xml:space="preserve">
+    <value>ID người dùng</value>
+  </data>
+  <data name="BulkRename" xml:space="preserve">
+    <value>Đổi tên hàng loạt</value>
+  </data>
+  <data name="CompressContents" xml:space="preserve">
+    <value>Nén nội dung</value>
+  </data>
+  <data name="ShowCreateAlternateDataStream" xml:space="preserve">
+    <value>Hiện tuỳ chọn tạo luồng dữ liệu phụ</value>
+  </data>
+  <data name="CreateAlternateDataStream" xml:space="preserve">
+    <value>Tạo luồng dữ liệu phụ</value>
+  </data>
+  <data name="CreateAlternateDataStreamDescription" xml:space="preserve">
+    <value>Tạo luồng dữ liệu phụ cho khoản mục đã chọn</value>
+  </data>
+  <data name="EnterDataStreamName" xml:space="preserve">
+    <value>Nhập tên luồng dữ liệu</value>
+  </data>
+  <data name="ErrorCreatingDataStreamTitle" xml:space="preserve">
+    <value>Đã xảy ra lỗi khi tạo luồng dữ liệu phụ</value>
+  </data>
+  <data name="ErrorCreatingDataStreamDescription" xml:space="preserve">
+    <value>Lưu ý rằng luồng dữ liệu phụ chỉ có thể hoạt động trên ổ lưu trữ ở định dạng NTFS.</value>
+  </data>
+  <data name="DataStreamsAreHiddenTitle" xml:space="preserve">
+    <value>Luồng dữ liệu phụ hiện đang ẩn</value>
+  </data>
+  <data name="DataStreamsAreHiddenDescription" xml:space="preserve">
+    <value>Bạn có muốn hiển thị luồng dữ liệu phụ không? Để sửa đổi cài đặt này, hãy mở phần Tệp &amp; thư mục trong Cài đặt ứng dụng.</value>
+  </data>
+  <data name="ManageTags" xml:space="preserve">
+    <value>Quản lý nhãn</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Khả dụng</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Tổng</value>
+  </data>
+  <data name="AlwaysSwitchToNewlyOpenedTab" xml:space="preserve">
+    <value>Luôn đặt tiêu điểm vào thẻ mới</value>
+  </data>
+  <data name="ToggleShelfPane" xml:space="preserve">
+    <value>Ẩn/Hiện ngăn tạm</value>
+  </data>
+  <data name="ToggleShelfPaneDescription" xml:space="preserve">
+    <value>Ẩn hoặc hiện ngăn tạm</value>
+  </data>
+  <data name="ShowShelfPaneButtonInAddressBar" xml:space="preserve">
+    <value>Hiện nút ẩn/hiện ngăn tạm trên thanh địa chỉ</value>
+  </data>
+  <data name="Shelf" xml:space="preserve">
+    <value>Ngăn tạm</value>
+    <comment>'Shelf' refers to the Shelf Pane feature, where users can conveniently drag and drop files for quick access and perform bulk actions with ease.</comment>
+  </data>
+  <data name="ClearItems" xml:space="preserve">
+    <value>Loại bỏ tất cả</value>
+  </data>
+  <data name="RemoveFromShelf" xml:space="preserve">
+    <value>Loại bỏ khỏi ngăn tạm</value>
+  </data>
+  <data name="AddToShelf" xml:space="preserve">
+    <value>Thêm vào ngăn tạm</value>
+    <comment>Tooltip that displays when dragging items to the Shelf Pane</comment>
   </data>
 </root>

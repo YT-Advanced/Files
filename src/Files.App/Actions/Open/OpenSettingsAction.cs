@@ -1,29 +1,32 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.App.Commands;
-using Files.App.Extensions;
-using Files.App.Helpers;
-using Files.Backend.Services;
-using Files.Backend.ViewModels.Dialogs;
-using System.Threading.Tasks;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
+
+using Files.App.Dialogs;
 
 namespace Files.App.Actions
 {
-	internal class OpenSettingsAction : BaseUIAction, IAction
+	internal sealed class OpenSettingsAction : BaseUIAction, IAction
 	{
 		private readonly IDialogService dialogService = Ioc.Default.GetRequiredService<IDialogService>();
 
 		private readonly SettingsDialogViewModel viewModel = new();
 
-		public string Label => "Settings".GetLocalizedResource();
+		public string Label
+			=> "Settings".GetLocalizedResource();
 
-		public string Description => "OpenSettingsDescription".GetLocalizedResource();
+		public string Description
+			=> "OpenSettingsDescription".GetLocalizedResource();
 
-		public HotKey HotKey { get; } = new(Keys.OemComma, KeyModifiers.Ctrl);
+		public HotKey HotKey
+			=> new(Keys.OemComma, KeyModifiers.Ctrl);
 
-		public async Task ExecuteAsync()
+		public Task ExecuteAsync(object? parameter = null)
 		{
 			var dialog = dialogService.GetDialog(viewModel);
-			await dialog.TryShowAsync();
+			if (parameter is not null && parameter is SettingsNavigationParams navParams)
+				((SettingsDialog)dialog).NavigateTo(navParams);
+
+			return dialog.TryShowAsync();
 		}
 	}
 }

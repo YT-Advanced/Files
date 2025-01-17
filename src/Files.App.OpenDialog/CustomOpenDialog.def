@@ -1,0 +1,14 @@
+; Copyright (c) Files Community
+; Licensed under the MIT License.
+
+; Abstract:
+;  Declaration the parameters of the module.
+
+LIBRARY
+
+EXPORTS
+	DllCanUnloadNow        PRIVATE
+	DllGetClassObject      PRIVATE
+	DllRegisterServer      PRIVATE
+	DllUnregisterServer    PRIVATE
+	DllInstall             PRIVATE

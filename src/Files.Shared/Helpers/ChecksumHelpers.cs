@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
+
+using System;
 using System.IO;
 using System.IO.Hashing;
 using System.Security.Cryptography;
@@ -15,6 +18,7 @@ namespace Files.Shared.Helpers
 			var buffer = Encoding.UTF8.GetBytes(path);
 			Span<byte> hash = stackalloc byte[MD5.HashSizeInBytes];
 			MD5.HashData(buffer, hash);
+
 			return Convert.ToHexString(hash);
 		}
 

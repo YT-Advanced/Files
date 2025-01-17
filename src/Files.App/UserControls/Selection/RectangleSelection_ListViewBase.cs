@@ -1,5 +1,7 @@
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using CommunityToolkit.WinUI.UI;
-using Files.App.Helpers.XamlHelpers;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -14,7 +16,7 @@ using DispatcherQueueTimer = Microsoft.UI.Dispatching.DispatcherQueueTimer;
 
 namespace Files.App.UserControls.Selection
 {
-	public class RectangleSelection_ListViewBase : RectangleSelection
+	public sealed class RectangleSelection_ListViewBase : RectangleSelection
 	{
 		private ListViewBase uiElement;
 		private ScrollViewer scrollViewer;
@@ -31,7 +33,7 @@ namespace Files.App.UserControls.Selection
 			this.uiElement = uiElement;
 			this.selectionRectangle = selectionRectangle;
 			this.selectionChanged = selectionChanged;
-			itemsPosition = new Dictionary<object, System.Drawing.Rectangle>();
+			itemsPosition = [];
 			timer = DispatcherQueue.GetForCurrentThread().CreateTimer();
 			InitEvents(null, null);
 		}
@@ -184,6 +186,7 @@ namespace Files.App.UserControls.Selection
 
 		private void RectangleSelection_PointerReleased(object sender, PointerRoutedEventArgs e)
 		{
+			if (scrollViewer is null) return;
 			Canvas.SetLeft(selectionRectangle, 0);
 			Canvas.SetTop(selectionRectangle, 0);
 			selectionRectangle.Width = 0;

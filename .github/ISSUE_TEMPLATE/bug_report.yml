@@ -1,55 +1,84 @@
 name: Bug Report
-description: Create a bug report to help improve Files
-labels: [bug]
+description: Create a bug report to help improve Files.
+type: 'Bug'
+title: 'Bug: '
 body:
+
+  # Tip to warn of checking for existing issues
+  - type: markdown
+    attributes:
+      value: |
+        > [!TIP]
+        > Have you checked for similar issues? There's a possibility the bug you are experiencing has already been reported. Please do a thorough search before creating a new issue.
+
+  # Description
   - type: textarea
     attributes:
       label: Description
       description: A clear and concise description of what the issue is.
     validations:
       required: true
+
+  # Step To Reproduce
   - type: textarea
     attributes:
       label: Steps To Reproduce
       description: Steps to reproduce the behavior.
       placeholder: |
-        1. Go to '....'
-        2. Click on '....'
-        3. Scroll down to '....'
+        1.
+        2.
+        3.
     validations:
       required: true
-  - type: textarea
-    attributes:
-      label: Requirements
-      description: describe all the requirements to fix the issue (eg. Fix crash that occurs when...). If left blank, the issue will likely be closed without discussion.
-      value: |
-        - eg. Fix crash that occurs when...
-        - eg. Correct action happens when clicking...
-    validations:
-      required: true
+
+  # Files Version
   - type: input
-    id: files-version
+    id: files_version
     attributes:
       label: Files Version
-      description: Which version of Files are you using? The version number can be found by going to Files' Settings > About
-      placeholder: "e.g. Version: 2.0.34.0 OS Version: 10.0.22000.000"
+      description: Which version of Files are you using? To copy your Files version, access it from Settings -> About -> Copy -> Files version.
+      placeholder: "e.g. 2.0.34.0"
     validations:
       required: true
+
+  # Windows Version
   - type: input
+    id: windows_version
     attributes:
       label: Windows Version
-      description: Which version of Windows are you using? Press <kbd>Win</kbd> + <kbd>Pause/Break</kbd> and copy.
-      placeholder: e.g. Windows 11 21H2 22000.000
+      description: Which version of Windows are you using? To copy your Windows version, access it from Settings -> About -> Copy -> Windows version.
+      placeholder: "e.g. 10.0.22621.1848"
     validations:
       required: true
+
+  # User ID
+  - type: input
+    id: user_id
+    attributes:
+      label: User ID
+      description: Your User ID is a GUID that can be matched up with bug reports in Sentry. To copy your User ID, access it from Settings -> About -> Copy -> User ID.
+      placeholder: "74750836-5885-4eeb-964f-8177cb4babf6"
+    validations:
+      required: false
+
+  # Note that the user should always upload the report rather than pasting it.
+  - type: markdown
+    attributes:
+      value: |
+        > [!IMPORTANT]
+        > Please **upload** the log file by clicking "Attach files".
+        >
+        > Feel free to remove sensitive information such as your usernames or drive names.
+
+  # Log File
   - type: textarea
     attributes:
-      label: Log file
+      label: Log File
       description: |
-        This issue will be closed if the apps log file is not attatched.
+        Please upload the log file as an attachment (DO NOT COPY OR PASTE THE CONTENTS INTO THIS FIELD)
       placeholder: |
         To upload the log, access it from Settings -> About -> Open log location; Or
         - Select the `debug.log` file from `%localappdata%\Packages\49306atecsolution.FilesUWP_et10x9a9vyk8t\LocalState`
-        - Upload the file as an attachment
+        - Drag and drop the file to upload as an attachment 
     validations:
       required: true

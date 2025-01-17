@@ -1,9 +1,11 @@
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using Microsoft.UI.Xaml;
-using System;
 
 namespace Files.App.Converters
 {
-	internal class MultiBooleanConverter
+	internal sealed class MultiBooleanConverter
 	{
 		public static Boolean OrConvert(bool a, bool b)
 			=> (a || b);
@@ -19,6 +21,12 @@ namespace Files.App.Converters
 
 		public static Visibility OrConvertToVisibility(bool a, bool b)
 			=> (a || b) ? Visibility.Visible : Visibility.Collapsed;
+
+		public static Visibility AndConvertToVisibility(bool a, bool b)
+			=> (a && b) ? Visibility.Visible : Visibility.Collapsed;
+
+		public static Visibility NorConvertToVisibility(bool a, bool b)
+			=> !(a || b) ? Visibility.Visible : Visibility.Collapsed;
 
 		public static Visibility OrNotConvertToVisibility(bool a, bool b)
 			=> OrConvertToVisibility(a, !b);

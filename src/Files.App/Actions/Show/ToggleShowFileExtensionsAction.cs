@@ -1,27 +1,32 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.App.Extensions;
-using Files.Backend.Services.Settings;
-using System.ComponentModel;
-using System.Threading.Tasks;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
-	internal class ToggleShowFileExtensionsAction : ObservableObject, IToggleAction
+	internal sealed class ToggleShowFileExtensionsAction : ObservableObject, IToggleAction
 	{
-		private readonly IFoldersSettingsService settings = Ioc.Default.GetRequiredService<IFoldersSettingsService>();
+		private readonly IFoldersSettingsService settings;
 
-		public string Label { get; } = "ShowFileExtensions".GetLocalizedResource();
+		public string Label
+			=> "ShowFileExtensions".GetLocalizedResource();
 
-		public string Description => "ToggleShowFileExtensionsDescription".GetLocalizedResource();
+		public string Description
+			=> "ToggleShowFileExtensionsDescription".GetLocalizedResource();
 
-		public bool IsOn => settings.ShowFileExtensions;
+		public bool IsOn
+			=> settings.ShowFileExtensions;
 
-		public ToggleShowFileExtensionsAction() => settings.PropertyChanged += Settings_PropertyChanged;
+		public ToggleShowFileExtensionsAction()
+		{
+			settings = Ioc.Default.GetRequiredService<IFoldersSettingsService>();
 
-		public Task ExecuteAsync()
+			settings.PropertyChanged += Settings_PropertyChanged;
+		}
+
+		public Task ExecuteAsync(object? parameter = null)
 		{
 			settings.ShowFileExtensions = !settings.ShowFileExtensions;
+
 			return Task.CompletedTask;
 		}
 

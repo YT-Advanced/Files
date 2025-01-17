@@ -1,3 +1,6 @@
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;

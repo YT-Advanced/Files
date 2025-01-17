@@ -1,45 +1,46 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.App.Commands;
-using Files.App.Contexts;
-using Files.App.Extensions;
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using System.Text;
-using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace Files.App.Actions
 {
 	internal class OpenTerminalAction : ObservableObject, IAction
 	{
-		private readonly IContentPageContext context = Ioc.Default.GetRequiredService<IContentPageContext>();
+		private readonly IContentPageContext context;
 
-		public virtual string Label { get; } = "OpenTerminal".GetLocalizedResource();
+		public virtual string Label
+			=> "OpenTerminal".GetLocalizedResource();
 
-		public virtual string Description => "OpenTerminalDescription".GetLocalizedResource();
+		public virtual string Description
+			=> "OpenTerminalDescription".GetLocalizedResource();
 
-		public virtual HotKey HotKey { get; } = new(Keys.Oem3, KeyModifiers.Ctrl);
+		public virtual HotKey HotKey
+			=> new(Keys.Oem3, KeyModifiers.Ctrl);
 
-		public RichGlyph Glyph { get; } = new("\uE756");
+		public RichGlyph Glyph
+			=> new("\uE756");
 
-		private bool isExecutable;
-		public bool IsExecutable => isExecutable;
+		public virtual bool IsExecutable
+			=> GetIsExecutable();
+
+		public virtual bool IsAccessibleGlobally
+			=> true;
 
 		public OpenTerminalAction()
 		{
-			isExecutable = GetIsExecutable();
+			context = Ioc.Default.GetRequiredService<IContentPageContext>();
+
 			context.PropertyChanged += Context_PropertyChanged;
 		}
 
-		public Task ExecuteAsync()
+		public Task ExecuteAsync(object? parameter = null)
 		{
 			var terminalStartInfo = GetProcessStartInfo();
 			if (terminalStartInfo is not null)
 			{
-				App.Window.DispatcherQueue.TryEnqueue(() =>
+				MainWindow.Instance.DispatcherQueue.TryEnqueue(() =>
 				{
 					try
 					{
@@ -76,7 +77,7 @@ namespace Files.App.Actions
 			};
 		}
 
-		protected string[] GetPaths()
+		protected virtual string[] GetPaths()
 		{
 			if (context.HasSelection)
 			{
@@ -86,9 +87,11 @@ namespace Files.App.Actions
 					.ToArray();
 			}
 			else if (context.Folder is not null)
-				return new string[1] { context.Folder.ItemPath };
+			{
+				return [context.Folder.ItemPath];
+			}
 
-			return Array.Empty<string>();
+			return [];
 		}
 
 		private bool GetIsExecutable()
@@ -114,7 +117,7 @@ namespace Files.App.Actions
 				case nameof(IContentPageContext.PageType):
 				case nameof(IContentPageContext.Folder):
 				case nameof(IContentPageContext.SelectedItems):
-					SetProperty(ref isExecutable, GetIsExecutable(), nameof(IsExecutable));
+					OnPropertyChanged(nameof(IsExecutable));
 					break;
 			}
 		}

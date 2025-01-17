@@ -1,42 +1,44 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.App.Commands;
-using Files.App.Extensions;
-using Files.App.ViewModels;
-using System.ComponentModel;
-using System.Threading.Tasks;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
-	internal class TogglePreviewPaneAction : ObservableObject, IToggleAction
+	internal sealed class TogglePreviewPaneAction : ObservableObject, IAction
 	{
-		private readonly PreviewPaneViewModel viewModel;
+		private readonly InfoPaneViewModel infoPaneViewModel = Ioc.Default.GetRequiredService<InfoPaneViewModel>();
+		private readonly IInfoPaneSettingsService infoPaneSettingsService = Ioc.Default.GetRequiredService<IInfoPaneSettingsService>();
 
-		public string Label { get; } = "TogglePreviewPane".GetLocalizedResource();
+		public string Label
+			=> Strings.TogglePreviewPane.GetLocalizedResource();
 
-		public string Description => "TogglePreviewPaneDescription".GetLocalizedResource();
+		public string Description
+			=> Strings.TogglePreviewPaneDescription.GetLocalizedResource();
 
-		public RichGlyph Glyph { get; } = new(opacityStyle: "ColorIconRightPane");
-		public HotKey HotKey { get; } = new(Keys.P, KeyModifiers.Ctrl);
+		public RichGlyph Glyph
+			=> new(themedIconStyle: "App.ThemedIcons.PanelRight");
 
-		public bool IsOn => viewModel.IsEnabled;
+		public bool IsAccessibleGlobally
+			=> false;
+
+		public bool IsExecutable
+			=> infoPaneViewModel.IsEnabled;
 
 		public TogglePreviewPaneAction()
 		{
-			viewModel = Ioc.Default.GetRequiredService<PreviewPaneViewModel>();
-			viewModel.PropertyChanged += ViewModel_PropertyChanged;
+			infoPaneViewModel.PropertyChanged += ViewModel_PropertyChanged;
 		}
 
-		public Task ExecuteAsync()
+		public Task ExecuteAsync(object? parameter = null)
 		{
-			viewModel.IsEnabled = !IsOn;
+			infoPaneSettingsService.SelectedTab = InfoPaneTabs.Preview;
+
 			return Task.CompletedTask;
 		}
 
 		private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName is nameof(PreviewPaneViewModel.IsEnabled))
-				OnPropertyChanged(nameof(IsOn));
+			if (e.PropertyName is nameof(InfoPaneViewModel.IsEnabled))
+				OnPropertyChanged(nameof(IsExecutable));
 		}
 	}
 }

@@ -1,52 +1,26 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.App.Contexts;
-using Files.App.Extensions;
-using Files.App.Helpers;
-using System.ComponentModel;
-using System.Threading.Tasks;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
-	internal class CloseOtherTabsCurrentAction : ObservableObject, IAction
+	internal sealed class CloseOtherTabsCurrentAction : CloseTabBaseAction
 	{
-		private readonly IMultitaskingContext context = Ioc.Default.GetRequiredService<IMultitaskingContext>();
+		public override string Label
+			=> "CloseOtherTabs".GetLocalizedResource();
 
-		public string Label { get; } = "CloseOtherTabs".GetLocalizedResource();
-		public string Description => "CloseOtherTabsCurrentDescription".GetLocalizedResource();
-
-		private bool isExecutable;
-		public bool IsExecutable => isExecutable;
+		public override string Description
+			=> "CloseOtherTabsCurrentDescription".GetLocalizedResource();
 
 		public CloseOtherTabsCurrentAction()
 		{
-			isExecutable = GetIsExecutable();
-			context.PropertyChanged += Context_PropertyChanged;
 		}
 
-		public Task ExecuteAsync()
+		public override Task ExecuteAsync(object? parameter = null)
 		{
 			if (context.Control is not null)
-			{
 				MultitaskingTabsHelpers.CloseOtherTabs(context.CurrentTabItem, context.Control);
-			}
+
 			return Task.CompletedTask;
-		}
-
-		private bool GetIsExecutable()
-		{
-			return context.Control is not null && context.TabCount > 1;
-		}
-
-		private void Context_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-		{
-			switch (e.PropertyName)
-			{
-				case nameof(IMultitaskingContext.Control):
-				case nameof(IMultitaskingContext.TabCount):
-					SetProperty(ref isExecutable, GetIsExecutable(), nameof(IsExecutable));
-					break;
-			}
 		}
 	}
 }

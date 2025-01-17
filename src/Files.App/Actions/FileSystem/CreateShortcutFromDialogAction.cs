@@ -1,38 +1,40 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.App.Commands;
-using Files.App.Contexts;
-using Files.App.Extensions;
-using Files.App.Helpers;
-using System.ComponentModel;
-using System.Threading.Tasks;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
-	internal class CreateShortcutFromDialogAction : BaseUIAction, IAction
+	internal sealed class CreateShortcutFromDialogAction : BaseUIAction, IAction
 	{
-		private readonly IContentPageContext context = Ioc.Default.GetRequiredService<IContentPageContext>();
+		private readonly IContentPageContext context;
 
-		public string Label { get; } = "Shortcut".GetLocalizedResource();
+		public string Label
+			=> "Shortcut".GetLocalizedResource();
 
-		public string Description => "CreateShortcutFromDialogDescription".GetLocalizedResource();
+		public string Description
+			=> "CreateShortcutFromDialogDescription".GetLocalizedResource();
 
-		public RichGlyph Glyph { get; } = new RichGlyph(opacityStyle: "ColorIconShortcut");
+		public RichGlyph Glyph
+			=> new("\uE71B");
 
-		public override bool IsExecutable => context.ShellPage is not null && UIHelpers.CanShowDialog;
+		public override bool IsExecutable =>
+			context.CanCreateItem &&
+			UIHelpers.CanShowDialog;
 
 		public CreateShortcutFromDialogAction()
 		{
+			context = Ioc.Default.GetRequiredService<IContentPageContext>();
+
 			context.PropertyChanged += Context_PropertyChanged;
 		}
 
-		public async Task ExecuteAsync()
+		public Task ExecuteAsync(object? parameter = null)
 		{
-			await UIFilesystemHelpers.CreateShortcutFromDialogAsync(context.ShellPage);
+			return UIFilesystemHelpers.CreateShortcutFromDialogAsync(context.ShellPage!);
 		}
 
 		private void Context_PropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName is nameof(IContentPageContext.ShellPage))
+			if (e.PropertyName is nameof(IContentPageContext.CanCreateItem))
 				OnPropertyChanged(nameof(IsExecutable));
 		}
 	}

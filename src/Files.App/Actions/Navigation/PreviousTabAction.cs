@@ -1,38 +1,46 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.App.Commands;
-using Files.App.Contexts;
-using Files.App.Extensions;
-using System.ComponentModel;
-using System.Threading.Tasks;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
+
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace Files.App.Actions
 {
-	internal class PreviousTabAction : ObservableObject, IAction
+	internal sealed class PreviousTabAction : ObservableObject, IAction
 	{
-		private readonly IMultitaskingContext multitaskingContext = Ioc.Default.GetRequiredService<IMultitaskingContext>();
+		private readonly IMultitaskingContext multitaskingContext;
 
-		public string Label { get; } = "PreviousTab".GetLocalizedResource();
+		public string Label
+			=> "PreviousTab".GetLocalizedResource();
 
-		public string Description { get; } = "PreviousTabDescription".GetLocalizedResource();
+		public string Description
+			=> "PreviousTabDescription".GetLocalizedResource();
 
-		public bool IsExecutable => multitaskingContext.TabCount > 1;
+		public bool IsExecutable
+			=> multitaskingContext.TabCount > 1;
 
-		public HotKey HotKey { get; } = new(Keys.Tab, KeyModifiers.CtrlShift);
+		public HotKey HotKey
+			=> new(Keys.Tab, KeyModifiers.CtrlShift);
 
 		public PreviousTabAction()
 		{
+			multitaskingContext = Ioc.Default.GetRequiredService<IMultitaskingContext>();
+
 			multitaskingContext.PropertyChanged += MultitaskingContext_PropertyChanged;
 		}
 
-		public Task ExecuteAsync()
+		public async Task ExecuteAsync(object? parameter = null)
 		{
 			if (App.AppModel.TabStripSelectedIndex is 0)
 				App.AppModel.TabStripSelectedIndex = multitaskingContext.TabCount - 1;
 			else
 				App.AppModel.TabStripSelectedIndex--;
 
-			return Task.CompletedTask;
+			// Small delay for the UI to load
+			await Task.Delay(500);
+
+			// Refocus on the file list
+			(multitaskingContext.CurrentTabItem.TabItemContent as Control)?.Focus(FocusState.Programmatic);
 		}
 
 		private void MultitaskingContext_PropertyChanged(object? sender, PropertyChangedEventArgs e)

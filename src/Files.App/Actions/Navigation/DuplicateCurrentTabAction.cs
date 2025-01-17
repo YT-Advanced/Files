@@ -1,30 +1,37 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.App.Contexts;
-using Files.App.Extensions;
-using Files.App.ViewModels;
-using Files.App.Views;
-using System.Threading.Tasks;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
-	internal class DuplicateCurrentTabAction : IAction
+	internal sealed class DuplicateCurrentTabAction : IAction
 	{
-		private readonly IMultitaskingContext context = Ioc.Default.GetRequiredService<IMultitaskingContext>();
-		private readonly MainPageViewModel mainPageViewModel = Ioc.Default.GetRequiredService<MainPageViewModel>();
+		private readonly IMultitaskingContext context;
 
-		public string Label { get; } = "DuplicateTab".GetLocalizedResource();
-		public string Description => "DuplicateCurrentTabDescription".GetLocalizedResource();
+		public string Label
+			=> "DuplicateTab".GetLocalizedResource();
 
-		public async Task ExecuteAsync()
+		public string Description
+			=> "DuplicateCurrentTabDescription".GetLocalizedResource();
+
+		public DuplicateCurrentTabAction()
 		{
-			var arguments = context.CurrentTabItem.TabItemArguments;
+			context = Ioc.Default.GetRequiredService<IMultitaskingContext>();
+		}
+
+		public async Task ExecuteAsync(object? parameter = null)
+		{
+			var arguments = context.CurrentTabItem.NavigationParameter;
+
 			if (arguments is null)
 			{
-				await mainPageViewModel.AddNewTabByPathAsync(typeof(PaneHolderPage), "Home");
+				await NavigationHelpers.AddNewTabByPathAsync(typeof(ShellPanesPage), "Home", true);
 			}
 			else
 			{
-				await mainPageViewModel.AddNewTabByParam(arguments.InitialPageType, arguments.NavigationArg, context.CurrentTabIndex + 1);
+				await NavigationHelpers.AddNewTabByParamAsync(
+					arguments.InitialPageType,
+					arguments.NavigationParameter,
+					context.CurrentTabIndex + 1);
 			}
 		}
 	}

@@ -1,32 +1,36 @@
-﻿using Files.App.Commands;
-using Files.App.Extensions;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Input;
-using System.Threading.Tasks;
 
 namespace Files.App.Actions
 {
-	internal class ToggleSelectAction : IAction
+	internal sealed class ToggleSelectAction : IAction
 	{
-		public string Label { get; } = "ToggleSelect".GetLocalizedResource();
-		public string Description => "ToggleSelectDescription".GetLocalizedResource();
+		public string Label
+			=> "ToggleSelect".GetLocalizedResource();
 
-		public HotKey HotKey { get; } = new(Keys.Space, KeyModifiers.Ctrl);
+		public string Description
+			=> "ToggleSelectDescription".GetLocalizedResource();
 
-		public bool IsExecutable => GetFocusedElement() is not null;
+		public HotKey HotKey
+			=> new(Keys.Space, KeyModifiers.Ctrl);
 
-		public Task ExecuteAsync()
+		public bool IsExecutable
+			=> GetFocusedElement() is not null;
+
+		public Task ExecuteAsync(object? parameter = null)
 		{
 			if (GetFocusedElement() is SelectorItem item)
-			{
 				item.IsSelected = !item.IsSelected;
-			}
+
 			return Task.CompletedTask;
 		}
 
 		private static SelectorItem? GetFocusedElement()
 		{
-			return FocusManager.GetFocusedElement(App.Window.Content.XamlRoot) as SelectorItem;
+			return FocusManager.GetFocusedElement(MainWindow.Instance.Content.XamlRoot) as SelectorItem;
 		}
 	}
 }

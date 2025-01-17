@@ -1,14 +1,15 @@
-using Files.App.Filesystem;
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using Files.App.ViewModels.Properties;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Navigation;
-using System.Threading.Tasks;
 
 namespace Files.App.Views.Properties
 {
 	public sealed partial class CompatibilityPage : BasePropertiesPage
 	{
-		public CompatibilityViewModel CompatibilityProperties { get; set; }
+		private CompatibilityViewModel? CompatibilityViewModel { get; set; }
 
 		public CompatibilityPage()
 		{
@@ -17,30 +18,17 @@ namespace Files.App.Views.Properties
 
 		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			var np = e.Parameter as Views.Properties.MainPropertiesPage.PropertyNavParam;
-
-			if (np.navParameter is ListedItem listedItem)
-			{
-				CompatibilityProperties = new CompatibilityViewModel(listedItem);
-			}
+			var np = (PropertiesPageNavigationParameter)e.Parameter;
+			if (np.Parameter is ListedItem listedItem)
+				CompatibilityViewModel = new CompatibilityViewModel(listedItem);
 
 			base.OnNavigatedTo(e);
 		}
 
-		protected override void Properties_Loaded(object sender, RoutedEventArgs e)
-		{
-			base.Properties_Loaded(sender, e);
-
-			if (CompatibilityProperties is not null)
-			{
-				CompatibilityProperties.GetCompatibilityOptions();
-			}
-		}
-
 		public override Task<bool> SaveChangesAsync()
 		{
-			if (CompatibilityProperties is not null)
-				return Task.FromResult(CompatibilityProperties.SetCompatibilityOptions());
+			if (CompatibilityViewModel is not null)
+				return Task.FromResult(CompatibilityViewModel.SetCompatibilityOptions());
 
 			return Task.FromResult(false);
 		}

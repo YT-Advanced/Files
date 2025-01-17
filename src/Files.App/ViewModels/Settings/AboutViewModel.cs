@@ -1,12 +1,8 @@
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.Mvvm.Input;
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using CommunityToolkit.WinUI.Helpers;
-using Files.App.Extensions;
-using Files.Backend.Services.Settings;
-using Files.Shared.Extensions;
-using System;
-using System.Threading.Tasks;
+using Microsoft.Win32;
 using System.Windows.Input;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.DataTransfer;
@@ -15,72 +11,140 @@ using Windows.System;
 
 namespace Files.App.ViewModels.Settings
 {
-	public class AboutViewModel : ObservableObject
+	/// <summary>
+	/// Represents view model of <see cref="Views.Settings.AboutPage"/>.
+	/// </summary>
+	public sealed class AboutViewModel : ObservableObject
 	{
-		protected readonly IFileTagsSettingsService FileTagsSettingsService = Ioc.Default.GetRequiredService<IFileTagsSettingsService>();
+		// Dependency injections
+
+		private IGeneralSettingsService GeneralSettingsService { get; } = Ioc.Default.GetRequiredService<IGeneralSettingsService>();
+
+
+		// Properties
+
+		public string Version
+			=> string.Format($"{"SettingsAboutVersionTitle".GetLocalizedResource()} {AppVersion.Major}.{AppVersion.Minor}.{AppVersion.Build}.{AppVersion.Revision}");
+
+		public string AppName
+			=> Package.Current.DisplayName;
+
+		public PackageVersion AppVersion
+			=> Package.Current.Id.Version;
+
+		public ObservableCollection<OpenSourceLibraryItem> OpenSourceLibraries { get; }
+
+		// Commands
 
 		public ICommand CopyAppVersionCommand { get; }
 		public ICommand CopyWindowsVersionCommand { get; }
+		public ICommand CopyUserIDCommand { get; }
 		public ICommand SupportUsCommand { get; }
 		public ICommand OpenLogLocationCommand { get; }
 		public ICommand OpenDocumentationCommand { get; }
+		public ICommand OpenDiscordCommand { get; }
 		public ICommand SubmitFeatureRequestCommand { get; }
 		public ICommand SubmitBugReportCommand { get; }
 		public ICommand OpenGitHubRepoCommand { get; }
 		public ICommand OpenPrivacyPolicyCommand { get; }
+		public ICommand OpenCrowdinCommand { get; }
 
-		private string _ThirdPartyNotices;
-		public string ThirdPartyNotices
-		{
-			get => _ThirdPartyNotices;
-			set => SetProperty(ref _ThirdPartyNotices, value);
-		}
+		// Constructor
 
+		/// <summary>
+		/// Initializes an instance of <see cref="AboutViewModel"/> class.
+		/// </summary>
 		public AboutViewModel()
 		{
+			OpenSourceLibraries =
+			[
+				new ("https://github.com/omar/ByteSize", "ByteSize"),
+				new ("https://github.com/CommunityToolkit/dotnet", "CommunityToolkit.Mvvm"),
+				new ("https://github.com/DiscUtils/DiscUtils", "DiscUtils.Udf"),
+				new ("https://github.com/robinrodricks/FluentFTP", "FluentFTP"),
+				new ("https://github.com/libgit2/libgit2sharp", "libgit2sharp"),
+				new ("https://github.com/jeffijoe/messageformat.net", "MessageFormat"),
+				new ("https://github.com/dotnet/efcore", "EF Core for SQLite"),
+				new ("https://github.com/dotnet/runtime", "Microsoft.Extensions"),
+				new ("https://github.com/files-community/SevenZipSharp", "SevenZipSharp"),
+				new ("https://sourceforge.net/projects/sevenzip", "7zip"),
+				new ("https://github.com/ericsink/SQLitePCL.raw", "PCL for SQLite"),
+				new ("https://github.com/microsoft/WindowsAppSDK", "WindowsAppSDK"),
+				new ("https://github.com/microsoft/microsoft-ui-xaml", "WinUI 3"),
+				new ("https://github.com/microsoft/Win2D", "Win2D"),
+				new ("https://github.com/CommunityToolkit/WindowsCommunityToolkit", "Windows Community Toolkit 7.x"),
+				new ("https://github.com/mono/taglib-sharp", "TagLibSharp"),
+				new ("https://github.com/Tulpep/Active-Directory-Object-Picker", "ActiveDirectoryObjectPicker"),
+				new ("https://github.com/PowerShell/MMI", "MMI"),
+				new ("https://github.com/microsoft/CsWin32", "CsWin32"),
+				new ("https://github.com/microsoft/CsWinRT", "CsWinRT"),
+			];
+
 			CopyAppVersionCommand = new RelayCommand(CopyAppVersion);
 			CopyWindowsVersionCommand = new RelayCommand(CopyWindowsVersion);
-			SupportUsCommand = new RelayCommand(SupportUs);
-
-			OpenDocumentationCommand = new RelayCommand(DoOpenDocumentation);
-			SubmitFeatureRequestCommand = new RelayCommand(DoSubmitFeatureRequest);
-			SubmitBugReportCommand = new RelayCommand(DoSubmitBugReport);
-
-			OpenGitHubRepoCommand = new RelayCommand(DoOpenGitHubRepo);
-
-			OpenPrivacyPolicyCommand = new RelayCommand(DoOpenPrivacyPolicy);
-
+			CopyUserIDCommand = new RelayCommand(CopyUserID);
+			SupportUsCommand = new AsyncRelayCommand(SupportUs);
+			OpenDocumentationCommand = new AsyncRelayCommand(DoOpenDocumentation);
+			OpenDiscordCommand = new AsyncRelayCommand(DoOpenDiscord);
+			SubmitFeatureRequestCommand = new AsyncRelayCommand(DoSubmitFeatureRequest);
+			SubmitBugReportCommand = new AsyncRelayCommand(DoSubmitBugReport);
+			OpenGitHubRepoCommand = new AsyncRelayCommand(DoOpenGitHubRepo);
+			OpenPrivacyPolicyCommand = new AsyncRelayCommand(DoOpenPrivacyPolicy);
 			OpenLogLocationCommand = new AsyncRelayCommand(OpenLogLocation);
+			OpenCrowdinCommand = new AsyncRelayCommand(DoOpenCrowdin);
 		}
 
-		private async Task OpenLogLocation()
+		// Methods
+
+		private async Task<bool> OpenLogLocation()
 		{
 			await Launcher.LaunchFolderAsync(ApplicationData.Current.LocalFolder).AsTask();
+
+			// TODO: Move this to an application service
+			// Detect if Files is set as the default file manager
+			using var subkey = Registry.ClassesRoot.OpenSubKey(@"Folder\shell\open\command");
+			var command = (string?)subkey?.GetValue(string.Empty);
+
+			// Close the settings dialog if Files is the deault file manager
+			if (!string.IsNullOrEmpty(command) && command.Contains("Files.App.Launcher.exe"))
+				UIHelpers.CloseAllDialogs();
+
+			return true;
 		}
 
-		public async void DoOpenDocumentation()
+		public Task DoOpenDocumentation()
 		{
-			await Launcher.LaunchUriAsync(new Uri(Constants.GitHub.DocumentationUrl));
+			return Launcher.LaunchUriAsync(new Uri(Constants.ExternalUrl.DocumentationUrl)).AsTask();
 		}
 
-		public async void DoSubmitFeatureRequest()
+		public Task DoOpenDiscord()
 		{
-			await Launcher.LaunchUriAsync(new Uri(Constants.GitHub.FeatureRequestUrl));
+			return Launcher.LaunchUriAsync(new Uri(Constants.ExternalUrl.DiscordUrl)).AsTask();
 		}
 
-		public async void DoSubmitBugReport()
+		public Task DoSubmitFeatureRequest()
 		{
-			await Launcher.LaunchUriAsync(new Uri(Constants.GitHub.BugReportUrl));
+			return Launcher.LaunchUriAsync(new Uri($"{Constants.ExternalUrl.FeatureRequestUrl}&{GetVersionsQueryString()}")).AsTask();
 		}
 
-		public async void DoOpenGitHubRepo()
+		public Task DoSubmitBugReport()
 		{
-			await Launcher.LaunchUriAsync(new Uri(Constants.GitHub.GitHubRepoUrl));
+			return Launcher.LaunchUriAsync(new Uri($"{Constants.ExternalUrl.BugReportUrl}&{GetVersionsQueryString()}")).AsTask();
 		}
 
-		public async void DoOpenPrivacyPolicy()
+		public Task DoOpenGitHubRepo()
 		{
-			await Launcher.LaunchUriAsync(new Uri(Constants.GitHub.PrivacyPolicyUrl));
+			return Launcher.LaunchUriAsync(new Uri(Constants.ExternalUrl.GitHubRepoUrl)).AsTask();
+		}
+
+		public Task DoOpenPrivacyPolicy()
+		{
+			return Launcher.LaunchUriAsync(new Uri(Constants.ExternalUrl.PrivacyPolicyUrl)).AsTask();
+		}
+
+		public Task DoOpenCrowdin()
+		{
+			return Launcher.LaunchUriAsync(new Uri(Constants.ExternalUrl.CrowdinUrl)).AsTask();
 		}
 
 		public void CopyAppVersion()
@@ -89,42 +153,60 @@ namespace Files.App.ViewModels.Settings
 			{
 				DataPackage dataPackage = new DataPackage();
 				dataPackage.RequestedOperation = DataPackageOperation.Copy;
-				dataPackage.SetText(string.Format($"{AppVersion.Major}.{AppVersion.Minor}.{AppVersion.Build}.{AppVersion.Revision}"));
+				dataPackage.SetText(GetAppVersion());
 				Clipboard.SetContent(dataPackage);
 			});
 		}
-		
+
 		public void CopyWindowsVersion()
 		{
 			SafetyExtensions.IgnoreExceptions(() =>
 			{
 				DataPackage dataPackage = new DataPackage();
 				dataPackage.RequestedOperation = DataPackageOperation.Copy;
-				dataPackage.SetText(SystemInformation.Instance.OperatingSystemVersion.ToString());
+				dataPackage.SetText(GetWindowsVersion());
+				Clipboard.SetContent(dataPackage);
+			});
+		}
+		
+		public void CopyUserID()
+		{
+			SafetyExtensions.IgnoreExceptions(() =>
+			{
+				DataPackage dataPackage = new DataPackage();
+				dataPackage.RequestedOperation = DataPackageOperation.Copy;
+				dataPackage.SetText(GetUserID());
 				Clipboard.SetContent(dataPackage);
 			});
 		}
 
-		public async void SupportUs()
+		public Task SupportUs()
 		{
-			await Launcher.LaunchUriAsync(new Uri(Constants.GitHub.SupportUsUrl));
+			return Launcher.LaunchUriAsync(new Uri(Constants.ExternalUrl.SupportUsUrl)).AsTask();
 		}
 
-		public async void LoadThirdPartyNotices()
+		public string GetAppVersion()
 		{
-			StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///NOTICE.md"));
-			ThirdPartyNotices = await FileIO.ReadTextAsync(file);
+			return string.Format($"{AppVersion.Major}.{AppVersion.Minor}.{AppVersion.Build}.{AppVersion.Revision}");
 		}
 
-		public string Version
+		public string GetWindowsVersion()
 		{
-			get
-			{
-				return string.Format($"{"SettingsAboutVersionTitle".GetLocalizedResource()} {AppVersion.Major}.{AppVersion.Minor}.{AppVersion.Build}.{AppVersion.Revision}");
-			}
+			return SystemInformation.Instance.OperatingSystemVersion.ToString();
+		}
+		
+		public string GetUserID()
+		{
+			return GeneralSettingsService.UserId;
 		}
 
-		public string AppName => Package.Current.DisplayName;
-		public PackageVersion AppVersion => Package.Current.Id.Version;
+		public string GetVersionsQueryString()
+		{
+			var query = System.Web.HttpUtility.ParseQueryString(string.Empty);
+			query["files_version"] = GetAppVersion();
+			query["windows_version"] = GetWindowsVersion();
+			query["user_id"] = GetUserID();
+			return query.ToString() ?? string.Empty;
+		}
 	}
 }

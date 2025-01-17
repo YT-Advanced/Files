@@ -1,4 +1,5 @@
-﻿<vm:BasePropertiesPage
+﻿<!--  Copyright (c) Files Community. Licensed under the MIT License.  -->
+<vm:BasePropertiesPage
 	x:Class="Files.App.Views.Properties.ShortcutPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -8,18 +9,19 @@
 	xmlns:settingsuc="using:Files.App.UserControls.Settings"
 	xmlns:vm="using:Files.App.ViewModels.Properties"
 	Loaded="Properties_Loaded"
+	Tag="Shortcut"
 	mc:Ignorable="d">
 
 	<vm:BasePropertiesPage.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="ms-appx:///ResourceDictionaries/PropertiesStyles.xaml" />
-				<ResourceDictionary Source="ms-appx:///ResourceDictionaries/RightAlignedToggleSwitchStyle.xaml" />
+				<ResourceDictionary Source="ms-appx:///Styles/PropertiesStyles.xaml" />
+				<ResourceDictionary Source="ms-appx:///Styles/ToggleSwitchStyles.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</vm:BasePropertiesPage.Resources>
 
-	<ScrollViewer>
+	<ScrollViewer x:Name="RootScrollViewer">
 		<StackPanel Padding="12" Spacing="4">
 
 			<Grid
@@ -73,7 +75,7 @@
 					Grid.Column="1"
 					VerticalAlignment="Center"
 					IsReadOnly="{x:Bind ViewModel.IsShortcutItemPathReadOnly, Mode=OneWay}"
-					Text="{x:Bind ViewModel.ShortcutItemPath, Mode=TwoWay}"
+					Text="{x:Bind ViewModel.ShortcutItemPathEditedValue, Mode=TwoWay}"
 					Visibility="Visible" />
 			</Grid>
 
@@ -115,7 +117,7 @@
 					Grid.Column="1"
 					VerticalAlignment="Center"
 					x:Load="{x:Bind ViewModel.ShortcutItemArgumentsVisibility, Mode=OneWay}"
-					Text="{x:Bind ViewModel.ShortcutItemArguments, Mode=TwoWay}" />
+					Text="{x:Bind ViewModel.ShortcutItemArgumentsEditedValue, Mode=TwoWay}" />
 
 				<TextBlock
 					x:Name="PropertiesShortcutItemWorkingDir"
@@ -124,7 +126,7 @@
 					VerticalAlignment="Center"
 					x:Load="{x:Bind ViewModel.ShortcutItemWorkingDirVisibility, Mode=OneWay}"
 					Style="{StaticResource PropertyName}"
-					Text="{helpers:ResourceString Name=AddDPropertiesShortcutItemWorkingDirialog/Text}" />
+					Text="{helpers:ResourceString Name=ShortcutItemWorkingDir}" />
 
 				<TextBox
 					x:Name="shortcutItemWorkingDirValue"
@@ -132,8 +134,16 @@
 					Grid.Column="1"
 					VerticalAlignment="Center"
 					x:Load="{x:Bind ViewModel.ShortcutItemWorkingDirVisibility, Mode=OneWay}"
-					Text="{x:Bind ViewModel.ShortcutItemWorkingDir, Mode=TwoWay}" />
+					Text="{x:Bind ViewModel.ShortcutItemWorkingDirEditedValue, Mode=TwoWay}" />
 			</Grid>
+
+			<settingsuc:SettingsBlockControl
+				x:Name="WindowArgsSetting"
+				Title="{helpers:ResourceString Name=StartWindow}"
+				HorizontalAlignment="Stretch"
+				x:Load="{x:Bind ViewModel.ShortcutItemWindowArgsVisibility, Mode=OneWay}">
+				<ComboBox ItemsSource="{x:Bind ViewModel.ShowWindowCommandTypes.Values, Mode=OneWay}" SelectedItem="{x:Bind ViewModel.SelectedShowWindowCommand, Mode=TwoWay}" />
+			</settingsuc:SettingsBlockControl>
 
 			<settingsuc:SettingsBlockControl
 				x:Name="RunAsAdminCheckbox"
@@ -142,7 +152,7 @@
 				x:Load="{x:Bind ViewModel.RunAsAdminEnabled, Mode=OneWay}">
 				<ToggleSwitch
 					AutomationProperties.Name="{helpers:ResourceString Name=RunAsAdministrator}"
-					IsOn="{x:Bind ViewModel.RunAsAdmin, Mode=TwoWay}"
+					IsOn="{x:Bind ViewModel.RunAsAdminEditedValue, Mode=TwoWay}"
 					Style="{StaticResource RightAlignedToggleSwitchStyle}" />
 			</settingsuc:SettingsBlockControl>
 

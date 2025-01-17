@@ -1,4 +1,6 @@
-using CommunityToolkit.Mvvm.DependencyInjection;
+// Copyright (c) Files Community
+// Licensed under the MIT License.
+
 using Files.App.ViewModels.Settings;
 using Microsoft.UI.Xaml.Controls;
 

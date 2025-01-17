@@ -1,41 +1,22 @@
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.Backend.Services.Settings;
-using Files.Shared.Enums;
+// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.ViewModels.Settings
 {
-	public class FoldersViewModel : ObservableObject
+	public sealed class FoldersViewModel : ObservableObject
 	{
 		private IUserSettingsService UserSettingsService { get; } = Ioc.Default.GetRequiredService<IUserSettingsService>();
 
-		// FileTag combobox indexes (required to hide SyncStatus)
-		private readonly int FileTagSortingIndex = 5;
-		private readonly int FileTagGroupingIndex = 6;
+
 
 		public FoldersViewModel()
 		{
-			SelectedDefaultLayoutModeIndex = (int)DefaultLayoutMode;
-			SelectedDefaultSortingIndex = UserSettingsService.FoldersSettingsService.DefaultSortOption == SortOption.FileTag ? FileTagSortingIndex : (int)UserSettingsService.FoldersSettingsService.DefaultSortOption;
-			SelectedDefaultGroupingIndex = UserSettingsService.FoldersSettingsService.DefaultGroupOption == GroupOption.FileTag ? FileTagGroupingIndex : (int)UserSettingsService.FoldersSettingsService.DefaultGroupOption;
 			SelectedDeleteConfirmationPolicyIndex = (int)DeleteConfirmationPolicy;
 		}
 
 		// Properties
 
-		private int selectedDefaultLayoutModeIndex;
-		public int SelectedDefaultLayoutModeIndex
-		{
-			get => selectedDefaultLayoutModeIndex;
-			set
-			{
-				if (SetProperty(ref selectedDefaultLayoutModeIndex, value))
-				{
-					OnPropertyChanged(nameof(SelectedDefaultLayoutModeIndex));
-					DefaultLayoutMode = (FolderLayoutModes)value;
-				}
-			}
-		}
+
 
 		private int selectedDeleteConfirmationPolicyIndex;
 		public int SelectedDeleteConfirmationPolicyIndex
@@ -47,105 +28,6 @@ namespace Files.App.ViewModels.Settings
 				{
 					OnPropertyChanged(nameof(SelectedDeleteConfirmationPolicyIndex));
 					DeleteConfirmationPolicy = (DeleteConfirmationPolicies)value;
-				}
-			}
-		}
-
-		public bool SyncFolderPreferencesAcrossDirectories
-		{
-			get => UserSettingsService.FoldersSettingsService.SyncFolderPreferencesAcrossDirectories;
-			set
-			{
-				if (value != UserSettingsService.FoldersSettingsService.SyncFolderPreferencesAcrossDirectories)
-				{
-					UserSettingsService.FoldersSettingsService.SyncFolderPreferencesAcrossDirectories = value;
-
-					ResetLayoutPreferences();
-					OnPropertyChanged();
-				}
-			}
-		}
-
-		public bool ShowFileTagColumn
-		{
-			get => UserSettingsService.FoldersSettingsService.ShowFileTagColumn;
-			set
-			{
-				if (value != UserSettingsService.FoldersSettingsService.ShowFileTagColumn)
-				{
-					UserSettingsService.FoldersSettingsService.ShowFileTagColumn = value;
-
-					OnPropertyChanged();
-				}
-			}
-		}
-
-		public bool ShowSizeColumn
-		{
-			get => UserSettingsService.FoldersSettingsService.ShowSizeColumn;
-			set
-			{
-				if (value != UserSettingsService.FoldersSettingsService.ShowSizeColumn)
-				{
-					UserSettingsService.FoldersSettingsService.ShowSizeColumn = value;
-
-					OnPropertyChanged();
-				}
-			}
-		}
-
-		public bool ShowTypeColumn
-		{
-			get => UserSettingsService.FoldersSettingsService.ShowTypeColumn;
-			set
-			{
-				if (value != UserSettingsService.FoldersSettingsService.ShowTypeColumn)
-				{
-					UserSettingsService.FoldersSettingsService.ShowTypeColumn = value;
-
-					OnPropertyChanged();
-				}
-			}
-		}
-
-		public bool ShowDateCreatedColumn
-		{
-			get => UserSettingsService.FoldersSettingsService.ShowDateCreatedColumn;
-			set
-			{
-				if (value != UserSettingsService.FoldersSettingsService.ShowDateCreatedColumn)
-				{
-					UserSettingsService.FoldersSettingsService.ShowDateCreatedColumn = value;
-
-					OnPropertyChanged();
-				}
-			}
-		}
-
-		public bool ShowDateColumn
-		{
-			get => UserSettingsService.FoldersSettingsService.ShowDateColumn;
-			set
-			{
-				if (value != UserSettingsService.FoldersSettingsService.ShowDateColumn)
-				{
-					UserSettingsService.FoldersSettingsService.ShowDateColumn = value;
-
-					OnPropertyChanged();
-				}
-			}
-		}
-
-		public FolderLayoutModes DefaultLayoutMode
-		{
-			get => UserSettingsService.FoldersSettingsService.DefaultLayoutMode;
-			set
-			{
-				if (value != UserSettingsService.FoldersSettingsService.DefaultLayoutMode)
-				{
-					UserSettingsService.FoldersSettingsService.DefaultLayoutMode = value;
-
-					OnPropertyChanged();
 				}
 			}
 		}
@@ -248,49 +130,6 @@ namespace Files.App.ViewModels.Settings
 			}
 		}
 
-		public bool SortInDescendingOrder
-		{
-			get => UserSettingsService.FoldersSettingsService.DefaultDirectorySortDirection == SortDirection.Descending;
-			set
-			{
-				if (value != (UserSettingsService.FoldersSettingsService.DefaultDirectorySortDirection == SortDirection.Descending))
-				{
-					UserSettingsService.FoldersSettingsService.DefaultDirectorySortDirection = value ? SortDirection.Descending : SortDirection.Ascending;
-					OnPropertyChanged();
-				}
-			}
-		}
-
-		public bool GroupInDescendingOrder
-		{
-			get => UserSettingsService.FoldersSettingsService.DefaultDirectoryGroupDirection == SortDirection.Descending;
-			set
-			{
-				if (value != (UserSettingsService.FoldersSettingsService.DefaultDirectoryGroupDirection == SortDirection.Descending))
-				{
-					UserSettingsService.FoldersSettingsService.DefaultDirectoryGroupDirection = value ? SortDirection.Descending : SortDirection.Ascending;
-					OnPropertyChanged();
-				}
-			}
-		}
-
-		public bool isDefaultGrouped
-			=> UserSettingsService.FoldersSettingsService.DefaultGroupOption != GroupOption.None;
-
-		public bool ListAndSortDirectoriesAlongsideFiles
-		{
-			get => UserSettingsService.FoldersSettingsService.DefaultSortDirectoriesAlongsideFiles;
-			set
-			{
-				if (value != UserSettingsService.FoldersSettingsService.DefaultSortDirectoriesAlongsideFiles)
-				{
-					UserSettingsService.FoldersSettingsService.DefaultSortDirectoriesAlongsideFiles = value;
-
-					OnPropertyChanged();
-				}
-			}
-		}
-
 		public bool CalculateFolderSizes
 		{
 			get => UserSettingsService.FoldersSettingsService.CalculateFolderSizes;
@@ -305,34 +144,16 @@ namespace Files.App.ViewModels.Settings
 			}
 		}
 
-		private int selectedDefaultSortingIndex;
-		public int SelectedDefaultSortingIndex
+		public bool ScrollToPreviousFolderWhenNavigatingUp
 		{
-			get => selectedDefaultSortingIndex;
+			get => UserSettingsService.FoldersSettingsService.ScrollToPreviousFolderWhenNavigatingUp;
 			set
 			{
-				if (SetProperty(ref selectedDefaultSortingIndex, value))
+				if (value != UserSettingsService.FoldersSettingsService.ScrollToPreviousFolderWhenNavigatingUp)
 				{
-					OnPropertyChanged(nameof(SelectedDefaultSortingIndex));
+					UserSettingsService.FoldersSettingsService.ScrollToPreviousFolderWhenNavigatingUp = value;
 
-					UserSettingsService.FoldersSettingsService.DefaultSortOption = value == FileTagSortingIndex ? SortOption.FileTag : (SortOption)value;
-				}
-			}
-		}
-
-		private int selectedDefaultGroupingIndex;
-		public int SelectedDefaultGroupingIndex
-		{
-			get => selectedDefaultGroupingIndex;
-			set
-			{
-				if (SetProperty(ref selectedDefaultGroupingIndex, value))
-				{
-					OnPropertyChanged(nameof(SelectedDefaultGroupingIndex));
-
-					UserSettingsService.FoldersSettingsService.DefaultGroupOption = value == FileTagGroupingIndex ? GroupOption.FileTag : (GroupOption)value;
-					// Raise an event for the 'Group in descending order' toggle switch availability
-					OnPropertyChanged(nameof(isDefaultGrouped));
+					OnPropertyChanged();
 				}
 			}
 		}
@@ -433,14 +254,6 @@ namespace Files.App.ViewModels.Settings
 					OnPropertyChanged();
 				}
 			}
-		}
-
-		public void ResetLayoutPreferences()
-		{
-			// Is this proper practice?
-			var dbInstance = FolderSettingsViewModel.GetDbInstance();
-
-			dbInstance.ResetAll();
 		}
 	}
 }

@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
+
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,19 +23,38 @@ namespace Files.Shared.Extensions
 		/// <typeparam name="T"></typeparam>
 		/// <param name="enumerable"></param>
 		/// <returns></returns>
-		public static bool IsEmpty<T>(this IEnumerable<T> enumerable) => enumerable is null || !enumerable.Any();
+		public static bool IsEmpty<T>(this IEnumerable<T> enumerable)
+		{
+			return enumerable is null || !enumerable.Any();
+		}
 
-		public static TOut? Get<TOut, TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TOut? defaultValue = default)
+		public static TOut? Get<TOut, TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TOut? defaultValue = default) where TKey : notnull
 		{
 			if (dictionary is null || key is null)
 				return defaultValue;
 
-			if (!dictionary.ContainsKey(key))
+			if (dictionary is ConcurrentDictionary<TKey, TValue> cDict)
 			{
-				if (defaultValue is TValue value)
-					dictionary.Add(key, value);
+				if (!cDict.ContainsKey(key))
+				{
+					if (defaultValue is TValue value)
+						cDict.TryAdd(key, value);
 
-				return defaultValue;
+					return defaultValue;
+				}
+			}
+			else
+			{
+				lock (dictionary)
+				{
+					if (!dictionary.ContainsKey(key))
+					{
+						if (defaultValue is TValue value)
+							dictionary.Add(key, value);
+
+						return defaultValue;
+					}
+				}
 			}
 
 			if (dictionary[key] is TOut o)
@@ -46,34 +68,46 @@ namespace Files.Shared.Extensions
 			if (dictionary is null || key is null)
 				return defaultValueFunc();
 
-			if (!dictionary.ContainsKey(key))
+			if (dictionary is ConcurrentDictionary<TKey, Task<TValue?>> cDict)
 			{
-				var defaultValue = defaultValueFunc();
-				if (defaultValue is Task<TValue?> value)
+				if (!cDict.ContainsKey(key))
 				{
-					if (dictionary is ConcurrentDictionary<TKey, Task<TValue?>> cDict)
-					{
+					var defaultValue = defaultValueFunc();
+					if (defaultValue is Task<TValue?> value)
 						cDict.TryAdd(key, value);
-					}
-					else
+
+					return defaultValue;
+				}
+			}
+			else
+			{
+				lock (dictionary)
+				{
+					if (!dictionary.ContainsKey(key))
 					{
-						dictionary.Add(key, value);
+						var defaultValue = defaultValueFunc();
+						if (defaultValue is Task<TValue?> value)
+							dictionary.Add(key, value);
+
+						return defaultValue;
 					}
 				}
-				return defaultValue;
 			}
+
 			return dictionary[key];
 		}
 
 		public static async Task<IEnumerable<T>> WhereAsync<T>(this IEnumerable<T> source, Func<T, Task<bool>> predicate)
 		{
 			var results = await Task.WhenAll(source.Select(async x => (x, await predicate(x))));
+
 			return results.Where(x => x.Item2).Select(x => x.x);
 		}
 
 		public static IEnumerable<TSource> ExceptBy<TSource, TKey>(this IEnumerable<TSource> source, IEnumerable<TSource> other, Func<TSource, TKey> keySelector)
 		{
 			var set = new HashSet<TKey>(other.Select(keySelector));
+
 			foreach (var item in source)
 			{
 				if (set.Add(keySelector(item)))
@@ -82,7 +116,9 @@ namespace Files.Shared.Extensions
 		}
 
 		public static IEnumerable<T> IntersectBy<T, TKey>(this IEnumerable<T> items, IEnumerable<T> others, Func<T, TKey> keySelector)
-			=> items.Join(others.Select(keySelector), keySelector, id => id, (o, id) => o);
+		{
+			return items.Join(others.Select(keySelector), keySelector, id => id, (o, id) => o);
+		}
 
 		/// <summary>
 		/// Enumerates through <see cref="IEnumerable{T}"/> of elements and executes <paramref name="action"/>
@@ -101,12 +137,14 @@ namespace Files.Shared.Extensions
 			if (!list.Any() || list.Last().CompareTo(item) <= 0)
 			{
 				list.Add(item);
+
 				return list.Count;
 			}
 
 			if (list[0].CompareTo(item) >= 0)
 			{
 				list.Insert(0, item);
+
 				return 0;
 			}
 
@@ -115,6 +153,7 @@ namespace Files.Shared.Extensions
 				index = ~index;
 
 			list.Insert(index, item);
+
 			return index;
 		}
 
@@ -130,7 +169,7 @@ namespace Files.Shared.Extensions
 				return list;
 
 			return index <= 0
-				? new List<T>(0)
+				? []
 				: list.Take(index - 1).ToList();
 		}
 	}

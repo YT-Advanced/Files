@@ -1,97 +1,117 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using Files.App.Commands;
-using Files.App.Contexts;
-using Files.App.Extensions;
-using System.ComponentModel;
-using System.Threading.Tasks;
+﻿// Copyright (c) Files Community
+// Licensed under the MIT License.
 
 namespace Files.App.Actions
 {
-	internal class LayoutDetailsAction : ToggleLayoutAction
+	internal sealed class LayoutDetailsAction : ToggleLayoutAction
 	{
-		protected override LayoutTypes LayoutType => LayoutTypes.Details;
+		protected override LayoutTypes LayoutType
+			=> LayoutTypes.Details;
 
-		public override string Label { get; } = "Details".GetLocalizedResource();
+		public override string Label
+			=> "Details".GetLocalizedResource();
 
-		public override string Description => "LayoutDetailsDescription".GetLocalizedResource();
+		public override string Description
+			=> "LayoutDetailsDescription".GetLocalizedResource();
 
-		public override RichGlyph Glyph { get; } = new("\uE179");
-		public override HotKey HotKey { get; } = new(Keys.Number1, KeyModifiers.CtrlShift);
+		public override RichGlyph Glyph
+			=> new(themedIconStyle: "App.ThemedIcons.IconLayout.Details");
+
+		public override HotKey HotKey
+			=> new(Keys.Number1, KeyModifiers.CtrlShift);
 	}
 
-	internal class LayoutTilesAction : ToggleLayoutAction
+	internal sealed class LayoutListAction : ToggleLayoutAction
 	{
-		protected override LayoutTypes LayoutType => LayoutTypes.Tiles;
+		protected override LayoutTypes LayoutType
+			=> LayoutTypes.List;
 
-		public override string Label { get; } = "Tiles".GetLocalizedResource();
+		public override string Label
+			=> "List".GetLocalizedResource();
 
-		public override string Description => "LayoutTilesDescription".GetLocalizedResource();
+		public override string Description
+			=> "LayoutListDescription".GetLocalizedResource();
 
-		public override RichGlyph Glyph { get; } = new("\uE15C");
-		public override HotKey HotKey { get; } = new(Keys.Number2, KeyModifiers.CtrlShift);
+		public override RichGlyph Glyph
+			=> new(themedIconStyle: "App.ThemedIcons.IconLayout.List");
+
+		public override HotKey HotKey
+			=> new(Keys.Number2, KeyModifiers.CtrlShift);
 	}
 
-	internal class LayoutGridSmallAction : ToggleLayoutAction
+	internal sealed class LayoutTilesAction : ToggleLayoutAction
 	{
-		protected override LayoutTypes LayoutType => LayoutTypes.GridSmall;
+		protected override LayoutTypes LayoutType
+			=> LayoutTypes.Tiles;
 
-		public override string Label { get; } = "SmallIcons".GetLocalizedResource();
+		public override string Label
+			=> "Tiles".GetLocalizedResource();
 
-		public override string Description => "LayoutGridSmallDescription".GetLocalizedResource();
+		public override string Description
+			=> "LayoutTilesDescription".GetLocalizedResource();
 
-		public override RichGlyph Glyph { get; } = new("\uE80A");
-		public override HotKey HotKey { get; } = new(Keys.Number3, KeyModifiers.CtrlShift);
+		public override RichGlyph Glyph
+			=> new(themedIconStyle: "App.ThemedIcons.IconLayout.Tiles");
+
+		public override HotKey HotKey
+			=> new(Keys.Number3, KeyModifiers.CtrlShift);
 	}
 
-	internal class LayoutGridMediumAction : ToggleLayoutAction
+	internal sealed class LayoutGridAction : ToggleLayoutAction
 	{
-		protected override LayoutTypes LayoutType => LayoutTypes.GridMedium;
+		protected override LayoutTypes LayoutType
+			=> LayoutTypes.Grid;
 
-		public override string Label { get; } = "MediumIcons".GetLocalizedResource();
+		public override string Label
+			=> "Grid".GetLocalizedResource();
 
-		public override string Description => "LayoutGridMediumDescription".GetLocalizedResource();
+		public override string Description
+			=> "LayoutGridDescription".GetLocalizedResource();
 
-		public override RichGlyph Glyph { get; } = new("\uF0E2");
-		public override HotKey HotKey { get; } = new(Keys.Number4, KeyModifiers.CtrlShift);
+		public override RichGlyph Glyph
+			=> new(themedIconStyle: "App.ThemedIcons.IconSize.Small");
+
+		public override HotKey HotKey
+			=> new(Keys.Number4, KeyModifiers.CtrlShift);
 	}
 
-	internal class LayoutGridLargeAction : ToggleLayoutAction
+	internal sealed class LayoutColumnsAction : ToggleLayoutAction
 	{
-		protected override LayoutTypes LayoutType => LayoutTypes.GridLarge;
+		protected override LayoutTypes LayoutType
+			=> LayoutTypes.Columns;
 
-		public override string Label { get; } = "LargeIcons".GetLocalizedResource();
+		public override string Label
+			=> "Columns".GetLocalizedResource();
 
-		public override string Description => "LayoutGridLargeDescription".GetLocalizedResource();
+		public override string Description
+			=> "LayoutColumnsDescription".GetLocalizedResource();
 
-		public override RichGlyph Glyph { get; } = new("\uE739");
-		public override HotKey HotKey { get; } = new(Keys.Number5, KeyModifiers.CtrlShift);
+		public override RichGlyph Glyph
+			=> new(themedIconStyle: "App.ThemedIcons.IconLayout.Columns");
+
+		public override HotKey HotKey
+			=> new(Keys.Number5, KeyModifiers.CtrlShift);
 	}
 
-	internal class LayoutColumnsAction : ToggleLayoutAction
+	internal sealed class LayoutAdaptiveAction : ToggleLayoutAction
 	{
-		protected override LayoutTypes LayoutType => LayoutTypes.Columns;
+		protected override LayoutTypes LayoutType
+			=> LayoutTypes.Adaptive;
 
-		public override string Label { get; } = "Columns".GetLocalizedResource();
+		public override string Label
+			=> "Adaptive".GetLocalizedResource();
 
-		public override string Description => "LayoutColumnsDescription".GetLocalizedResource();
+		public override string Description
+			=> "LayoutAdaptiveDescription".GetLocalizedResource();
 
-		public override RichGlyph Glyph { get; } = new(opacityStyle: "ColorIconColumnsLayout");
-		public override HotKey HotKey { get; } = new(Keys.Number6, KeyModifiers.CtrlShift);
-	}
+		public override bool IsExecutable
+			=> Context.IsLayoutAdaptiveEnabled;
 
-	internal class LayoutAdaptiveAction : ToggleLayoutAction
-	{
-		protected override LayoutTypes LayoutType => LayoutTypes.Adaptive;
+		public override RichGlyph Glyph
+			=> new(themedIconStyle: "App.ThemedIcons.IconLayout.Auto");
 
-		public override string Label { get; } = "Adaptive".GetLocalizedResource();
-
-		public override string Description => "LayoutAdaptiveDescription".GetLocalizedResource();
-
-		public override bool IsExecutable => Context.IsLayoutAdaptiveEnabled;
-
-		public override RichGlyph Glyph { get; } = new("\uF576");
-		public override HotKey HotKey { get; } = new(Keys.Number7, KeyModifiers.CtrlShift);
+		public override HotKey HotKey
+			=> new(Keys.Number6, KeyModifiers.CtrlShift);
 
 		protected override void OnContextChanged(string propertyName)
 		{
@@ -102,7 +122,7 @@ namespace Files.App.Actions
 
 	internal abstract class ToggleLayoutAction : ObservableObject, IToggleAction
 	{
-		protected IDisplayPageContext Context { get; } = Ioc.Default.GetRequiredService<IDisplayPageContext>();
+		protected readonly IDisplayPageContext Context;
 
 		protected abstract LayoutTypes LayoutType { get; }
 
@@ -111,69 +131,207 @@ namespace Files.App.Actions
 		public abstract string Description { get; }
 
 		public abstract RichGlyph Glyph { get; }
+
 		public abstract HotKey HotKey { get; }
 
-		private bool isOn;
-		public bool IsOn => isOn;
+		public bool IsOn
+			=> Context.LayoutType == LayoutType;
 
-		public virtual bool IsExecutable => true;
+		public virtual bool IsExecutable
+			=> true;
 
 		public ToggleLayoutAction()
 		{
-			isOn = Context.LayoutType == LayoutType;
+			Context = Ioc.Default.GetRequiredService<IDisplayPageContext>();
+
 			Context.PropertyChanged += Context_PropertyChanged;
 		}
 
-		public Task ExecuteAsync()
+		public Task ExecuteAsync(object? parameter = null)
 		{
 			Context.LayoutType = LayoutType;
+
 			return Task.CompletedTask;
 		}
 
 		private void Context_PropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName is nameof(IDisplayPageContext.LayoutType))
-				SetProperty(ref isOn, Context.LayoutType == LayoutType, nameof(IsOn));
+				OnPropertyChanged(nameof(IsOn));
 
 			if (e.PropertyName is not null)
 				OnContextChanged(e.PropertyName);
 		}
 
-		protected virtual void OnContextChanged(string propertyName) { }
+		protected virtual void OnContextChanged(string propertyName)
+		{
+		}
 	}
 
-	internal class LayoutDecreaseSizeAction : IAction
+	internal sealed class LayoutDecreaseSizeAction : ObservableObject, IAction
 	{
-		private readonly IDisplayPageContext context = Ioc.Default.GetRequiredService<IDisplayPageContext>();
+		private static readonly IUserSettingsService UserSettingsService = Ioc.Default.GetRequiredService<IUserSettingsService>();
+		private readonly IContentPageContext ContentPageContext = Ioc.Default.GetRequiredService<IContentPageContext>();
 
-		public string Label { get; } = "DecreaseSize".GetLocalizedResource();
+		public string Label
+			=> "DecreaseSize".GetLocalizedResource();
 
-		public string Description => "LayoutDecreaseSizeDescription".GetLocalizedResource();
+		public string Description
+			=> "LayoutDecreaseSizeDescription".GetLocalizedResource();
 
-		public HotKey HotKey { get; } = new(Keys.Subtract, KeyModifiers.Ctrl);
-		public HotKey MediaHotKey { get; } = new(Keys.OemMinus, KeyModifiers.Ctrl);
+		public HotKey HotKey
+			=> new(Keys.Subtract, KeyModifiers.Ctrl);
 
-		public Task ExecuteAsync()
+		public HotKey MediaHotKey
+			=> new(Keys.OemMinus, KeyModifiers.Ctrl, false);
+
+		public bool IsExecutable =>
+			ContentPageContext.PageType is not ContentPageTypes.Home &&
+			ContentPageContext.ShellPage?.InstanceViewModel.FolderSettings.LayoutMode is FolderLayoutModes layoutMode &&
+			((layoutMode is FolderLayoutModes.DetailsView && UserSettingsService.LayoutSettingsService.DetailsViewSize > DetailsViewSizeKind.Compact) ||
+			(layoutMode is FolderLayoutModes.ListView && UserSettingsService.LayoutSettingsService.ListViewSize > ListViewSizeKind.Compact) ||
+			(layoutMode is FolderLayoutModes.GridView && UserSettingsService.LayoutSettingsService.GridViewSize > GridViewSizeKind.Small) ||
+			(layoutMode is FolderLayoutModes.ColumnView && UserSettingsService.LayoutSettingsService.ColumnsViewSize > ColumnsViewSizeKind.Compact));
+
+		public LayoutDecreaseSizeAction()
 		{
-			context.DecreaseLayoutSize();
+			ContentPageContext.PropertyChanged += ContentPageContext_PropertyChanged;
+			UserSettingsService.LayoutSettingsService.PropertyChanged += UserSettingsService_PropertyChanged;
+		}
+
+		private void ContentPageContext_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+		{
+			switch (e.PropertyName)
+			{
+				case nameof(IContentPageContext.PageType):
+					OnPropertyChanged(nameof(IsExecutable));
+					break;
+			}
+		}
+
+		private void UserSettingsService_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+		{
+			switch (e.PropertyName)
+			{
+				case nameof(ILayoutSettingsService.DetailsViewSize):
+				case nameof(ILayoutSettingsService.ListViewSize):
+				case nameof(ILayoutSettingsService.GridViewSize):
+				case nameof(ILayoutSettingsService.ColumnsViewSize):
+					OnPropertyChanged(nameof(IsExecutable));
+					break;
+			}
+		}
+
+		public Task ExecuteAsync(object? parameter = null)
+		{
+			switch (ContentPageContext.ShellPage?.InstanceViewModel.FolderSettings.LayoutMode)
+			{
+				case FolderLayoutModes.DetailsView:
+					if (UserSettingsService.LayoutSettingsService.DetailsViewSize > DetailsViewSizeKind.Compact)
+						UserSettingsService.LayoutSettingsService.DetailsViewSize -= 1;
+					break;
+				case FolderLayoutModes.ListView:
+					if (UserSettingsService.LayoutSettingsService.ListViewSize > ListViewSizeKind.Compact)
+						UserSettingsService.LayoutSettingsService.ListViewSize -= 1;
+					break;
+				case FolderLayoutModes.TilesView:
+					break;
+				case FolderLayoutModes.GridView:
+					if (UserSettingsService.LayoutSettingsService.GridViewSize > GridViewSizeKind.Small)
+						UserSettingsService.LayoutSettingsService.GridViewSize -= 1;
+					break;
+				case FolderLayoutModes.ColumnView:
+					if (UserSettingsService.LayoutSettingsService.ColumnsViewSize > ColumnsViewSizeKind.Compact)
+						UserSettingsService.LayoutSettingsService.ColumnsViewSize -= 1;
+					break;
+				default:
+					break;
+			}
+
 			return Task.CompletedTask;
 		}
 	}
 
-	internal class LayoutIncreaseSizeAction : IAction
+	internal sealed class LayoutIncreaseSizeAction : ObservableObject, IAction
 	{
-		private readonly IDisplayPageContext context = Ioc.Default.GetRequiredService<IDisplayPageContext>();
+		private static readonly IUserSettingsService UserSettingsService = Ioc.Default.GetRequiredService<IUserSettingsService>();
+		private readonly IContentPageContext ContentPageContext = Ioc.Default.GetRequiredService<IContentPageContext>();
 
-		public string Label { get; } = "IncreaseSize".GetLocalizedResource();
+		public string Label
+			=> "IncreaseSize".GetLocalizedResource();
 
-		public string Description => "LayoutIncreaseSizeDescription".GetLocalizedResource();
+		public string Description
+			=> "LayoutIncreaseSizeDescription".GetLocalizedResource();
 
-		public HotKey HotKey { get; } = new(Keys.Add, KeyModifiers.Ctrl);
-		public HotKey MediaHotKey { get; } = new(Keys.OemPlus, KeyModifiers.Ctrl);
+		public HotKey HotKey
+			=> new(Keys.Add, KeyModifiers.Ctrl);
 
-		public Task ExecuteAsync()
+		public HotKey MediaHotKey
+			=> new(Keys.OemPlus, KeyModifiers.Ctrl, false);
+
+		public bool IsExecutable =>
+			ContentPageContext.PageType is not ContentPageTypes.Home &&
+			ContentPageContext.ShellPage?.InstanceViewModel.FolderSettings.LayoutMode is FolderLayoutModes layoutMode && 
+			((layoutMode is FolderLayoutModes.DetailsView && UserSettingsService.LayoutSettingsService.DetailsViewSize < DetailsViewSizeKind.ExtraLarge) ||
+			(layoutMode is FolderLayoutModes.ListView && UserSettingsService.LayoutSettingsService.ListViewSize < ListViewSizeKind.ExtraLarge) ||
+			(layoutMode is FolderLayoutModes.GridView && UserSettingsService.LayoutSettingsService.GridViewSize < GridViewSizeKind.ExtraLarge) ||
+			(layoutMode is FolderLayoutModes.ColumnView && UserSettingsService.LayoutSettingsService.ColumnsViewSize < ColumnsViewSizeKind.ExtraLarge));
+
+		public LayoutIncreaseSizeAction()
 		{
-			context.IncreaseLayoutSize();
+			ContentPageContext.PropertyChanged += ContentPageContext_PropertyChanged;
+			UserSettingsService.LayoutSettingsService.PropertyChanged += UserSettingsService_PropertyChanged;
+		}
+
+		private void ContentPageContext_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+		{
+			switch (e.PropertyName)
+			{
+				case nameof(IContentPageContext.PageType):
+					OnPropertyChanged(nameof(IsExecutable));
+					break;
+			}
+		}
+
+		private void UserSettingsService_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+		{
+			switch (e.PropertyName)
+			{
+				case nameof(ILayoutSettingsService.DetailsViewSize):
+				case nameof(ILayoutSettingsService.ListViewSize):
+				case nameof(ILayoutSettingsService.GridViewSize):
+				case nameof(ILayoutSettingsService.ColumnsViewSize):
+					OnPropertyChanged(nameof(IsExecutable));
+					break;
+			}
+		}
+
+		public Task ExecuteAsync(object? parameter = null)
+		{
+			switch (ContentPageContext.ShellPage?.InstanceViewModel.FolderSettings.LayoutMode)
+			{
+				case FolderLayoutModes.DetailsView:
+					if (UserSettingsService.LayoutSettingsService.DetailsViewSize < DetailsViewSizeKind.ExtraLarge)
+						UserSettingsService.LayoutSettingsService.DetailsViewSize += 1;
+					break;
+				case FolderLayoutModes.ListView:
+					if (UserSettingsService.LayoutSettingsService.ListViewSize < ListViewSizeKind.ExtraLarge)
+						UserSettingsService.LayoutSettingsService.ListViewSize += 1;
+					break;
+				case FolderLayoutModes.TilesView:
+					break;
+				case FolderLayoutModes.GridView:
+					if (UserSettingsService.LayoutSettingsService.GridViewSize < GridViewSizeKind.ExtraLarge)
+						UserSettingsService.LayoutSettingsService.GridViewSize += 1;
+					break;
+				case FolderLayoutModes.ColumnView:
+					if (UserSettingsService.LayoutSettingsService.ColumnsViewSize < ColumnsViewSizeKind.ExtraLarge)
+						UserSettingsService.LayoutSettingsService.ColumnsViewSize += 1;
+					break;
+				default:
+					break;
+			}
+
 			return Task.CompletedTask;
 		}
 	}
